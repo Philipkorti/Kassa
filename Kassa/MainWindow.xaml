@@ -23,7 +23,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Menu Grid.Row="0">
+        <Menu Grid.Row="1">
             <MenuItem>
                 <MenuItem.Icon>
                     <Image Source="Bilder\user.png"/>
