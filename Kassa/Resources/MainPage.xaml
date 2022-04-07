@@ -1,0 +1,41 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Color.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    <Style x:Key="DataGridRechnung" TargetType="DataGrid">
+        <Setter Property="GridLinesVisibility" Value="None"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="Background" Value="{StaticResource colorwhite}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource colorwhite}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="0,0,0,0"/>
+        <Setter Property="ColumnHeaderStyle" Value="{DynamicResource HederDataGridRechnung}"/>
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="CellStyle" Value="{DynamicResource CellDatagridRechnung}"/>
+    </Style>
+
+    <Style x:Key="HederDataGridRechnung" TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="{StaticResource colorwhite}"/>
+        <Setter Property="Margin" Value="70,0,0,0"/>
+    </Style>
+    <Style TargetType="DataGridCell" x:Key="CellDatagridRechnung">
+        <Setter Property="Margin" Value="70,0,0,0"/>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="textbetrag">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Margin" Value="400,0,0,0"/>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="betrag">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Margin" Value="10,0,0,0"/>
+    </Style>
+    <Style TargetType="Menu">
+        <Setter Property="Background" Value="{StaticResource colorwhite}"/>
+    </Style>
+
+
+</ResourceDictionary>

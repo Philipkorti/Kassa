@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Color.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource colorlightblue}"/>
+        <Setter Property="Margin" Value="0,20"/>
+        <Setter Property="BorderBrush" Value="Gray"/>
+    </Style>
+    <Style TargetType="StackPanel">
+        <Setter Property="Background" Value="{StaticResource colorgrey}"/>
+    </Style>
+    <Style TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource colorwhite}"/>
+        <Setter Property="FontSize" Value="20"/>
+    </Style>
+    <Style TargetType="TextBox">
+        <Setter Property="BorderBrush" Value="{StaticResource colorgrey}"/>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="erorms">
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Foreground" Value="{StaticResource errorcolor}"/>
+    </Style>
+
+
+</ResourceDictionary>

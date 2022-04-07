@@ -1,0 +1,31 @@
+﻿<Window x:Class="Kassa.Anmeldung"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kassa"
+        mc:Ignorable="d"
+        Title="Anmeldung" Height="250" Width="250">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Anmeldung.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+   
+    <StackPanel>
+        <StackPanel>
+            <TextBlock>User-ID:</TextBlock>
+            <TextBox x:Name="tbuser" KeyDown="tbuser_KeyDown"></TextBox>
+        </StackPanel>
+        <StackPanel>
+            <TextBlock>Paswort:</TextBlock>
+            <PasswordBox x:Name="pbpaswort" KeyDown="pbpaswort_KeyDown"></PasswordBox>
+        </StackPanel>
+        <TextBlock x:Name="errorMs" Style="{StaticResource erorms}"></TextBlock>
+        <Button x:Name="btnAnmelden" Click="btnAnmelden_Click">Anmelden</Button>
+        
+        
+    </StackPanel>
+</Window>

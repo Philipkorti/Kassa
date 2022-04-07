@@ -1,0 +1,124 @@
+﻿<Window x:Class="Kassa.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kassa"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        Title="Kassa" Height="1080" Width="1920" Icon="Bilder\kassa.png">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/MainPage.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.04*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem>
+                <MenuItem.Icon>
+                    <Image Source="Bilder\user.png"/>
+                </MenuItem.Icon>
+                <MenuItem Header="Anmelden" Name="anmelden" Click="anmelden_Click"/>
+                <MenuItem Header="Abmelden" Name="abmelden" Click="abmelden_Click"/>
+            </MenuItem>
+        </Menu>
+        <TextBlock HorizontalAlignment="Right" x:Name="tbuid" Grid.Column="1"/>
+        <TabControl Grid.Row="1" Grid.ColumnSpan="2">
+            <TabItem Header="Kassa">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.04*"/>
+                            <RowDefinition Height="0.04*"/>
+                            <RowDefinition Height="0.04*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                            <TextBlock>Suche: </TextBlock>
+                            <TextBox Margin="10,0,0,0" FontSize="15" Name="tbsuche" TextChanged="tbsuche_TextChanged" Width="400"/>
+                        </StackPanel>
+
+                        <DataGrid Grid.Row="3"  Name="dgProdukteliste" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="dgProdukteliste_MouseDoubleClick">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn x:Name="id" Header="ID" Binding="{Binding ID}" Width="50"/>
+                                <DataGridTextColumn x:Name="name" Header="Name" Binding="{Binding Name}" Width="350"/>
+                                <DataGridTextColumn x:Name="preis" Header="Preis" Binding="{Binding Preis}" Width="200"/>
+                                <DataGridTextColumn x:Name="instock" Header="InStock" Binding="{Binding InStock}" Width="175"/>
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+
+                    </Grid>
+                    <Grid Grid.Column="1" Margin="20,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.3*"/>
+                            <RowDefinition />
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel>
+                            <TextBlock FontSize="40" HorizontalAlignment="Center">Rechnung</TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.RowSpan="2" x:Name="Rowrechnung">
+                            <DataGrid x:Name="Rechnung"  Style="{StaticResource DataGridRechnung}" Height="30" MouseDoubleClick="Rechnung_MouseDoubleClick" HorizontalAlignment="Center">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Name" Width="200" IsReadOnly="True" Binding="{Binding Name}"/>
+                                    <DataGridTextColumn Header="Menge" Width="150" IsReadOnly="True" Binding="{Binding InStock}" />
+                                    <DataGridTextColumn Header="Preis" Width="150" IsReadOnly="True" Binding="{Binding Preis}"/>
+                                    <DataGridTextColumn Header="Gesamt Preis" Width="200" IsReadOnly="True" Binding="{Binding Gesamtpreis}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                <TextBlock x:Name="textbetrag" Style="{StaticResource textbetrag}" HorizontalAlignment="Center">Betrag:</TextBlock>
+                                <TextBlock x:Name="betrag" HorizontalAlignment="Center" Style="{StaticResource betrag}"></TextBlock>
+                            </StackPanel>
+                           
+                        </StackPanel>
+                        
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" x:Name="entfernen" Height="50" Width="200"  Click="entfernen_Click" Visibility="Hidden">Löschen</Button>
+                                <Button Grid.Column="1" x:Name="abschliessen" Height="50" Width="200"  Click="abschliessen_Click" Visibility="Hidden">Abschließen</Button>
+                            
+                            
+                        </Grid>
+                        
+
+                    </Grid>
+                </Grid>
+               
+            </TabItem>
+            <TabItem Header="Produkte" x:Name="produkteanzeige">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    
+                </Grid>
+            </TabItem>
+            <TabItem Header="User" Name="useranzeige">
+                
+            </TabItem>
+        </TabControl>
+        
+    </Grid>
+</Window>
