@@ -112,6 +112,16 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
+
+                    <DataGrid>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID"/>
+                            <DataGridTextColumn Header="Name"/>
+                            <DataGridTextColumn Header="InStock"/>
+                            <DataGridTextColumn Header="Preis"/>
+                            <DataGridTextColumn Header="Lieferung"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                     
                 </Grid>
             </TabItem>
