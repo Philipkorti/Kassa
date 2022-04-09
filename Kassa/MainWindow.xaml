@@ -125,8 +125,8 @@
                         </StackPanel>
                         <DataGrid Grid.Row="3" Margin="40,0,0,40">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID"/>
-                                <DataGridTextColumn Header="Name"/>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                                 <DataGridTextColumn Header="Preis"/>
                                 <DataGridTextColumn Header="InStock"/>
                                 <DataGridTextColumn Header="Lieferung"/>
