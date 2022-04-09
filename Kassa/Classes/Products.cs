@@ -12,6 +12,7 @@ namespace Kassa.Classes
         public string Name { get; set; }
         public double Preis { get; set; }
         public int InStock { get; set; }
+        public DateTime Lieferung { get; set; }
 
         public object Clone()
         {
