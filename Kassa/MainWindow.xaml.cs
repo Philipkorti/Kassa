@@ -51,6 +51,7 @@ namespace Kassa
                     produkte.Add(new Products { ID = Convert.ToInt32(output[i]), Name = output[i + 1], Preis = Convert.ToDouble(output[i +2 ]), InStock = Convert.ToInt32(output[i+3]) });
                 }
                 dgProdukteliste.ItemsSource = produkte;
+                produkteverwaltung.ItemsSource = produkte;
                 
             }
         }
@@ -260,6 +261,28 @@ namespace Kassa
         {
             Rechnung.ItemsSource = "";
             Rechnung.ItemsSource = kaufen;
+        }
+
+       
+        private void reloadprodukteverwaltung()
+        {
+            produkteverwaltung.ItemsSource = "";
+            produkteverwaltung.ItemsSource = produkte;
+        }
+
+        private void addProdukte_Click(object sender, RoutedEventArgs e)
+        {
+            ProdukteAdd produkteAdd = new ProdukteAdd();
+            produkteAdd.ShowDialog();
+        }
+
+        private void entfernprodukte_Click(object sender, RoutedEventArgs e)
+        {
+            string query = null;
+            produkte.RemoveAt(produkteverwaltung.SelectedIndex);
+            reloadprodukteverwaltung();
+            reloadgprodukte();
+            Data(out string[] output, query);
         }
     }
     

@@ -123,13 +123,13 @@
                             <TextBlock>Suche:</TextBlock>
                             <TextBox  Width="400" FontSize="15" Margin="10,0,0,0"/>
                         </StackPanel>
-                        <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="produkteverwaltung">
+                        <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="userverwaltung" AutoGenerateColumns="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
                                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                                <DataGridTextColumn Header="Preis"/>
-                                <DataGridTextColumn Header="InStock"/>
-                                <DataGridTextColumn Header="Lieferung"/>
+                                <DataGridTextColumn Header="Preis" Binding="{Binding Preis}"/>
+                                <DataGridTextColumn Header="InStock" Binding="{Binding InStock}"/>
+                                <DataGridTextColumn Header="Lieferung" Binding="{Binding Lieferung}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
@@ -141,12 +141,49 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Button Grid.Row="1" Margin="100,50,100,50">Neues Produkt</Button>
-                        <Button Grid.Row="3" Margin="100,50,100,50">Löschen</Button>
+                        <Button Grid.Row="1" Margin="100,50,100,50" Click="addProdukte_Click" Name="addProdukte" IsEnabled="False">Neues Produkt</Button>
+                        <Button Grid.Row="3" Margin="100,50,100,50" Name="entfernprodukte" Click="entfernprodukte_Click" IsEnabled="False">Löschen</Button>
                     </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="User" Name="useranzeige">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.04*"/>
+                            <RowDefinition Height="0.04*"/>
+                            <RowDefinition Height="0.04*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1">
+                            <TextBlock>Suche:</TextBlock>
+                            <TextBox  Width="400" FontSize="15" Margin="10,0,0,0"/>
+                        </StackPanel>
+                        <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="produkteverwaltung" AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                                <DataGridTextColumn Header="Name" Binding="{Binding FullName}"/>
+                                <DataGridTextColumn Header="Preis" Binding="{Binding Einstellungsdatum}"/>
+                                <DataGridTextColumn Header="InStock" Binding="{Binding Rechte}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="1" Margin="100,50,100,50">Neuer User</Button>
+                        <Button Grid.Row="3" Margin="100,50,100,50">Löschen</Button>
+                    </Grid>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>
