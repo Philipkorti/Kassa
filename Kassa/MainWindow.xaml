@@ -95,7 +95,7 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" x:Name="entfernen" Height="50" Width="200"  Click="entfernen_Click" Visibility="Hidden">Löschen</Button>
+                            <Button Grid.Column="0" x:Name="entfernen" Height="50" Width="200"  Click="entfernen_Click" Visibility="Hidden" >Löschen</Button>
                             <Button Grid.Column="1" x:Name="abschliessen" Height="50" Width="200"  Click="abschliessen_Click" Visibility="Hidden">Abschließen</Button>
 
 
@@ -126,9 +126,10 @@
                         <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="userverwaltung" AutoGenerateColumns="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
-                                <DataGridTextColumn Header="Name" Binding="{Binding FullName}"/>
-                                <DataGridTextColumn Header="Preis" Binding="{Binding Einstellungsdatum}"/>
-                                <DataGridTextColumn Header="InStock" Binding="{Binding Rechte}"/>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Preis" Binding="{Binding Preis}"/>
+                                <DataGridTextColumn Header="InStock" Binding="{Binding InStock}"/>
+                                <DataGridTextColumn Header="Lieferung" Binding="{Binding Lieferung}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
@@ -140,8 +141,8 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Button Grid.Row="1" Margin="100,50,100,50" Click="addProdukte_Click" Name="addProdukte">Neues Produkt</Button>
-                        <Button Grid.Row="3" Margin="100,50,100,50" Name="entfernprodukte" Click="entfernprodukte_Click">Löschen</Button>
+                        <Button Grid.Row="1" Margin="100,50,100,50" Click="addProdukte_Click" Name="addProdukte" IsEnabled="False">Neues Produkt</Button>
+                        <Button Grid.Row="3" Margin="100,50,100,50" Name="entfernprodukte" Click="entfernprodukte_Click" IsEnabled="False">Löschen</Button>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -165,10 +166,9 @@
                         <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="produkteverwaltung" AutoGenerateColumns="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
-                                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                                <DataGridTextColumn Header="Preis" Binding="{Binding Preis}"/>
-                                <DataGridTextColumn Header="InStock" Binding="{Binding InStock}"/>
-                                <DataGridTextColumn Header="Lieferung" Binding="{Binding Lieferung}"/>
+                                <DataGridTextColumn Header="Name" Binding="{Binding FullName}"/>
+                                <DataGridTextColumn Header="Preis" Binding="{Binding Einstellungsdatum}"/>
+                                <DataGridTextColumn Header="InStock" Binding="{Binding Rechte}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
