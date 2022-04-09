@@ -140,8 +140,8 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Button Grid.Row="1" Margin="100,50,100,50">Neues Produkt</Button>
-                        <Button Grid.Row="3" Margin="100,50,100,50">Löschen</Button>
+                        <Button Grid.Row="1" Margin="100,50,100,50" Click="addProdukte_Click" Name="addProdukte">Neues Produkt</Button>
+                        <Button Grid.Row="3" Margin="100,50,100,50" Name="entfernprodukte" Click="entfernprodukte_Click">Löschen</Button>
                     </Grid>
                 </Grid>
             </TabItem>

@@ -259,7 +259,28 @@ namespace Kassa
             Rechnung.ItemsSource = "";
             Rechnung.ItemsSource = kaufen;
         }
-        
+
+       
+        private void reloadprodukteverwaltung()
+        {
+            produkteverwaltung.ItemsSource = "";
+            produkteverwaltung.ItemsSource = produkte;
+        }
+
+        private void addProdukte_Click(object sender, RoutedEventArgs e)
+        {
+            ProdukteAdd produkteAdd = new ProdukteAdd();
+            produkteAdd.ShowDialog();
+        }
+
+        private void entfernprodukte_Click(object sender, RoutedEventArgs e)
+        {
+            string query = null;
+            produkte.RemoveAt(produkteverwaltung.SelectedIndex);
+            reloadprodukteverwaltung();
+            reloadgprodukte();
+            Data(out string[] output, query);
+        }
     }
     
 }
