@@ -75,16 +75,16 @@
                         </StackPanel>
 
                         <StackPanel Grid.Row="1" Grid.RowSpan="2" x:Name="Rowrechnung">
-                            <DataGrid x:Name="Rechnung"  Style="{StaticResource DataGridRechnung}" Height="30" MouseDoubleClick="Rechnung_MouseDoubleClick" HorizontalAlignment="Center">
+                            <DataGrid x:Name="Rechnung"  Style="{StaticResource DataGridRechnung}" MouseDoubleClick="Rechnung_MouseDoubleClick">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Name" Width="200"  Binding="{Binding Name}"/>
                                     <DataGridTextColumn Header="Menge" Width="150"  Binding="{Binding InStock}" />
                                     <DataGridTextColumn Header="Preis" Width="150"  Binding="{Binding Preis}"/>
-                                    <DataGridTextColumn Header="Gesamt Preis" Width="200" IsReadOnly="True" Binding="{Binding Gesamtpreis}"/>
+                                    <DataGridTextColumn Header="Gesamt Preis" Width="200" Binding="{Binding Gesamtpreis}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
-                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                <TextBlock x:Name="textbetrag" Style="{StaticResource textbetrag}" HorizontalAlignment="Center">Betrag:</TextBlock>
+                            <StackPanel Style="{StaticResource stackbetrag}">
+                                <TextBlock x:Name="textbetrag" Style="{StaticResource textbetrag}">Betrag:</TextBlock>
                                 <TextBlock x:Name="betrag" HorizontalAlignment="Center" Style="{StaticResource betrag}"></TextBlock>
                             </StackPanel>
 

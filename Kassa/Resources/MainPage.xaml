@@ -16,6 +16,8 @@
         <Setter Property="ColumnHeaderStyle" Value="{DynamicResource HederDataGridRechnung}"/>
         <Setter Property="FontSize" Value="20" />
         <Setter Property="CellStyle" Value="{DynamicResource CellDatagridRechnung}"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
 
     <Style x:Key="HederDataGridRechnung" TargetType="DataGridColumnHeader">
@@ -28,13 +30,19 @@
     <Style TargetType="TextBlock" x:Key="textbetrag">
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="Margin" Value="400,0,0,0"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
     <Style TargetType="TextBlock" x:Key="betrag">
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="Margin" Value="10,0,0,0"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
     <Style TargetType="Menu">
         <Setter Property="Background" Value="{StaticResource colorwhite}"/>
+    </Style>
+    <Style TargetType="StackPanel" x:Key="stackbetrag">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Orientation" Value="Horizontal"/>
     </Style>
 
 
