@@ -112,16 +112,37 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-
-                    <DataGrid>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID"/>
-                            <DataGridTextColumn Header="Name"/>
-                            <DataGridTextColumn Header="InStock"/>
-                            <DataGridTextColumn Header="Preis"/>
-                            <DataGridTextColumn Header="Lieferung"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.04*"/>
+                            <RowDefinition Height="0.04*"/>
+                            <RowDefinition Height="0.04*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1">
+                            <TextBlock>Suche:</TextBlock>
+                            <TextBox  Width="400" FontSize="15" Margin="10,0,0,0"/>
+                        </StackPanel>
+                        <DataGrid Grid.Row="3">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID"/>
+                                <DataGridTextColumn Header="Name"/>
+                                <DataGridTextColumn Header="Preis"/>
+                                <DataGridTextColumn Header="InStock"/>
+                                <DataGridTextColumn Header="Lieferung"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="User" Name="useranzeige">
