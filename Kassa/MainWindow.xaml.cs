@@ -230,6 +230,8 @@ namespace Kassa
             Rechnung.ItemsSource = "";
             betrag.Text = "";
             Rechnung.Height = 30;
+            entfernen.Visibility = Visibility.Hidden;
+            abschliessen.Visibility = Visibility.Hidden;
         }
         
 
