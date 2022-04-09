@@ -259,6 +259,7 @@ namespace Kassa
             Rechnung.ItemsSource = "";
             Rechnung.ItemsSource = kaufen;
         }
+        
     }
     
 }
