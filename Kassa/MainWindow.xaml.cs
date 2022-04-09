@@ -51,6 +51,8 @@ namespace Kassa
                 }
                 dgProdukteliste.ItemsSource = produkte;
                 produkteverwaltung.ItemsSource = produkte;
+                entfernprodukte.IsEnabled = true;
+                addProdukte.IsEnabled = true;
                 
             }
         }
