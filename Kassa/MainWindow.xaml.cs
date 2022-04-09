@@ -50,6 +50,7 @@ namespace Kassa
                     produkte.Add(new Products { ID = Convert.ToInt32(output[i]), Name = output[i + 1], Preis = Convert.ToDouble(output[i +2 ]), InStock = Convert.ToInt32(output[i+3]) });
                 }
                 dgProdukteliste.ItemsSource = produkte;
+                produkteverwaltung.ItemsSource = produkte;
                 
             }
         }
