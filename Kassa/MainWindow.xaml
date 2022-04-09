@@ -123,7 +123,7 @@
                             <TextBlock>Suche:</TextBlock>
                             <TextBox  Width="400" FontSize="15" Margin="10,0,0,0"/>
                         </StackPanel>
-                        <DataGrid Grid.Row="3" Margin="40,0,0,40">
+                        <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="produkteverwaltung">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
                                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>

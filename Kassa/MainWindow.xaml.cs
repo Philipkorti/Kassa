@@ -34,6 +34,7 @@ namespace Kassa
         {
             InitializeComponent();
             tbuid.Text = "User-ID: ";
+            produkteverwaltung.ItemsSource = produkte;
         }
         private void anmelden_Click(object sender, RoutedEventArgs e)
         {
