@@ -77,9 +77,9 @@
                         <StackPanel Grid.Row="1" Grid.RowSpan="2" x:Name="Rowrechnung">
                             <DataGrid x:Name="Rechnung"  Style="{StaticResource DataGridRechnung}" Height="30" MouseDoubleClick="Rechnung_MouseDoubleClick" HorizontalAlignment="Center">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Name" Width="200" IsReadOnly="True" Binding="{Binding Name}"/>
-                                    <DataGridTextColumn Header="Menge" Width="150" IsReadOnly="True" Binding="{Binding InStock}" />
-                                    <DataGridTextColumn Header="Preis" Width="150" IsReadOnly="True" Binding="{Binding Preis}"/>
+                                    <DataGridTextColumn Header="Name" Width="200"  Binding="{Binding Name}"/>
+                                    <DataGridTextColumn Header="Menge" Width="150"  Binding="{Binding InStock}" />
+                                    <DataGridTextColumn Header="Preis" Width="150"  Binding="{Binding Preis}"/>
                                     <DataGridTextColumn Header="Gesamt Preis" Width="200" IsReadOnly="True" Binding="{Binding Gesamtpreis}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
