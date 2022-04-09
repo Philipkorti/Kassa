@@ -48,7 +48,7 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="1" Orientation="Horizontal">
-                            <TextBlock>Suche: </TextBlock>
+                            <TextBlock>Suche:</TextBlock>
                             <TextBox Margin="10,0,0,0" FontSize="15" Name="tbsuche" TextChanged="tbsuche_TextChanged" Width="400"/>
                         </StackPanel>
 
@@ -87,24 +87,24 @@
                                 <TextBlock x:Name="textbetrag" Style="{StaticResource textbetrag}" HorizontalAlignment="Center">Betrag:</TextBlock>
                                 <TextBlock x:Name="betrag" HorizontalAlignment="Center" Style="{StaticResource betrag}"></TextBlock>
                             </StackPanel>
-                           
+
                         </StackPanel>
-                        
+
                         <Grid Grid.Row="3">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                                <Button Grid.Column="0" x:Name="entfernen" Height="50" Width="200"  Click="entfernen_Click" Visibility="Hidden">Löschen</Button>
-                                <Button Grid.Column="1" x:Name="abschliessen" Height="50" Width="200"  Click="abschliessen_Click" Visibility="Hidden">Abschließen</Button>
-                            
-                            
+                            <Button Grid.Column="0" x:Name="entfernen" Height="50" Width="200"  Click="entfernen_Click" Visibility="Hidden">Löschen</Button>
+                            <Button Grid.Column="1" x:Name="abschliessen" Height="50" Width="200"  Click="abschliessen_Click" Visibility="Hidden">Abschließen</Button>
+
+
                         </Grid>
-                        
+
 
                     </Grid>
                 </Grid>
-               
+
             </TabItem>
             <TabItem Header="Produkte" x:Name="produkteanzeige">
                 <Grid>
@@ -112,13 +112,20 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    
+
+                    <DataGrid>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID"/>
+                            <DataGridTextColumn Header="Name"/>
+                            <DataGridTextColumn Header="InStock"/>
+                            <DataGridTextColumn Header="Preis"/>
+                            <DataGridTextColumn Header="Lieferung"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="User" Name="useranzeige">
-                
             </TabItem>
         </TabControl>
-        
     </Grid>
 </Window>

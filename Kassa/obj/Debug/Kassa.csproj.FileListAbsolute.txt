@@ -23,7 +23,5 @@ C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispi
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\UserAdd.g.cs
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\ProdukteAdd.baml
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\UserAdd.baml
-C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\rechnungaendern.g.cs
-C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\rechnungaendern.baml
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\Resources\Anmeldung.baml
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\Kassa.csproj.AssemblyReference.cache
