@@ -301,9 +301,15 @@ namespace Kassa
            
         }
 
-        private void produkteverwaltung_KeyDown(object sender, KeyEventArgs e)
+        private void produkteverwaltung_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-
+            if(!e.Cancel)
+            {
+                int id = produkteverwaltung.SelectedIndex;
+                string lager = (e.EditingElement as TextBox).Text;
+                string query = $"UPDATE Lager SET Lager = {lager} WHERE ID = {produkte[id].ID}";
+                Data(out string[] output, query);
+            }
         }
     }
     
