@@ -123,7 +123,7 @@
                             <TextBlock>Suche:</TextBlock>
                             <TextBox  Width="400" FontSize="15" Margin="10,0,0,0"/>
                         </StackPanel>
-                        <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="userverwaltung" AutoGenerateColumns="False">
+                        <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="produkteverwaltung" AutoGenerateColumns="False" KeyDown="produkteverwaltung_KeyDown">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
                                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
@@ -163,12 +163,12 @@
                             <TextBlock>Suche:</TextBlock>
                             <TextBox  Width="400" FontSize="15" Margin="10,0,0,0"/>
                         </StackPanel>
-                        <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="produkteverwaltung" AutoGenerateColumns="False">
+                        <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="userverwaltung" AutoGenerateColumns="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
-                                <DataGridTextColumn Header="Name" Binding="{Binding FullName}"/>
-                                <DataGridTextColumn Header="Preis" Binding="{Binding Einstellungsdatum}"/>
-                                <DataGridTextColumn Header="InStock" Binding="{Binding Rechte}"/>
+                                <DataGridTextColumn Header="FullName" Binding="{Binding FullName}"/>
+                                <DataGridTextColumn Header="Einstellungsdatum" Binding="{Binding Einstellungsdatum}"/>
+                                <DataGridTextColumn Header="Rechte" Binding="{Binding Rechte}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>

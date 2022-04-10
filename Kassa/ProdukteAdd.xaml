@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kassa"
         mc:Ignorable="d"
-        Title="ProdukteAdd" Height="450" Width="800">
+        Title="ProdukteAdd" Height="250" Width="800" Icon="Bilder/kassa.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -13,12 +13,17 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <TextBlock>Name:</TextBlock>
-            <TextBox></TextBox>
-            <TextBlock>Preis:</TextBlock>
-            <TextBox></TextBox>
-            <TextBlock>InStock:</TextBlock>
-            <TextBox></TextBox>
+            <TextBlock Height="30" Margin="10,0,0,0">Name:</TextBlock>
+            <TextBox Width="200" Height=" 50" Margin="10,0,0,0" Name="name"/>
+            <TextBlock Height="30" Margin="20,0,0,0">Preis:</TextBlock>
+            <TextBox Width="200" Height="50" Margin="10,0,0,0" Name="preis"/>
+            <TextBlock Height="30" Margin="20,0,0,0">InStock:</TextBlock>
+            <TextBox Width="200" Height="50" Margin="10,0,0,0" Name="lager"/>
         </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button  Width="200" Height="50" Click="Button_Click" >Add</Button>
+            <Button Width="200" Height="50" Margin="50,0,0,0" Click="Button_Click_1">Abbrechen</Button>
+        </StackPanel>
+        
     </Grid>
 </Window>

@@ -131,13 +131,22 @@ namespace Kassa
         private void WriteSQLData(SqlDataReader reader, out List<string> input)
         {
             input = new List<string>();
-            while (reader.Read())
+            try
             {
-                for (int i = 0; i < reader.FieldCount; i++)
+               
+                while (reader.Read())
                 {
-                    input.Add(reader.GetValue(i).ToString());
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        input.Add(reader.GetValue(i).ToString());
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+
+            }
+           
         }
         private void tbsuche_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -278,10 +287,23 @@ namespace Kassa
         private void entfernprodukte_Click(object sender, RoutedEventArgs e)
         {
             string query = null;
-            produkte.RemoveAt(produkteverwaltung.SelectedIndex);
-            reloadprodukteverwaltung();
-            reloadgprodukte();
-            Data(out string[] output, query);
+            try
+            {
+                produkte.RemoveAt(produkteverwaltung.SelectedIndex);
+                reloadprodukteverwaltung();
+                reloadgprodukte();
+                Data(out string[] output, query);
+            }
+            catch
+            {
+                MessageBox.Show("Es war kein Produkt selektiert!");
+            }
+           
+        }
+
+        private void produkteverwaltung_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
     }
     
