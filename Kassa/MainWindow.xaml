@@ -125,11 +125,17 @@
                         </StackPanel>
                         <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="produkteverwaltung" AutoGenerateColumns="False" CellEditEnding="produkteverwaltung_CellEditEnding">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
-                                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                                <DataGridTextColumn Header="Preis" Binding="{Binding Preis}"/>
-                                <DataGridTextColumn Header="InStock" Binding="{Binding InStock}"/>
-                                <DataGridTextColumn Header="Lieferung" Binding="{Binding Lieferung}"/>
+                                <DataGridTextColumn Header="ID" IsReadOnly="True" Binding="{Binding ID}"/>
+                                <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Preis" IsReadOnly="True" Binding="{Binding Preis}"/>
+                                <DataGridTextColumn Header="InStock"  Binding="{Binding InStock}"/>
+                                <DataGridTemplateColumn Header="Lieferung" IsReadOnly="True" >
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate >
+                                            <DatePicker SelectedDate="{Binding Lieferung}" CalendarClosed="DatePicker_CalendarClosed"></DatePicker>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>

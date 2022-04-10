@@ -45,9 +45,9 @@ namespace Kassa
                 tbuid.Text +=  anmelden.Anmelden;
                 
                 Data(out string[] output, query);
-                for (int  i = 0;  i < output.Length;  i = i +4)
+                for (int  i = 0;  i < output.Length;  i = i +5)
                 {
-                    produkte.Add(new Products { ID = Convert.ToInt32(output[i]), Name = output[i + 1], Preis = Convert.ToDouble(output[i +2 ]), InStock = Convert.ToInt32(output[i+3]) });
+                    produkte.Add(new Products { ID = Convert.ToInt32(output[i]), Name = output[i + 1], Preis = Convert.ToDouble(output[i +2 ]), InStock = Convert.ToInt32(output[i+3])});
                 }
                 dgProdukteliste.ItemsSource = produkte;
                 produkteverwaltung.ItemsSource = produkte;
@@ -309,6 +309,25 @@ namespace Kassa
                 string lager = (e.EditingElement as TextBox).Text;
                 string query = $"UPDATE Lager SET Lager = {lager} WHERE ID = {produkte[id].ID}";
                 Data(out string[] output, query);
+            }
+        }
+
+        private void DatePicker_CalendarClosed(object sender, RoutedEventArgs e)
+        {
+            int id = produkteverwaltung.SelectedIndex;
+            string query;
+            DateTime date = new DateTime();
+            if (produkte[id].Lieferung != null)
+            {
+                if (produkte[id].Lieferung >= date)
+                {
+                    query = $"UPDATE Lager SET Lieferung = {produkte[id].Lieferung} WHERE ID = {produkte[id].ID}";
+                    Data(out string[] output, query);
+                }
+                else
+                {
+                    MessageBox.Show("Das Datum darf nicht in der Vergangenheit liegen!");
+                }
             }
         }
     }
