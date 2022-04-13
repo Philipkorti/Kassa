@@ -12,6 +12,7 @@ namespace Kassa.Classes
         public string Name { get; set; }
         public double Preis { get; set; }
         public int InStock { get; set; }
+        public string Lieferung { get; set; }
 
         public object Clone()
         {
@@ -23,6 +24,29 @@ namespace Kassa.Classes
             get
             {
                 return Preis * InStock;
+            }
+        }
+        public string Angekommen
+        {
+            get
+            {
+                DateTime date = DateTime.Now;
+                DateTime dateTime;
+                if (DateTime.TryParse(Lieferung, out dateTime))
+                {
+                    if (dateTime > date)
+                    {
+                        return "Nicht Angekommen";
+                    }
+                    else
+                    {
+                        return "Angekommen";
+                    }
+                }
+                else
+                {
+                    return "";
+                }
             }
         }
     }
