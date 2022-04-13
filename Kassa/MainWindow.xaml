@@ -129,13 +129,8 @@
                                 <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Name}"/>
                                 <DataGridTextColumn Header="Preis" IsReadOnly="True" Binding="{Binding Preis}"/>
                                 <DataGridTextColumn Header="InStock"  Binding="{Binding InStock}"/>
-                                <DataGridTemplateColumn Header="Lieferung" IsReadOnly="True" >
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate >
-                                            <DatePicker SelectedDate="{Binding Lieferung}" CalendarClosed="DatePicker_CalendarClosed"></DatePicker>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Lieferung" IsReadOnly="True" Binding="{Binding Lieferung}"/>
+                                <DataGridTextColumn Header="Angekommen" Binding="{Binding Angekommen}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
@@ -148,6 +143,7 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Button Grid.Row="1" Margin="100,50,100,50" Click="addProdukte_Click" Name="addProdukte" IsEnabled="False">Neues Produkt</Button>
+                        <Button Grid.Row="2" Margin="100, 50, 100,50" Name="lieferdatum" Click="lieferdatum_Click">Lieferdatum setzen</Button>
                         <Button Grid.Row="3" Margin="100,50,100,50" Name="entfernprodukte" Click="entfernprodukte_Click" IsEnabled="False">Löschen</Button>
                     </Grid>
                 </Grid>

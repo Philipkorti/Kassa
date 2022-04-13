@@ -56,10 +56,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\User.cs" />
+    <Compile Include="LieferDate.xaml.cs">
+      <DependentUpon>LieferDate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserAdd.xaml.cs">
       <DependentUpon>UserAdd.xaml</DependentUpon>
     </Compile>
     <Page Include="Anmeldung.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LieferDate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
