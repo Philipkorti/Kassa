@@ -54,10 +54,10 @@
 
                         <DataGrid Grid.Row="3"  Name="dgProdukteliste" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="dgProdukteliste_MouseDoubleClick">
                             <DataGrid.Columns>
-                                <DataGridTextColumn x:Name="id" Header="ID" Binding="{Binding ID}" Width="50"/>
-                                <DataGridTextColumn x:Name="name" Header="Name" Binding="{Binding Name}" Width="350"/>
-                                <DataGridTextColumn x:Name="preis" Header="Preis" Binding="{Binding Preis}" Width="200"/>
-                                <DataGridTextColumn x:Name="instock" Header="InStock" Binding="{Binding InStock}" Width="175"/>
+                                <DataGridTextColumn x:Name="id" Header="ID" Width="1*" Binding="{Binding ID}"/>
+                                <DataGridTextColumn x:Name="name" Header="Name" Width="2*" Binding="{Binding Name}" />
+                                <DataGridTextColumn x:Name="preis" Header="Preis" Width="1*" Binding="{Binding Preis}"/>
+                                <DataGridTextColumn x:Name="instock" Header="InStock" Width="1*" Binding="{Binding InStock}"/>
                             </DataGrid.Columns>
 
                         </DataGrid>
@@ -121,16 +121,16 @@
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="1">
                             <TextBlock>Suche:</TextBlock>
-                            <TextBox  Width="400" FontSize="15" Margin="10,0,0,0"/>
+                            <TextBox  Width="400" FontSize="15" Margin="10,0,0,0" TextChanged="TextBox_TextChanged" Name="produkteverwaltungsuche"/>
                         </StackPanel>
                         <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="produkteverwaltung" AutoGenerateColumns="False" CellEditEnding="produkteverwaltung_CellEditEnding">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID" IsReadOnly="True" Binding="{Binding ID}"/>
-                                <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Name}"/>
-                                <DataGridTextColumn Header="Preis" IsReadOnly="True" Binding="{Binding Preis}"/>
-                                <DataGridTextColumn Header="InStock"  Binding="{Binding InStock}"/>
-                                <DataGridTextColumn Header="Lieferung" IsReadOnly="True" Binding="{Binding Lieferung}"/>
-                                <DataGridTextColumn Header="Angekommen" Binding="{Binding Angekommen}"/>
+                                <DataGridTextColumn Header="ID" IsReadOnly="True" Width="1*" Binding="{Binding ID}"/>
+                                <DataGridTextColumn Header="Name" IsReadOnly="True" Width="2*" Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Preis" IsReadOnly="True" Width="1*" Binding="{Binding Preis}"/>
+                                <DataGridTextColumn Header="InStock" Width="1*" Binding="{Binding InStock}"/>
+                                <DataGridTextColumn Header="Lieferung" Width="2*" IsReadOnly="True" Binding="{Binding Lieferung}"/>
+                                <DataGridTextColumn Header="Angekommen" Width="2*" Binding="{Binding Angekommen}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
@@ -143,7 +143,7 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Button Grid.Row="1" Margin="100,50,100,50" Click="addProdukte_Click" Name="addProdukte" IsEnabled="False">Neues Produkt</Button>
-                        <Button Grid.Row="2" Margin="100, 50, 100,50" Name="lieferdatum" Click="lieferdatum_Click">Lieferdatum setzen</Button>
+                        <Button Grid.Row="2" Margin="100, 50, 100,50" Name="lieferdatum" Click="lieferdatum_Click" IsEnabled="False">Lieferdatum setzen</Button>
                         <Button Grid.Row="3" Margin="100,50,100,50" Name="entfernprodukte" Click="entfernprodukte_Click" IsEnabled="False">Löschen</Button>
                     </Grid>
                 </Grid>

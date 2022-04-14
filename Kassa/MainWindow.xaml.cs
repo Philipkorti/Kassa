@@ -54,6 +54,7 @@ namespace Kassa
                 produkteverwaltung.ItemsSource = produkte;
                 entfernprodukte.IsEnabled = true;
                 addProdukte.IsEnabled = true;
+                lieferdatum.IsEnabled = true;
 
             }
         }
@@ -296,13 +297,17 @@ namespace Kassa
 
         private void entfernprodukte_Click(object sender, RoutedEventArgs e)
         {
-            string query = null;
+            int id = produkteverwaltung.SelectedIndex;
+            string query = $"DELETE Lager WHERE ID =  {produkte[id].ID}";
             try
             {
-                produkte.RemoveAt(produkteverwaltung.SelectedIndex);
+                Data(out string[] output, query);
+                query = $"DELETE Produkte WHERE ID = {produkte[id].ID}";
+                Data(out output, query);
+                produkte.RemoveAt(id);
                 reloadprodukteverwaltung();
                 reloadgprodukte();
-                Data(out string[] output, query);
+                
             }
             catch
             {
@@ -345,13 +350,15 @@ namespace Kassa
         private void Input(string[] output)
         {
             DateTime date;
+            string stringdate;
             produkte.Clear();
             for (int i = 0; i < output.Length - 1; i = i + 5)
             {
-                produkte.Add(new Products { ID = Convert.ToInt32(output[i]), Name = output[i + 1], Preis = Convert.ToDouble(output[i + 2]), InStock = Convert.ToInt32(output[i + 3]) });
+                produkte.Add(new Products { ID = Convert.ToInt32(output[i]), Name = output[i + 1], Preis = Convert.ToDouble(output[i + 2]), InStock = Convert.ToInt32(output[i + 3])});
                 if (DateTime.TryParse(output[i + 4], out date))
                 {
-                    produkte[produkte.Count - 1].Lieferung = Convert.ToString(date);
+                    stringdate = date.ToString("dd MMM yyyy");
+                    produkte[produkte.Count - 1].Lieferung = stringdate;
 
                 }
                 else
@@ -378,6 +385,30 @@ namespace Kassa
                         Data(out string[] output, query);
                     }
                 }
+            }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string test;
+            string suchetest = produkteverwaltungsuche.Text;
+            produkteverwaltung.ItemsSource = null;
+            suche.Clear();
+            if (suchetest == null || suchetest == "" || suchetest == " ")
+            {
+                produkteverwaltung.ItemsSource = produkte;
+            }
+            else
+            {
+                for (int i = 0; i < produkte.Count; i++)
+                {
+                    test = Convert.ToString(produkte[i].ID);
+                    if (test.StartsWith(suchetest))
+                    {
+                        suche.Add(produkte[i]);
+                    }
+                }
+                produkteverwaltung.ItemsSource = suche;
             }
         }
     }

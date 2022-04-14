@@ -7,7 +7,15 @@
         mc:Ignorable="d"
         Title="LieferDate" Height="400" Width="400">
     <Grid>
-        <DatePicker Name="lieferdate"/>
-        <Button Margin="0,200,0,100" Name="set" Click="set_Click">Set</Button>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DatePicker Name="lieferdate" Width="200" Height="50"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Margin="30,0,0,0" Width="150" Height="50" Name="set" Click="set_Click">Set</Button>
+            <Button Margin="20,0,0,0" Width="150" Height="50" Name="abbrechen">Abbrechen</Button>
+        </StackPanel>
+        
     </Grid>
 </Window>
