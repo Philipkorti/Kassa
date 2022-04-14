@@ -109,7 +109,7 @@ namespace Kassa
                 {
                     MainWindow mainwindow = new MainWindow();
                     mainwindow.Datenbank(out string[] output, query);
-                    for (int i = 0; i < output.Length; i = i + 2)
+                    for (int i = 0; i < output.Length - 1; i = i + 2)
                     {
                         User.Add(Convert.ToInt32(output[i]), output[i + 1]);
                     }
