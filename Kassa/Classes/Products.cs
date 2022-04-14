@@ -12,11 +12,7 @@ namespace Kassa.Classes
         public string Name { get; set; }
         public double Preis { get; set; }
         public int InStock { get; set; }
-<<<<<<< HEAD
-        public DateTime Lieferung { get; set; }
-=======
         public string Lieferung { get; set; }
->>>>>>> ProdukteVerwaltung
 
         public object Clone()
         {
