@@ -136,6 +136,22 @@ namespace Kassa
             tbuser.Clear();
             tbuser.Focus();
         }
+
+        private void passwortseebutton_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            passwortsee.Source = new BitmapImage(new Uri(@"Bilder/look_password.png", UriKind.Relative));
+            pbpaswort.Password = showpasswort.Text;
+            showpasswort.Visibility = Visibility.Collapsed;
+            pbpaswort.Visibility = Visibility.Visible;
+        }
+
+        private void passwortseebutton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            passwortsee.Source = new BitmapImage(new Uri(@"Bilder/password_see.png", UriKind.Relative));
+            showpasswort.Text = pbpaswort.Password;
+            showpasswort.Visibility = Visibility.Visible;
+            pbpaswort.Visibility = Visibility.Collapsed;
+        }
     }
    
 }
