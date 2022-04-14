@@ -16,8 +16,9 @@
     </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.04*"/>
-            <RowDefinition/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="16*"/>
+            <RowDefinition Height="975*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -33,7 +34,7 @@
             </MenuItem>
         </Menu>
         <TextBlock HorizontalAlignment="Right" x:Name="tbuid" Grid.Column="1"/>
-        <TabControl Grid.Row="1" Grid.ColumnSpan="2">
+        <TabControl Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <TabItem Header="Kassa">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
