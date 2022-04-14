@@ -24,7 +24,7 @@
             <StackPanel Orientation="Horizontal">
                 <PasswordBox x:Name="pbpaswort" KeyDown="pbpaswort_KeyDown" Margin="0,0,0,0" Width="190" Height="20"></PasswordBox>
                 <TextBox Name="showpasswort" Visibility="Collapsed" Width="190" Height="20"></TextBox>
-                <Button Width="30" Height="20" Background="Gray" Name="passwortseebutton" MouseUp="passwortseebutton_MouseUp" MouseDown="passwortseebutton_MouseDown">
+                <Button Width="30" Height="20" Background="Gray" Name="passwortseebutton" PreviewMouseUp="passwortseebutton_MouseUp" PreviewMouseDown="passwortseebutton_MouseDown">
                     <Image Source="Bilder/look_password.png" Name="passwortsee" Width="450" Height="20"/>
                 </Button>
             </StackPanel>
