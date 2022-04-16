@@ -38,6 +38,7 @@ namespace Kassa
         }
         private void anmelden_Click(object sender, RoutedEventArgs e)
         {
+            List<string> rechte = new List<string>();
             DateTime date;
             DateTime stdate = DateTime.Now;
             Anmeldung anmelden = new Anmeldung();
@@ -56,6 +57,7 @@ namespace Kassa
                 entfernprodukte.IsEnabled = true;
                 addProdukte.IsEnabled = true;
                 lieferdatum.IsEnabled = true;
+                Rechte(ref rechte);
 
             }
         }
@@ -413,6 +415,71 @@ namespace Kassa
                 }
                 produkteverwaltung.ItemsSource = suche;
             }
+        }
+
+        private void Useradd_Click(object sender, RoutedEventArgs e)
+        {
+            UserAdd userAdd = new UserAdd();
+            userAdd.ShowDialog();
+        }
+        public void Rechte(ref List<string> rechte)
+        {
+            string query = "SELECT r.Rechte FROM KUser ku JOIN Rechte r ON r.RechteID = ku.IDRechte";
+            Data(out string[] output, query);
+            switch (output[0])
+            {
+                case "Admin":
+                    {
+                        produkteanzeige.Visibility = Visibility.Visible;
+                        useranzeige.Visibility = Visibility.Visible;
+                        UserAnzeige();
+                        
+                        break;
+                    }
+                case "Produkte":
+                    {
+                        produkteanzeige.Visibility = Visibility.Visible;
+                        produkteanzeige.IsSelected = true;
+                        kassa.Visibility = Visibility.Collapsed;
+                        break;
+                    }
+                case "User":
+                    {
+                        useranzeige.Visibility = Visibility.Visible;
+                        useranzeige.IsSelected = true;
+                        kassa.Visibility = Visibility.Collapsed;
+                        UserAnzeige();
+                        rechte.Remove("Admin");
+                        break;
+                    }
+                case "Verwaltung":
+                    {
+                        produkteanzeige.Visibility = Visibility.Visible;
+                        useranzeige.Visibility = Visibility.Visible;
+                        produkteanzeige.IsSelected = true;
+                        kassa.Visibility = Visibility.Collapsed;
+                        UserAnzeige();
+                        rechte.Remove("Admin");
+                        break;
+                    }
+                case "Kassa":
+                    {
+                        break;
+                    }
+            }
+        }
+        private void UserAnzeige()
+        {
+            string query = "SELECT ku.M_ID, ku.Vorname, ku.Nachname, r.Rechte  FROM KUser ku JOIN Rechte r ON r.RechteID = ku.IDRechte";
+            Data(out string[] output, query);
+            List<User> userVerwaltung = new List<User>();
+            for (int i = 0; i < output.Length - 1; i= i+5)
+            {
+                userVerwaltung.Add(new User { ID = Convert.ToInt32(output[i]), Vorname = output[i+1], Nachname = output[i+2], Rechte = output[i+3] });
+            }
+
+            userverwaltung.ItemsSource = "";
+            userverwaltung.ItemsSource = userVerwaltung;
         }
     }
 }

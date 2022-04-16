@@ -22,6 +22,20 @@ namespace Kassa
         public UserAdd()
         {
             InitializeComponent();
+            RechteDB();
+        }
+        private void RechteDB()
+        {
+            List<string> rechte = new List<string>();
+            string query = "SELECT Rechte FROM Rechte";
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Datenbank(out string[] output, query);
+            for (int i = 0; i < output.Length-1; i++)
+            {
+                rechte.Add(output[i]);
+            }
+            mainWindow.Rechte(ref rechte);
+            rechteaswahl.ItemsSource = rechte;
         }
     }
 }

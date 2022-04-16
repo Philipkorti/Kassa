@@ -35,7 +35,7 @@
         </Menu>
         <TextBlock HorizontalAlignment="Right" x:Name="tbuid" Grid.Column="1"/>
         <TabControl Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
-            <TabItem Header="Kassa">
+            <TabItem Header="Kassa" Name="kassa">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -107,7 +107,7 @@
                 </Grid>
 
             </TabItem>
-            <TabItem Header="Produkte" x:Name="produkteanzeige">
+            <TabItem Header="Produkte" x:Name="produkteanzeige" Visibility="Collapsed">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -149,7 +149,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="User" Name="useranzeige">
+            <TabItem Header="User" Name="useranzeige" Visibility="Collapsed">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -168,10 +168,10 @@
                         </StackPanel>
                         <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="userverwaltung" AutoGenerateColumns="False">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
-                                <DataGridTextColumn Header="FullName" Binding="{Binding FullName}"/>
-                                <DataGridTextColumn Header="Einstellungsdatum" Binding="{Binding Einstellungsdatum}"/>
-                                <DataGridTextColumn Header="Rechte" Binding="{Binding Rechte}"/>
+                                <DataGridTextColumn Width="2*" Header="ID" Binding="{Binding ID}"/>
+                                <DataGridTextColumn Width="2*" Header="FullName" Binding="{Binding FullName}"/>
+                                <DataGridTextColumn Width="2*" Header="Einstellungsdatum" Binding="{Binding Einstellungsdatum}"/>
+                                <DataGridTextColumn Width="2*" Header="Rechte" Binding="{Binding Rechte}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
@@ -183,8 +183,9 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Button Grid.Row="1" Margin="100,50,100,50">Neuer User</Button>
-                        <Button Grid.Row="3" Margin="100,50,100,50">Löschen</Button>
+                        <Button Grid.Row="1" Margin="100,50" Name="Useradd" Click="Useradd_Click">Neuer User</Button>
+                        <Button Grid.Row="2" Margin="100,50">Passwort Reset</Button>
+                        <Button Grid.Row="3" Margin="100,50">Löschen</Button>
                     </Grid>
                 </Grid>
             </TabItem>
