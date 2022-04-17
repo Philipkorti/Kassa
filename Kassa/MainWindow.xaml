@@ -170,7 +170,7 @@
                             <DataGrid.Columns>
                                 <DataGridTextColumn Width="2*" Header="ID" Binding="{Binding ID}"/>
                                 <DataGridTextColumn Width="2*" Header="FullName" Binding="{Binding FullName}"/>
-                                <DataGridTextColumn Width="2*" Header="Einstellungsdatum" Binding="{Binding Einstellungsdatum}"/>
+                                <DataGridTextColumn Width="2*" Header="Einstellungsdatum" Binding="{Binding Datum}"/>
                                 <DataGridTextColumn Width="2*" Header="Rechte" Binding="{Binding Rechte}"/>
                             </DataGrid.Columns>
                         </DataGrid>

@@ -43,6 +43,7 @@ namespace Kassa
             DateTime stdate = DateTime.Now;
             Anmeldung anmelden = new Anmeldung();
             string query = "SELECT p.ID, p.Name, p.Preis, l.Lager, l.Lieferung FROM Produkte p JOIN Lager l ON p.ID = l.ID";
+            string user;
 
             if (anmelden.ShowDialog() == true)
             {
@@ -57,7 +58,8 @@ namespace Kassa
                 entfernprodukte.IsEnabled = true;
                 addProdukte.IsEnabled = true;
                 lieferdatum.IsEnabled = true;
-                Rechte(ref rechte);
+                user = tbuid.Text;
+                Rechte(ref rechte, user);
 
             }
         }
@@ -72,6 +74,10 @@ namespace Kassa
                 Rechnung.ItemsSource = null;
                 produkte.Clear();
                 kaufen.Clear();
+                kassa.Visibility = Visibility.Visible;
+                kassa.IsSelected = true;
+                useranzeige.Visibility = Visibility.Collapsed;
+                produkteanzeige.Visibility = Visibility.Collapsed;
                 MessageBox.Show("Du wurdest erfolgfreich abgemeldet!");
             }
             else
@@ -376,7 +382,7 @@ namespace Kassa
         private void CheckLieferDatum()
         {
             DateTime dateTime = DateTime.Now;
-            dateTime = dateTime.AddDays(-1);
+            dateTime = dateTime.AddDays(-2);
             DateTime date;
             string query;
             for (int i = 0; i < produkte.Count; i++)
@@ -419,12 +425,16 @@ namespace Kassa
 
         private void Useradd_Click(object sender, RoutedEventArgs e)
         {
-            UserAdd userAdd = new UserAdd();
+            string user = tbuid.Text;
+            UserAdd userAdd = new UserAdd(user);
             userAdd.ShowDialog();
         }
-        public void Rechte(ref List<string> rechte)
+        public void Rechte(ref List<string> rechte, string user)
         {
-            string query = "SELECT r.Rechte FROM KUser ku JOIN Rechte r ON r.RechteID = ku.IDRechte";
+            string[] userid = user.Split(' ');
+            Anmeldung anmeldung = new Anmeldung();
+            string test = anmeldung.tbuser.Text;
+            string query = $"SELECT r.Rechte FROM KUser ku JOIN Rechte r ON r.RechteID = ku.IDRechte WHERE ku.M_ID = {userid[1]}";
             Data(out string[] output, query);
             switch (output[0])
             {
@@ -468,14 +478,14 @@ namespace Kassa
                     }
             }
         }
-        private void UserAnzeige()
+        public void UserAnzeige()
         {
-            string query = "SELECT ku.M_ID, ku.Vorname, ku.Nachname, r.Rechte  FROM KUser ku JOIN Rechte r ON r.RechteID = ku.IDRechte";
+            string query = "SELECT ku.M_ID, ku.Vorname, ku.Nachname, ku.DatumEinstelung, r.Rechte  FROM KUser ku JOIN Rechte r ON r.RechteID = ku.IDRechte";
             Data(out string[] output, query);
             List<User> userVerwaltung = new List<User>();
             for (int i = 0; i < output.Length - 1; i= i+5)
             {
-                userVerwaltung.Add(new User { ID = Convert.ToInt32(output[i]), Vorname = output[i+1], Nachname = output[i+2], Rechte = output[i+3] });
+                userVerwaltung.Add(new User { ID = Convert.ToInt32(output[i]), Vorname = output[i+1], Nachname = output[i+2], Einstellungsdatum = Convert.ToDateTime(output[i+3]),  Rechte = output[i+4] });
             }
 
             userverwaltung.ItemsSource = "";

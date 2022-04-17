@@ -21,5 +21,13 @@ namespace Kassa.Classes
                 return Vorname + " " + Nachname;
             }
         }
+        public string Datum
+        {
+            get
+            {
+                string datum = Einstellungsdatum.ToString("dd MMMM yyyy");
+                return datum;
+            }
+        }
     }
 }

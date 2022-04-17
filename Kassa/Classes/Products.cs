@@ -32,15 +32,26 @@ namespace Kassa.Classes
             {
                 DateTime date = DateTime.Now;
                 DateTime dateTime;
+                string datestring = date.ToString("dd MM yyyy");
+                string dateTimestring; 
                 if (DateTime.TryParse(Lieferung, out dateTime))
                 {
+                    dateTimestring = dateTime.ToString("dd MM yyyy");
                     if (dateTime > date)
                     {
                         return "Nicht Angekommen";
                     }
                     else
                     {
-                        return "Angekommen";
+                        if (datestring == dateTimestring)
+                        {
+                            return "Kommt Heute";
+                        }
+                        else
+                        {
+                            return "Angekommen";
+                        }
+                        
                     }
                 }
                 else
