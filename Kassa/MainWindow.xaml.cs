@@ -431,18 +431,15 @@ namespace Kassa
         }
         public void Rechte(ref List<string> rechte, string user)
         {
-            string[] userid = user.Split(' ');
-            Anmeldung anmeldung = new Anmeldung();
-            string test = anmeldung.tbuser.Text;
-            string query = $"SELECT r.Rechte FROM KUser ku JOIN Rechte r ON r.RechteID = ku.IDRechte WHERE ku.M_ID = {userid[1]}";
-            Data(out string[] output, query);
+            Rechtelesen(user, out string[] output);
+            List<User> userVerwaltung = new List<User>();
             switch (output[0])
             {
                 case "Admin":
                     {
                         produkteanzeige.Visibility = Visibility.Visible;
                         useranzeige.Visibility = Visibility.Visible;
-                        UserAnzeige();
+                        UserAnzeige(ref userVerwaltung);
                         
                         break;
                     }
@@ -458,17 +455,18 @@ namespace Kassa
                         useranzeige.Visibility = Visibility.Visible;
                         useranzeige.IsSelected = true;
                         kassa.Visibility = Visibility.Collapsed;
-                        UserAnzeige();
+                        UserAnzeige(ref userVerwaltung);
                         rechte.Remove("Admin");
                         break;
                     }
                 case "Verwaltung":
                     {
+                        
                         produkteanzeige.Visibility = Visibility.Visible;
                         useranzeige.Visibility = Visibility.Visible;
                         produkteanzeige.IsSelected = true;
                         kassa.Visibility = Visibility.Collapsed;
-                        UserAnzeige();
+                        UserAnzeige(ref userVerwaltung);
                         rechte.Remove("Admin");
                         break;
                     }
@@ -478,11 +476,16 @@ namespace Kassa
                     }
             }
         }
-        public void UserAnzeige()
+        public void UserA()
+        {
+            List<User> userVerwaltung = new List<User>();
+            UserAnzeige(ref userVerwaltung);
+        }
+        private void UserAnzeige(ref List<User> userVerwaltung)
         {
             string query = "SELECT ku.M_ID, ku.Vorname, ku.Nachname, ku.DatumEinstelung, r.Rechte  FROM KUser ku JOIN Rechte r ON r.RechteID = ku.IDRechte";
             Data(out string[] output, query);
-            List<User> userVerwaltung = new List<User>();
+            userVerwaltung = new List<User>();
             for (int i = 0; i < output.Length - 1; i= i+5)
             {
                 userVerwaltung.Add(new User { ID = Convert.ToInt32(output[i]), Vorname = output[i+1], Nachname = output[i+2], Einstellungsdatum = Convert.ToDateTime(output[i+3]),  Rechte = output[i+4] });
@@ -490,6 +493,39 @@ namespace Kassa
 
             userverwaltung.ItemsSource = "";
             userverwaltung.ItemsSource = userVerwaltung;
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {   
+            string user = tbuid.Text;
+            int id = userverwaltung.SelectedIndex;
+            Rechtelesen(user, out string[] output);
+            List<User> userVerwaltung = new List<User>();
+            UserAnzeige(ref userVerwaltung);
+            if (output[0] == "Admin")
+            {
+                string query = $"DELETE KUser WHERE M_ID = {userVerwaltung[id].ID}";
+                Data(out output, query);
+            }
+            else
+            {
+                if (userVerwaltung[id].Rechte != "Admin")
+                {
+                    string query = $"DELETE KUser WHERE M_ID = {userVerwaltung[id].ID}";
+                    Data(out output, query);
+                }
+                else
+                {
+                    MessageBox.Show("Du darfst kein Admin löschen!");
+                }
+            }
+           
+            UserAnzeige(ref userVerwaltung);
+        }
+        private void Rechtelesen(string user, out string[] output)
+        {
+            string[] userid = user.Split(' ');
+            string query = $"SELECT r.Rechte FROM KUser ku JOIN Rechte r ON r.RechteID = ku.IDRechte WHERE ku.M_ID = {userid[1]}";
+            Data(out output, query);
         }
     }
 }

@@ -78,10 +78,10 @@
                         <StackPanel Grid.Row="1" Grid.RowSpan="2" x:Name="Rowrechnung">
                             <DataGrid x:Name="Rechnung"  Style="{StaticResource DataGridRechnung}" MouseDoubleClick="Rechnung_MouseDoubleClick">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Name" Width="200"  Binding="{Binding Name}"/>
-                                    <DataGridTextColumn Header="Menge" Width="150"  Binding="{Binding InStock}" />
-                                    <DataGridTextColumn Header="Preis" Width="150"  Binding="{Binding Preis}"/>
-                                    <DataGridTextColumn Header="Gesamt Preis" Width="200" Binding="{Binding Gesamtpreis}"/>
+                                    <DataGridTextColumn Header="Name" Width="1*"  Binding="{Binding Name}"/>
+                                    <DataGridTextColumn Header="Menge" Width="0.7*"  Binding="{Binding InStock}" />
+                                    <DataGridTextColumn Header="Preis" Width="0.7*"  Binding="{Binding Preis}"/>
+                                    <DataGridTextColumn Header="Gesamt Preis" Width="1*" Binding="{Binding Gesamtpreis}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                             <StackPanel Style="{StaticResource stackbetrag}">
@@ -185,7 +185,7 @@
                         </Grid.RowDefinitions>
                         <Button Grid.Row="1" Margin="100,50" Name="Useradd" Click="Useradd_Click">Neuer User</Button>
                         <Button Grid.Row="2" Margin="100,50">Passwort Reset</Button>
-                        <Button Grid.Row="3" Margin="100,50">Löschen</Button>
+                        <Button Grid.Row="3" Margin="100,50" Click="Button_Click">Löschen</Button>
                     </Grid>
                 </Grid>
             </TabItem>

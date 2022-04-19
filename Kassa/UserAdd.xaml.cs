@@ -63,7 +63,7 @@ namespace Kassa
                         query = $"INSERT KUser VALUES ({userid}, '{vorname}', '{nachname}', '{passwort}', '{datetime}', {output[0]})";
                         mainWindow.Datenbank(out output, query);
                         string test = mainWindow.tbuid.Text;
-                        mainWindow.UserAnzeige();
+                        mainWindow.UserA();
                     }
                     else
                     {
