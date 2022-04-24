@@ -55,21 +55,39 @@ namespace Kassa
             {
                 if (vorname != "")
                 {
-                    if (nachname != "")
+                    if (vorname.Length <= 50)
                     {
-                        query = $"SELECT RechteID FROM Rechte WHERE Rechte = '{recht}'";
-                        mainWindow.Datenbank(out string[] output, query);
-                        datetime = date.ToString("dd MMM yyyy");
-                        query = $"INSERT KUser VALUES ({userid}, '{vorname}', '{nachname}', '{passwort}', '{datetime}', {output[0]})";
-                        mainWindow.Datenbank(out output, query);
-                        string test = mainWindow.tbuid.Text;
-                        mainWindow.UserA();
+                        if (nachname != "")
+                        {
+                            if (nachname.Length <= 50)
+                            {
+                                query = $"SELECT RechteID FROM Rechte WHERE Rechte = '{recht}'";
+                                mainWindow.Datenbank(out string[] output, query);
+                                datetime = date.ToString("dd MMM yyyy");
+                                query = $"INSERT KUser VALUES ({userid}, '{vorname}', '{nachname}', '{passwort}', '{datetime}', {output[0]})";
+                                mainWindow.Datenbank(out output, query);
+                                string test = mainWindow.tbuid.Text;
+                                mainWindow.UserA();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Der Nachname darf maximal 50 Zeichen lang sein!");
+                                lastname.Focus();
+                            }
+                            
+                        }
+                        else
+                        {
+                            MessageBox.Show("Der Nachname ist nicht korekt!");
+                            lastname.Focus();
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Der Nachname ist nicht korekt!");
-                        lastname.Focus();
+                        MessageBox.Show("Der Vorname darf maximal 50 Zeichen lang sein!");
+                        firstname.Focus();
                     }
+                    
                 }
                 else
                 {

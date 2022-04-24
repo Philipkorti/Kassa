@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Kassa"
+        xmlns:local="clr-namespace:Kassa" 
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         WindowState="Maximized"
         Title="Kassa" Height="1080" Width="1920" Icon="Bilder\kassa.png">
@@ -27,10 +28,11 @@
         <Menu Grid.Row="0">
             <MenuItem>
                 <MenuItem.Icon>
-                    <Image Source="Bilder\user.png"/>
+                    <iconPacks:PackIconMaterial Kind="Account" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </MenuItem.Icon>
                 <MenuItem Header="Anmelden" Name="anmelden" Click="anmelden_Click"/>
                 <MenuItem Header="Abmelden" Name="abmelden" Click="abmelden_Click"/>
+                <MenuItem Header="Daten ändern" Name="daten" Click="daten_Click"/>
             </MenuItem>
         </Menu>
         <TextBlock HorizontalAlignment="Right" x:Name="tbuid" Grid.Column="1"/>
@@ -164,7 +166,7 @@
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="1">
                             <TextBlock>Suche:</TextBlock>
-                            <TextBox  Width="400" FontSize="15" Margin="10,0,0,0"/>
+                            <TextBox  Width="400" FontSize="15" Margin="10,0,0,0" Name="sucheuser" TextChanged="sucheuser_TextChanged"/>
                         </StackPanel>
                         <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="userverwaltung" AutoGenerateColumns="False">
                             <DataGrid.Columns>
@@ -184,7 +186,7 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Button Grid.Row="1" Margin="100,50" Name="Useradd" Click="Useradd_Click">Neuer User</Button>
-                        <Button Grid.Row="2" Margin="100,50">Passwort Reset</Button>
+                        <Button Grid.Row="2" Margin="100,50" Name="psr" Click="psr_Click">Passwort Reset</Button>
                         <Button Grid.Row="3" Margin="100,50" Click="Button_Click">Löschen</Button>
                     </Grid>
                 </Grid>

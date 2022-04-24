@@ -1,0 +1,41 @@
+﻿<Window x:Class="Kassa.Datenändern"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kassa"
+        mc:Ignorable="d"
+        Title="Datenändern" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <TextBlock>Vorname:</TextBlock>
+                <TextBlock x:Name="vorname"></TextBlock>
+                <TextBox Visibility="Collapsed" Name="tbvorname" KeyDown="tbvorname_KeyDown"></TextBox>
+                <Button x:Name="vornameändern" Click="vornameändern_Click">Ändern</Button>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <TextBlock>Nachname:</TextBlock>
+                <TextBlock x:Name="nachname"></TextBlock>
+                <TextBox Visibility="Collapsed" Name="tbnachname" KeyDown="tbnachname_KeyDown"></TextBox>
+                <Button x:Name="nachnameändern" Click="nachnameändern_Click">Ändern</Button>
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <TextBlock>Passwort:</TextBlock>
+                <TextBlock x:Name="passwort"></TextBlock>
+                <TextBox Visibility="Collapsed" Name="tbpasswort" KeyDown="tbpasswort_KeyDown"></TextBox>
+                <Button x:Name="passwortändern" Click="passwortändern_Click">Ändern</Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
