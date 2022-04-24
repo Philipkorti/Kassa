@@ -32,7 +32,7 @@
                 </MenuItem.Icon>
                 <MenuItem Header="Anmelden" Name="anmelden" Click="anmelden_Click"/>
                 <MenuItem Header="Abmelden" Name="abmelden" Click="abmelden_Click"/>
-                <MenuItem Header="Daten ändern" Name="daten" Click="daten_Click"/>
+                <MenuItem Header="Daten ändern" Name="daten" Click="daten_Click" Visibility="Collapsed"/>
             </MenuItem>
         </Menu>
         <TextBlock HorizontalAlignment="Right" x:Name="tbuid" Grid.Column="1"/>
@@ -100,8 +100,6 @@
                             </Grid.ColumnDefinitions>
                             <Button Grid.Column="0" x:Name="entfernen" Click="entfernen_Click" Style="{StaticResource entfernen}">Löschen</Button>
                             <Button Grid.Column="1" x:Name="abschliessen" Click="abschliessen_Click" Style="{StaticResource abschliesen}">Abschließen</Button>
-
-
                         </Grid>
 
 

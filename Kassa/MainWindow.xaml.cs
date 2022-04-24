@@ -56,6 +56,7 @@ namespace Kassa
                 lieferdatum.IsEnabled = true;
                 user = tbuid.Text;
                 Rechte(ref rechte, user);
+                daten.Visibility = Visibility.Visible;
 
             }
         }
@@ -80,6 +81,7 @@ namespace Kassa
                 useranzeige.Visibility = Visibility.Collapsed;
                 produkteanzeige.Visibility = Visibility.Collapsed;
                 MessageBox.Show("Du wurdest erfolgfreich abgemeldet!");
+                daten.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -715,8 +717,17 @@ namespace Kassa
             string stringid = tbuid.Text;
             string[] id = stringid.Split(new char[] { ' ' });
             int intid = Convert.ToInt32(id[1]);
+            string query;
             Datenändern datenändern = new Datenändern(intid);
             datenändern.ShowDialog();
+            datenändern.datenaendernreturn(out string[] edit);
+            query = $"UPDATE KUser SET Vorname = '{edit[0]}' WHERE M_ID = {intid}";
+            Data(out string[] output, query);
+            query = $"UPDATE KUser SET Nachname = '{edit[1]}' WHERE M_ID = {intid}";
+            Data(out output, query);
+            query = $"UPDATE KUser SET M_Pass = '{edit[2]}' WHERE M_ID = {intid}";
+            Data(out output, query);
+
         }
     }
 }

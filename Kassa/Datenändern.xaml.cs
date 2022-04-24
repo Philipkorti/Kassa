@@ -83,5 +83,14 @@ namespace Kassa
                 passwort.Text = tbpasswort.Text;
             }
         }
+        public void datenaendernreturn(out string[] edit)
+        {
+            edit = new string[3];
+
+            edit[0] = vorname.Text;
+            edit[1] = nachname.Text;
+            edit[2] = passwort.Text;
+
+        }
     }
 }
