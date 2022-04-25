@@ -161,7 +161,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Datein\" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Bilder\user.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -179,11 +181,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Bilder\look_password.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Datein\Rechnung.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
