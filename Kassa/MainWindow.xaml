@@ -12,6 +12,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/MainPage.xaml"/>
+                <ResourceDictionary Source="Resources/Button.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -32,7 +33,7 @@
                 </MenuItem.Icon>
                 <MenuItem Header="Anmelden" Name="anmelden" Click="anmelden_Click"/>
                 <MenuItem Header="Abmelden" Name="abmelden" Click="abmelden_Click"/>
-                <MenuItem Header="Daten ändern" Name="daten" Click="daten_Click" Visibility="Collapsed"/>
+                <MenuItem  Name="daten" Click="daten_Click" Visibility="Collapsed" Header="Daten ändern"/>
             </MenuItem>
         </Menu>
         <TextBlock HorizontalAlignment="Right" x:Name="tbuid" Grid.Column="1"/>
@@ -98,8 +99,8 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" x:Name="entfernen" Click="entfernen_Click" Style="{StaticResource entfernen}">Löschen</Button>
-                            <Button Grid.Column="1" x:Name="abschliessen" Click="abschliessen_Click" Style="{StaticResource abschliesen}">Abschließen</Button>
+                            <Button Grid.Column="0" x:Name="entfernen" Click="entfernen_Click">Löschen</Button>
+                            <Button Grid.Column="1" x:Name="abschliessen" Click="abschliessen_Click">Abschließen</Button>
                         </Grid>
 
 
@@ -131,7 +132,7 @@
                                 <DataGridTextColumn Header="Preis" IsReadOnly="True" Width="1*" Binding="{Binding Preis}"/>
                                 <DataGridTextColumn Header="InStock" Width="1*" Binding="{Binding InStock}"/>
                                 <DataGridTextColumn Header="Lieferung" Width="2*" IsReadOnly="True" Binding="{Binding Lieferung}"/>
-                                <DataGridTextColumn Header="Angekommen" Width="2*" Binding="{Binding Angekommen}"/>
+                                <DataGridTextColumn Header="Angekommen" IsReadOnly="True" Width="2*" Binding="{Binding Angekommen}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
@@ -166,7 +167,7 @@
                             <TextBlock>Suche:</TextBlock>
                             <TextBox  Width="400" FontSize="15" Margin="10,0,0,0" Name="sucheuser" TextChanged="sucheuser_TextChanged"/>
                         </StackPanel>
-                        <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="userverwaltung" AutoGenerateColumns="False">
+                        <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="userverwaltung" AutoGenerateColumns="False" IsReadOnly="True">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Width="2*" Header="ID" Binding="{Binding ID}"/>
                                 <DataGridTextColumn Width="2*" Header="FullName" Binding="{Binding FullName}"/>

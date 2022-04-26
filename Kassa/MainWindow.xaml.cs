@@ -27,8 +27,8 @@ namespace Kassa
     public partial class MainWindow : Window
     {
         List<Products> kaufen = new List<Products>();
-        List<User> userVerwaltung = new List<User>();
         List<Products> produkte = new List<Products>();
+        List<Products> produkteverwaltungl = new List<Products>();
         public MainWindow()
         {
             InitializeComponent();
@@ -47,8 +47,8 @@ namespace Kassa
                 tbuid.Text += anmelden.Anmelden;
                 Produktelesen();
                 CheckLieferDatum();
+                Produkteverwaltunglesen();
                 dgProdukteliste.ItemsSource = produkte;
-                produkteverwaltung.ItemsSource = produkte;
                 entfernprodukte.IsEnabled = true;
                 addProdukte.IsEnabled = true;
                 lieferdatum.IsEnabled = true;
@@ -159,7 +159,6 @@ namespace Kassa
         }
         private void tbsuche_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string test;
             string suchetb = tbsuche.Text;
             List<Products> suche = new List<Products>();
             dgProdukteliste.ItemsSource = null;
@@ -168,9 +167,6 @@ namespace Kassa
             {
                 dgProdukteliste.ItemsSource = suche;
             }
-            
-
-
         }
 
         private void Rechnung_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -292,6 +288,7 @@ namespace Kassa
             if (kaufen.Count == 0)
             {
                 entfernen.Visibility = Visibility.Hidden;
+                abschliessen.Visibility = Visibility.Hidden;
             }
         }
         private void reloadgprodukte()
@@ -396,14 +393,31 @@ namespace Kassa
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            string id;
             string suchetb = produkteverwaltungsuche.Text;
+            int zahl = produkteverwaltungl.Count - 1;
             List<Products> suche = new List<Products>();
-            Produktelesen();
             produkteverwaltung.ItemsSource = null;
-            produktesuche(ref suche, suchetb);
-            if (suche.Count() != 0)
+            suche.Clear();
+           
+            if (suchetb != null || suchetb != "" || suchetb != " ")
             {
+
+                for (int i = 0; i < produkteverwaltungl.Count; i++)
+                {
+                    id = Convert.ToString(produkteverwaltungl[i].ID);
+                    if (id.StartsWith(suchetb))
+                    {
+                        suche.Add(produkteverwaltungl[i]);
+                    }
+
+                }   
+               
                 produkteverwaltung.ItemsSource = suche;
+            }
+            else
+            {
+                produkteverwaltung.ItemsSource = produkteverwaltungl;
             }
             
         }
@@ -514,7 +528,6 @@ namespace Kassa
         }
         private void Produktelesen()
         {
-            produkte = new List<Products>();
             DateTime date;
             string stringdate;
             string query = "SELECT p.ID, p.Name, p.Preis, l.Lager, l.Lieferung FROM Produkte p JOIN Lager l ON p.ID = l.ID";
@@ -540,15 +553,11 @@ namespace Kassa
         private void produktesuche(ref List<Products> suche, string suchetb)
         {
             string test;
-            List<Products> produkte = new List<Products>();
             suche = new List<Products>();
             suche.Clear();
             if (suchetb == null || suchetb == "" || suchetb == " ")
             {
-                dgProdukteliste.ItemsSource = "";
                 dgProdukteliste.ItemsSource = produkte;
-                produkteverwaltung.ItemsSource = "";
-                produkteverwaltung.ItemsSource = produkte;
             }
             else
             {
@@ -641,6 +650,18 @@ namespace Kassa
             query = $"UPDATE KUser SET M_Pass = '{edit[2]}' WHERE M_ID = {intid}";
             Data(out output, query);
 
+        }
+        private void Produkteverwaltunglesen()
+        {
+            string query = "SELECT l.ID, p.Name, p.Preis, l.Lager, l.Lieferung FROM Produkte p JOIN Lager l ON p.ID = l.ID";
+            Data(out string[] output, query);
+
+            for (int i = 0; i < output.Length - 1; i = i+5)
+            {
+                produkteverwaltungl.Add(new Products { ID = Convert.ToInt32(output[i]), Name = output[i+1], Preis = Convert.ToDouble(output[i+2]), InStock = Convert.ToInt32(output[i+3]), Lieferung = output[i+4] });
+            }
+            produkteverwaltung.ItemsSource = "";
+            produkteverwaltung.ItemsSource = produkteverwaltungl;
         }
     }
 }

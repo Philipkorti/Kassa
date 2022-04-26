@@ -36,3 +36,4 @@ C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispi
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\Kassa.csproj.CopyComplete
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\Datenändern.g.cs
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\Datenändern.baml
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\Resources\Button.baml

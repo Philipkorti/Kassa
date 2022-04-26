@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Kassa" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:Kassa"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="Anmeldung" Height="450" Width="380" AllowsTransparency="True"
         WindowStyle="None" ResizeMode="NoResize"
@@ -12,10 +13,11 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Anmeldung.xaml"/>
+                <ResourceDictionary Source="Resources/Button.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
+    
     <Grid>
         <StackPanel Grid.Row="1">
             <StackPanel>
@@ -39,8 +41,8 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="1" Click="Button_Click" Content="Abbrechen" Style="{StaticResource button}"/>
-                <Button x:Name="btnAnmelden" Click="btnAnmelden_Click" Style="{StaticResource button}">Anmelden</Button>
+                <Button Grid.Column="1" Click="Button_Click" Content="Abbrechen"/>
+                <Button x:Name="btnAnmelden" Click="btnAnmelden_Click">Anmelden</Button>
             </Grid>
         </StackPanel>
        

@@ -111,6 +111,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Color.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

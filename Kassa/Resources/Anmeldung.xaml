@@ -5,24 +5,7 @@
         <ResourceDictionary Source="Color.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="Button" x:Key="button">
-        <Setter Property="Margin" Value="0,20"/>
-        <Setter Property="BorderBrush" Value="Gray"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="White"/>
-
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="Gray" CornerRadius="20" BorderThickness="2" BorderBrush="White">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Height" Value="25"/>
-        <Setter Property="Width" Value="100"/>
-    </Style>
+   
     <Style TargetType="StackPanel">
         <Setter Property="Background" Value="{StaticResource colorgrey}"/>
     </Style>
