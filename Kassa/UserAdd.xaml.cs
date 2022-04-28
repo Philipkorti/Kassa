@@ -27,7 +27,7 @@ namespace Kassa
         private void RechteDB(string user)
         {
             List<string> rechte = new List<string>();
-            string query = "SELECT Rechte FROM Rechte";
+            string query = "EXEC RechteName";
             MainWindow mainWindow = new MainWindow();
             mainWindow.Datenbank(out string[] output, query);
             for (int i = 0; i < output.Length-1; i++)
@@ -64,7 +64,7 @@ namespace Kassa
                                 query = $"SELECT RechteID FROM Rechte WHERE Rechte = '{recht}'";
                                 mainWindow.Datenbank(out string[] output, query);
                                 datetime = date.ToString("dd MMM yyyy");
-                                query = $"INSERT KUser VALUES ({userid}, '{vorname}', '{nachname}', '{passwort}', '{datetime}', {output[0]})";
+                                query = $"EXEC AddUser {userid}, '{vorname}', '{nachname}', '{passwort}', '{datetime}', {output[0]}";
                                 mainWindow.Datenbank(out output, query);
                                 string test = mainWindow.tbuid.Text;
                                 mainWindow.UserA();

@@ -68,6 +68,7 @@ namespace Kassa
                 Rechnung.ItemsSource = null;
                 produkte.Clear();
                 kaufen.Clear();
+                produkteverwaltungl.Clear();
                 kassa.Visibility = Visibility.Visible;
                 kassa.IsSelected = true;
                 useranzeige.Visibility = Visibility.Collapsed;
