@@ -61,12 +61,9 @@ namespace Kassa
                         {
                             if (nachname.Length <= 50)
                             {
-                                query = $"SELECT RechteID FROM Rechte WHERE Rechte = '{recht}'";
-                                mainWindow.Datenbank(out string[] output, query);
                                 datetime = date.ToString("dd MMM yyyy");
-                                query = $"EXEC AddUser {userid}, '{vorname}', '{nachname}', '{passwort}', '{datetime}', {output[0]}";
-                                mainWindow.Datenbank(out output, query);
-                                string test = mainWindow.tbuid.Text;
+                                query = $"EXEC AddUser {userid}, '{vorname}', '{nachname}', '{passwort}', '{datetime}', '{recht}'";
+                                mainWindow.Datenbank(out string[] output, query);
                                 mainWindow.UserA();
                             }
                             else
