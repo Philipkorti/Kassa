@@ -4,35 +4,47 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kassa"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="Anmeldung" Height="250" Width="250">
+        Title="Anmeldung" Height="450" Width="380" AllowsTransparency="True"
+        WindowStyle="None" ResizeMode="NoResize"
+        MouseDown="Window_MouseDown">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Anmeldung.xaml"/>
+                <ResourceDictionary Source="Resources/Button.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-   
-    <StackPanel>
-        <StackPanel>
-            <TextBlock>User-ID:</TextBlock>
-            <TextBox x:Name="tbuser" KeyDown="tbuser_KeyDown"></TextBox>
-        </StackPanel>
-        <StackPanel>
-            <TextBlock>Paswort:</TextBlock>
-            <StackPanel Orientation="Horizontal">
-                <PasswordBox x:Name="pbpaswort" KeyDown="pbpaswort_KeyDown" Margin="0,0,0,0" Width="190" Height="20"></PasswordBox>
-                <TextBox Name="showpasswort" Visibility="Collapsed" Width="190" Height="20"></TextBox>
-                <Button Width="30" Height="20" Background="Gray" Name="passwortseebutton" PreviewMouseUp="passwortseebutton_MouseUp" PreviewMouseDown="passwortseebutton_MouseDown">
-                    <Image Source="Bilder/look_password.png" Name="passwortsee" Width="450" Height="20"/>
-                </Button>
+    
+    <Grid>
+        <StackPanel Grid.Row="1">
+            <StackPanel>
+                <TextBlock>User-ID:</TextBlock>
+                <TextBox x:Name="tbuser" KeyDown="tbuser_KeyDown">User-ID</TextBox>
             </StackPanel>
-            
+            <StackPanel>
+                <TextBlock>Paswort:</TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <PasswordBox x:Name="pbpaswort" KeyDown="pbpaswort_KeyDown" Margin="0,0,0,0" Width="190" Height="20"></PasswordBox>
+                    <TextBox Name="showpasswort" Visibility="Collapsed" Width="190" Height="20"></TextBox>
+                    <Button Width="30" Height="20" Background="Gray" Name="passwortseebutton" PreviewMouseUp="passwortseebutton_MouseUp" PreviewMouseDown="passwortseebutton_MouseDown">
+                        <Image Source="Bilder/look_password.png" Name="passwortsee"/>
+                    </Button>
+                </StackPanel>
+
+            </StackPanel>
+            <TextBlock x:Name="errorMs" Style="{StaticResource erorms}"></TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" Click="Button_Click" Content="Abbrechen"/>
+                <Button x:Name="btnAnmelden" Click="btnAnmelden_Click">Anmelden</Button>
+            </Grid>
         </StackPanel>
-        <TextBlock x:Name="errorMs" Style="{StaticResource erorms}"></TextBlock>
-        <Button x:Name="btnAnmelden" Click="btnAnmelden_Click">Anmelden</Button>
-        
-        
-    </StackPanel>
+       
+    </Grid>
 </Window>

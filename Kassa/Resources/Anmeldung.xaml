@@ -5,11 +5,7 @@
         <ResourceDictionary Source="Color.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource colorlightblue}"/>
-        <Setter Property="Margin" Value="0,20"/>
-        <Setter Property="BorderBrush" Value="Gray"/>
-    </Style>
+   
     <Style TargetType="StackPanel">
         <Setter Property="Background" Value="{StaticResource colorgrey}"/>
     </Style>
@@ -24,6 +20,8 @@
         <Setter Property="FontSize" Value="10"/>
         <Setter Property="Foreground" Value="{StaticResource errorcolor}"/>
     </Style>
-
-
+    <Style TargetType="Image">
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Width" Value="450"/>
+    </Style>
 </ResourceDictionary>

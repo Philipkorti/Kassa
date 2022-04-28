@@ -7,6 +7,23 @@
         mc:Ignorable="d"
         Title="UserAdd" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Margin="10,0,10,0" Height="20">User-ID:</TextBlock>
+            <TextBox Width="100" Height="20" Name="UserID"></TextBox>
+            <TextBlock Margin="10,0,10,0" Height="20">Vorname:</TextBlock>
+            <TextBox Width="100" Height="20" Name="firstname"></TextBox>
+            <TextBlock Height="20" Margin="10,0,10,0">Nachname:</TextBlock>
+            <TextBox Width="100" Height="20" Name="lastname"></TextBox>
+            <TextBlock Height="20" Margin="10,0,10,0">Rechhte:</TextBlock>
+            <ComboBox Name="rechteaswahl" Margin="0,60,0,50" Height="30" SelectedValue="Kassa">
+            </ComboBox>
+        </StackPanel>
+        <Button Grid.Row="2" Height="50" Width="200" Name="useradd" Click="useradd_Click">Add</Button>
     </Grid>
 </Window>

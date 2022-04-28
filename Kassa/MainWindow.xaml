@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Kassa"
+        xmlns:local="clr-namespace:Kassa" 
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         WindowState="Maximized"
         Title="Kassa" Height="1080" Width="1920" Icon="Bilder\kassa.png">
@@ -11,6 +12,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/MainPage.xaml"/>
+                <ResourceDictionary Source="Resources/Button.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -27,15 +29,16 @@
         <Menu Grid.Row="0">
             <MenuItem>
                 <MenuItem.Icon>
-                    <Image Source="Bilder\user.png"/>
+                    <iconPacks:PackIconMaterial Kind="Account" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </MenuItem.Icon>
                 <MenuItem Header="Anmelden" Name="anmelden" Click="anmelden_Click"/>
                 <MenuItem Header="Abmelden" Name="abmelden" Click="abmelden_Click"/>
+                <MenuItem  Name="daten" Click="daten_Click" Visibility="Collapsed" Header="Daten ändern"/>
             </MenuItem>
         </Menu>
         <TextBlock HorizontalAlignment="Right" x:Name="tbuid" Grid.Column="1"/>
         <TabControl Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
-            <TabItem Header="Kassa">
+            <TabItem Header="Kassa" Name="kassa">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -78,10 +81,10 @@
                         <StackPanel Grid.Row="1" Grid.RowSpan="2" x:Name="Rowrechnung">
                             <DataGrid x:Name="Rechnung"  Style="{StaticResource DataGridRechnung}" MouseDoubleClick="Rechnung_MouseDoubleClick">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Name" Width="200"  Binding="{Binding Name}"/>
-                                    <DataGridTextColumn Header="Menge" Width="150"  Binding="{Binding InStock}" />
-                                    <DataGridTextColumn Header="Preis" Width="150"  Binding="{Binding Preis}"/>
-                                    <DataGridTextColumn Header="Gesamt Preis" Width="200" Binding="{Binding Gesamtpreis}"/>
+                                    <DataGridTextColumn Header="Name" Width="1*"  Binding="{Binding Name}"/>
+                                    <DataGridTextColumn Header="Menge" Width="0.7*"  Binding="{Binding InStock}" />
+                                    <DataGridTextColumn Header="Preis" Width="0.7*"  Binding="{Binding Preis}"/>
+                                    <DataGridTextColumn Header="Gesamt Preis" Width="1*" Binding="{Binding Gesamtpreis}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                             <StackPanel Style="{StaticResource stackbetrag}">
@@ -96,10 +99,8 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" x:Name="entfernen" Click="entfernen_Click" Style="{StaticResource entfernen}">Löschen</Button>
-                            <Button Grid.Column="1" x:Name="abschliessen" Click="abschliessen_Click" Style="{StaticResource abschliesen}">Abschließen</Button>
-
-
+                            <Button Grid.Column="0" x:Name="entfernen" Click="entfernen_Click">Löschen</Button>
+                            <Button Grid.Column="1" x:Name="abschliessen" Click="abschliessen_Click">Abschließen</Button>
                         </Grid>
 
 
@@ -107,7 +108,7 @@
                 </Grid>
 
             </TabItem>
-            <TabItem Header="Produkte" x:Name="produkteanzeige">
+            <TabItem Header="Produkte" x:Name="produkteanzeige" Visibility="Collapsed">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -131,7 +132,7 @@
                                 <DataGridTextColumn Header="Preis" IsReadOnly="True" Width="1*" Binding="{Binding Preis}"/>
                                 <DataGridTextColumn Header="InStock" Width="1*" Binding="{Binding InStock}"/>
                                 <DataGridTextColumn Header="Lieferung" Width="2*" IsReadOnly="True" Binding="{Binding Lieferung}"/>
-                                <DataGridTextColumn Header="Angekommen" Width="2*" Binding="{Binding Angekommen}"/>
+                                <DataGridTextColumn Header="Angekommen" IsReadOnly="True" Width="2*" Binding="{Binding Angekommen}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
@@ -149,7 +150,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="User" Name="useranzeige">
+            <TabItem Header="User" Name="useranzeige" Visibility="Collapsed">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -164,14 +165,14 @@
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="1">
                             <TextBlock>Suche:</TextBlock>
-                            <TextBox  Width="400" FontSize="15" Margin="10,0,0,0"/>
+                            <TextBox  Width="400" FontSize="15" Margin="10,0,0,0" Name="sucheuser" TextChanged="sucheuser_TextChanged"/>
                         </StackPanel>
-                        <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="userverwaltung" AutoGenerateColumns="False">
+                        <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="userverwaltung" AutoGenerateColumns="False" IsReadOnly="True">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
-                                <DataGridTextColumn Header="FullName" Binding="{Binding FullName}"/>
-                                <DataGridTextColumn Header="Einstellungsdatum" Binding="{Binding Einstellungsdatum}"/>
-                                <DataGridTextColumn Header="Rechte" Binding="{Binding Rechte}"/>
+                                <DataGridTextColumn Width="2*" Header="ID" Binding="{Binding ID}"/>
+                                <DataGridTextColumn Width="2*" Header="FullName" Binding="{Binding FullName}"/>
+                                <DataGridTextColumn Width="2*" Header="Einstellungsdatum" Binding="{Binding Datum}"/>
+                                <DataGridTextColumn Width="2*" Header="Rechte" Binding="{Binding Rechte}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
@@ -183,8 +184,9 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Button Grid.Row="1" Margin="100,50,100,50">Neuer User</Button>
-                        <Button Grid.Row="3" Margin="100,50,100,50">Löschen</Button>
+                        <Button Grid.Row="1" Margin="100,50" Name="Useradd" Click="Useradd_Click">Neuer User</Button>
+                        <Button Grid.Row="2" Margin="100,50" Name="psr" Click="psr_Click">Passwort Reset</Button>
+                        <Button Grid.Row="3" Margin="100,50" Click="Button_Click">Löschen</Button>
                     </Grid>
                 </Grid>
             </TabItem>

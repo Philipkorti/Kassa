@@ -26,43 +26,41 @@ namespace Kassa
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<Products> produkte = new List<Products>();
         List<Products> kaufen = new List<Products>();
-        List<Products> suche = new List<Products>();
-
+        List<Products> produkte = new List<Products>();
+        List<Products> produkteverwaltungl = new List<Products>();
         public MainWindow()
         {
             InitializeComponent();
             tbuid.Text = "User-ID: ";
-            produkteverwaltung.ItemsSource = produkte;
         }
         private void anmelden_Click(object sender, RoutedEventArgs e)
         {
+            List<string> rechte = new List<string>();
             DateTime date;
             DateTime stdate = DateTime.Now;
             Anmeldung anmelden = new Anmeldung();
-            string query = "SELECT p.ID, p.Name, p.Preis, l.Lager, l.Lieferung FROM Produkte p JOIN Lager l ON p.ID = l.ID";
+            string user;
 
             if (anmelden.ShowDialog() == true)
             {
                 tbuid.Text += anmelden.Anmelden;
-
-                Data(out string[] output, query);
-
-                Input(output);
+                Produktelesen();
                 CheckLieferDatum();
+                Produkteverwaltunglesen();
                 dgProdukteliste.ItemsSource = produkte;
-                produkteverwaltung.ItemsSource = produkte;
                 entfernprodukte.IsEnabled = true;
                 addProdukte.IsEnabled = true;
                 lieferdatum.IsEnabled = true;
+                user = tbuid.Text;
+                Rechte(ref rechte, user);
+                daten.Visibility = Visibility.Visible;
 
             }
         }
 
         private void abmelden_Click(object sender, RoutedEventArgs e)
         {
-
             if (tbuid.Text.Length >= 12)
             {
                 tbuid.Text = "User-ID: ";
@@ -70,7 +68,13 @@ namespace Kassa
                 Rechnung.ItemsSource = null;
                 produkte.Clear();
                 kaufen.Clear();
+                produkteverwaltungl.Clear();
+                kassa.Visibility = Visibility.Visible;
+                kassa.IsSelected = true;
+                useranzeige.Visibility = Visibility.Collapsed;
+                produkteanzeige.Visibility = Visibility.Collapsed;
                 MessageBox.Show("Du wurdest erfolgfreich abgemeldet!");
+                daten.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -156,27 +160,14 @@ namespace Kassa
         }
         private void tbsuche_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string test;
-            string suchetest = tbsuche.Text;
+            string suchetb = tbsuche.Text;
+            List<Products> suche = new List<Products>();
             dgProdukteliste.ItemsSource = null;
-            suche.Clear();
-            if (suchetest == null || suchetest == "" || suchetest == " ")
+            produktesuche(ref suche, suchetb);
+            if (suche.Count != 0)
             {
-                dgProdukteliste.ItemsSource = produkte;
-            }
-            else
-            {
-                for (int i = 0; i < produkte.Count; i++)
-                {
-                    test = Convert.ToString(produkte[i].ID);
-                    if (test.StartsWith(suchetest))
-                    {
-                        suche.Add(produkte[i]);
-                    }
-                }
                 dgProdukteliste.ItemsSource = suche;
             }
-
         }
 
         private void Rechnung_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -184,44 +175,69 @@ namespace Kassa
             Mengen mengen = new Mengen();
             int pos = Rechnung.SelectedIndex;
             betrag.Text = Convert.ToString(Convert.ToDouble(betrag.Text) - kaufen[pos].Gesamtpreis);
-            produkte[kaufen[pos].ID - 1].InStock += kaufen[pos].InStock;
+           
             mengen.ShowDialog();
-            produkte[kaufen[pos].ID - 1].InStock = produkte[kaufen[pos].ID - 1].InStock - Convert.ToInt32(mengen.anzahl);
-            reloadgprodukte();
+            for (int i = 0; i < produkte.Count; i++)
+            {
+                if (kaufen[pos].ID == produkte[i].ID)
+                {
+                    produkte[i].InStock += kaufen[pos].InStock;
+                    produkte[i].InStock = produkte[i].InStock - Convert.ToInt32(mengen.anzahl);
+                }
+               
+            }
+            
             kaufen[pos].InStock = Convert.ToInt32(mengen.anzahl);
-            reloadrechnung();
             betrag.Text = Convert.ToString(Convert.ToDouble(betrag.Text) + kaufen[pos].Gesamtpreis);
+            reloadrechnung();
+            reloadgprodukte();
         }
 
         private void dgProdukteliste_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            int id = dgProdukteliste.SelectedIndex;
             int anzahl;
             int zahl;
             double gesamt = 0;
             double test = Convert.ToDouble(Rowrechnung.ActualHeight);
             double test1 = Convert.ToDouble(Rechnung.Height);
+            List<Products> suche = new List<Products>();
+            string suchetb = tbsuche.Text;
 
             try
             {
                 gesamt = Convert.ToDouble(betrag.Text);
             }
-            catch (Exception ex)
+            catch
             {
 
             }
+           
             Mengen mengen = new Mengen();
             mengen.ShowDialog();
             try
             {
                 entfernen.Visibility = Visibility.Visible;
                 abschliessen.Visibility = Visibility.Visible;
-                gesamt += produkte[dgProdukteliste.SelectedIndex].Preis * Convert.ToDouble(mengen.anzahl);
-                anzahl = produkte[dgProdukteliste.SelectedIndex].InStock;
+                gesamt += produkte[id].Preis * Convert.ToDouble(mengen.anzahl);
+                anzahl = produkte[id].InStock;
                 zahl = Convert.ToInt32(mengen.anzahl);
                 anzahl = anzahl - zahl;
-                produkte[dgProdukteliste.SelectedIndex].InStock = anzahl;
-                kaufen.Add((Products)produkte[dgProdukteliste.SelectedIndex].Clone());
-                reloadgprodukte();
+                produkte[id].InStock = anzahl;
+                dgProdukteliste.ItemsSource = "";
+                dgProdukteliste.ItemsSource = produkte;
+                if (tbsuche.Text != "")
+                {
+                    produktesuche(ref suche, suchetb);
+                    kaufen.Add((Products)suche[id].Clone());
+                    tbsuche.Text = "";
+                }
+                else
+                {
+                    kaufen.Add((Products)produkte[id].Clone());
+                   
+                }
+                
                 kaufen[kaufen.Count - 1].InStock = Convert.ToInt32(mengen.anzahl);
                 betrag.Text = Convert.ToString(gesamt);
 
@@ -234,10 +250,11 @@ namespace Kassa
                     kaufen.RemoveAt(0);
                 }
                 reloadrechnung();
+               
             }
-            catch
+            catch(Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -257,15 +274,22 @@ namespace Kassa
         {
             int pos = Rechnung.SelectedIndex;
             betrag.Text = Convert.ToString(Convert.ToDouble(betrag.Text) - (kaufen[pos].Preis * kaufen[pos].InStock));
-            produkte[kaufen[pos].ID - 1].InStock += kaufen[pos].InStock;
+            for (int i = 0; i < produkte.Count; i++)
+            {
+                if (kaufen[pos].ID == produkte[i].ID)
+                {
+                    produkte[i].InStock += kaufen[pos].InStock; 
+                }
+            }
             reloadgprodukte();
             kaufen.RemoveAt(pos);
             reloadrechnung();
             Rechnung.Height = Rechnung.Height - 30;
-
+            
             if (kaufen.Count == 0)
             {
                 entfernen.Visibility = Visibility.Hidden;
+                abschliessen.Visibility = Visibility.Hidden;
             }
         }
         private void reloadgprodukte()
@@ -279,7 +303,6 @@ namespace Kassa
             Rechnung.ItemsSource = kaufen;
         }
 
-
         private void reloadprodukteverwaltung()
         {
             produkteverwaltung.ItemsSource = "";
@@ -292,10 +315,9 @@ namespace Kassa
             produkteAdd.ShowDialog();
             string query = "SELECT p.ID, p.Name, p.Preis, l.Lager, l.Lieferung FROM Produkte p JOIN Lager l ON p.ID = l.ID";
             Data(out string[] output, query);
-            Input(output);
             reloadprodukteverwaltung();
+            reloadgprodukte();
             
-
         }
 
         private void entfernprodukte_Click(object sender, RoutedEventArgs e)
@@ -308,6 +330,7 @@ namespace Kassa
                 query = $"DELETE Produkte WHERE ID = {produkte[id].ID}";
                 Data(out output, query);
                 produkte.RemoveAt(id);
+                Produktelesen();
                 reloadprodukteverwaltung();
                 reloadgprodukte();
                 
@@ -327,6 +350,7 @@ namespace Kassa
                 string lager = (e.EditingElement as TextBox).Text;
                 string query = $"UPDATE Lager SET Lager = {lager} WHERE ID = {produkte[id].ID}";
                 Data(out string[] output, query);
+                Produktelesen();
             }
         }
 
@@ -340,9 +364,7 @@ namespace Kassa
                 lieferDate.ShowDialog();
                 query = $"UPDATE Lager SET Lieferung = '{lieferDate.LieferDatum()}' WHERE ID = {produkte[id].ID}";
                 Data(out string[] output, query);
-                query = "SELECT p.ID, p.Name, p.Preis, l.Lager, l.Lieferung FROM Produkte p JOIN Lager l ON p.ID = l.ID";
-                Data(out output, query);
-                Input(output);
+                Produktelesen();
                 reloadprodukteverwaltung();
             }
             else
@@ -350,31 +372,10 @@ namespace Kassa
                 MessageBox.Show("Sie müssen ein Element auswählen!");
             }
         }
-        private void Input(string[] output)
-        {
-            DateTime date;
-            string stringdate;
-            produkte.Clear();
-            for (int i = 0; i < output.Length - 1; i = i + 5)
-            {
-                produkte.Add(new Products { ID = Convert.ToInt32(output[i]), Name = output[i + 1], Preis = Convert.ToDouble(output[i + 2]), InStock = Convert.ToInt32(output[i + 3])});
-                if (DateTime.TryParse(output[i + 4], out date))
-                {
-                    stringdate = date.ToString("dd MMM yyyy");
-                    produkte[produkte.Count - 1].Lieferung = stringdate;
-
-                }
-                else
-                {
-                    produkte[produkte.Count - 1].Lieferung = "";
-
-                }
-            }
-        }
         private void CheckLieferDatum()
         {
             DateTime dateTime = DateTime.Now;
-            dateTime = dateTime.AddDays(-1);
+            dateTime = dateTime.AddDays(-2);
             DateTime date;
             string query;
             for (int i = 0; i < produkte.Count; i++)
@@ -393,26 +394,275 @@ namespace Kassa
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string test;
-            string suchetest = produkteverwaltungsuche.Text;
+            string id;
+            string suchetb = produkteverwaltungsuche.Text;
+            int zahl = produkteverwaltungl.Count - 1;
+            List<Products> suche = new List<Products>();
             produkteverwaltung.ItemsSource = null;
             suche.Clear();
-            if (suchetest == null || suchetest == "" || suchetest == " ")
+           
+            if (suchetb != null || suchetb != "" || suchetb != " ")
             {
-                produkteverwaltung.ItemsSource = produkte;
+
+                for (int i = 0; i < produkteverwaltungl.Count; i++)
+                {
+                    id = Convert.ToString(produkteverwaltungl[i].ID);
+                    if (id.StartsWith(suchetb))
+                    {
+                        suche.Add(produkteverwaltungl[i]);
+                    }
+
+                }   
+               
+                produkteverwaltung.ItemsSource = suche;
+            }
+            else
+            {
+                produkteverwaltung.ItemsSource = produkteverwaltungl;
+            }
+            
+        }
+
+        private void Useradd_Click(object sender, RoutedEventArgs e)
+        {
+            string user = tbuid.Text;
+            UserAdd userAdd = new UserAdd(user);
+            userAdd.ShowDialog();
+        }
+        public void Rechte(ref List<string> rechte, string user)
+        {
+            Rechtelesen(user, out string[] output);
+            List<User> userVerwaltung = new List<User>();
+            switch (output[0])
+            {
+                case "Admin":
+                    {
+                        produkteanzeige.Visibility = Visibility.Visible;
+                        useranzeige.Visibility = Visibility.Visible;
+                        UserAnzeige(ref userVerwaltung);
+                        
+                        break;
+                    }
+                case "Produkte":
+                    {
+                        produkteanzeige.Visibility = Visibility.Visible;
+                        produkteanzeige.IsSelected = true;
+                        kassa.Visibility = Visibility.Collapsed;
+                        break;
+                    }
+                case "User":
+                    {
+                        useranzeige.Visibility = Visibility.Visible;
+                        useranzeige.IsSelected = true;
+                        kassa.Visibility = Visibility.Collapsed;
+                        UserAnzeige(ref userVerwaltung);
+                        rechte.Remove("Admin");
+                        break;
+                    }
+                case "Verwaltung":
+                    {
+                        
+                        produkteanzeige.Visibility = Visibility.Visible;
+                        useranzeige.Visibility = Visibility.Visible;
+                        produkteanzeige.IsSelected = true;
+                        kassa.Visibility = Visibility.Collapsed;
+                        UserAnzeige(ref userVerwaltung);
+                        rechte.Remove("Admin");
+                        break;
+                    }
+                case "Kassa":
+                    {
+                        break;
+                    }
+            }
+        }
+        public void UserA()
+        {
+            List<User> userVerwaltung = new List<User>();
+            UserAnzeige(ref userVerwaltung);
+        }
+        private void UserAnzeige(ref List<User> userVerwaltung)
+        {
+            string query = "SELECT ku.M_ID, ku.Vorname, ku.Nachname, ku.DatumEinstelung, r.Rechte  FROM KUser ku JOIN Rechte r ON r.RechteID = ku.IDRechte";
+            Data(out string[] output, query);
+            userVerwaltung = new List<User>();
+            for (int i = 0; i < output.Length - 1; i= i+5)
+            {
+                userVerwaltung.Add(new User { ID = Convert.ToInt32(output[i]), Vorname = output[i+1], Nachname = output[i+2], Einstellungsdatum = Convert.ToDateTime(output[i+3]),  Rechte = output[i+4] });
+            }
+
+            userverwaltung.ItemsSource = "";
+            userverwaltung.ItemsSource = userVerwaltung;
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {   
+            string user = tbuid.Text;
+            int id = userverwaltung.SelectedIndex;
+            Rechtelesen(user, out string[] output);
+            List<User> userVerwaltung = new List<User>();
+            UserAnzeige(ref userVerwaltung);
+            if (output[0] == "Admin")
+            {
+                string query = $"DELETE KUser WHERE M_ID = {userVerwaltung[id].ID}";
+                Data(out output, query);
+            }
+            else
+            {
+                if (userVerwaltung[id].Rechte != "Admin")
+                {
+                    string query = $"DELETE KUser WHERE M_ID = {userVerwaltung[id].ID}";
+                    Data(out output, query);
+                }
+                else
+                {
+                    MessageBox.Show("Du darfst kein Admin löschen!");
+                }
+            }
+           
+            UserAnzeige(ref userVerwaltung);
+        }
+        private void Rechtelesen(string user, out string[] output)
+        {
+            string[] userid = user.Split(' ');
+            string query = $"SELECT r.Rechte FROM KUser ku JOIN Rechte r ON r.RechteID = ku.IDRechte WHERE ku.M_ID = {userid[1]}";
+            Data(out output, query);
+        }
+        private void Produktelesen()
+        {
+            DateTime date;
+            string stringdate;
+            string query = "SELECT p.ID, p.Name, p.Preis, l.Lager, l.Lieferung FROM Produkte p JOIN Lager l ON p.ID = l.ID";
+            Data(out string[] output, query);
+
+            produkte.Clear();
+            for (int i = 0; i < output.Length - 1; i = i + 5)
+            {
+                produkte.Add(new Products { ID = Convert.ToInt32(output[i]), Name = output[i + 1], Preis = Convert.ToDouble(output[i + 2]), InStock = Convert.ToInt32(output[i + 3]) });
+                if (DateTime.TryParse(output[i + 4], out date))
+                {
+                    stringdate = date.ToString("dd MMM yyyy");
+                    produkte[produkte.Count - 1].Lieferung = stringdate;
+
+                }
+                else
+                {
+                    produkte[produkte.Count - 1].Lieferung = "";
+
+                }
+            }
+        }
+        private void produktesuche(ref List<Products> suche, string suchetb)
+        {
+            string test;
+            suche = new List<Products>();
+            suche.Clear();
+            if (suchetb == null || suchetb == "" || suchetb == " ")
+            {
+                dgProdukteliste.ItemsSource = produkte;
             }
             else
             {
                 for (int i = 0; i < produkte.Count; i++)
                 {
                     test = Convert.ToString(produkte[i].ID);
-                    if (test.StartsWith(suchetest))
+                    if (test.StartsWith(suchetb))
                     {
                         suche.Add(produkte[i]);
                     }
                 }
-                produkteverwaltung.ItemsSource = suche;
+                
             }
+        }
+        private void sucheuser_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string suchetb = sucheuser.Text;
+            string id;
+            List<User> usersuche = new List<User>();
+            List<User> userVerwaltung = new List<User>();
+            UserAnzeige(ref userVerwaltung);
+            if (suchetb == null || suchetb == "" || suchetb == " ")
+            {
+                userverwaltung.ItemsSource = "";
+                userverwaltung.ItemsSource = userVerwaltung;
+            }
+            else
+            {
+                for (int i = 0; i < userVerwaltung.Count; i++)
+                {
+                    id = Convert.ToString(userVerwaltung[i].ID);
+                    if (id.StartsWith(suchetb))
+                    {
+                        usersuche.Add(userVerwaltung[i]);
+                    }
+                }
+                userverwaltung.ItemsSource = "";
+                userverwaltung.ItemsSource = usersuche;
+            }
+        }
+
+        private void psr_Click(object sender, RoutedEventArgs e)
+        {
+            int id = userverwaltung.SelectedIndex;
+            string query;
+            string user = tbuid.Text;
+            List<User> userVerwaltung = new List<User>();
+            UserAnzeige(ref userVerwaltung);
+            Rechtelesen(user, out string[] output);
+            if (id != -1)
+            {
+                if (output[0] == "Admin")
+                {
+                    query = $"UPDATE KUSER SET M_Pass = 'Firma123' WHERE M_ID = {userVerwaltung[id].ID}";
+                    Data(out output, query);
+                    MessageBox.Show($"Das Passwort wurde für {userVerwaltung[id].FullName} zurückgesetzt!");
+                }
+                else
+                {
+                    if (userVerwaltung[id].Rechte != "Admin")
+                    {
+                        query = $"UPDATE KUSER SET M_Pass = 'Firma123' WHERE M_ID = {userVerwaltung[id].ID}";
+                        Data(out output, query);
+                        MessageBox.Show($"Das Passwort wurde für {userVerwaltung[id].FullName} zurückgesetzt!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Du darfst kein Admin das Paswort reseten!");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Es wurde kein User ausgewählt!");
+            }
+        }
+        private void daten_Click(object sender, RoutedEventArgs e)
+        {
+            string stringid = tbuid.Text;
+            string[] id = stringid.Split(new char[] { ' ' });
+            int intid = Convert.ToInt32(id[1]);
+            string query;
+            Datenändern datenändern = new Datenändern(intid);
+            datenändern.ShowDialog();
+            datenändern.datenaendernreturn(out string[] edit);
+            query = $"UPDATE KUser SET Vorname = '{edit[0]}' WHERE M_ID = {intid}";
+            Data(out string[] output, query);
+            query = $"UPDATE KUser SET Nachname = '{edit[1]}' WHERE M_ID = {intid}";
+            Data(out output, query);
+            query = $"UPDATE KUser SET M_Pass = '{edit[2]}' WHERE M_ID = {intid}";
+            Data(out output, query);
+
+        }
+        private void Produkteverwaltunglesen()
+        {
+            string query = "SELECT l.ID, p.Name, p.Preis, l.Lager, l.Lieferung FROM Produkte p JOIN Lager l ON p.ID = l.ID";
+            Data(out string[] output, query);
+
+            for (int i = 0; i < output.Length - 1; i = i+5)
+            {
+                produkteverwaltungl.Add(new Products { ID = Convert.ToInt32(output[i]), Name = output[i+1], Preis = Convert.ToDouble(output[i+2]), InStock = Convert.ToInt32(output[i+3]), Lieferung = output[i+4] });
+            }
+            produkteverwaltung.ItemsSource = "";
+            produkteverwaltung.ItemsSource = produkteverwaltungl;
         }
     }
 }
