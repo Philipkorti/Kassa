@@ -22,7 +22,7 @@ namespace Kassa
         public Datenändern(int intid)
         {
             InitializeComponent();
-            string query = "SELECT Vorname, Nachname, M_Pass FROM KUser";
+            string query = $"SELECT Vorname, Nachname, M_Pass FROM KUser WHERE M_ID = {intid}";
             MainWindow mainWindow = new MainWindow();
             mainWindow.Datenbank(out string[] output, query);
             vorname.Text = output[0];

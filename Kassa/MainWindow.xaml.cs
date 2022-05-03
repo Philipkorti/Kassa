@@ -313,11 +313,9 @@ namespace Kassa
         {
             ProdukteAdd produkteAdd = new ProdukteAdd();
             produkteAdd.ShowDialog();
-            string query = "SELECT p.ID, p.Name, p.Preis, l.Lager, l.Lieferung FROM Produkte p JOIN Lager l ON p.ID = l.ID";
-            Data(out string[] output, query);
-            reloadprodukteverwaltung();
-            reloadgprodukte();
-            
+            produkteverwaltungl.Clear();
+            Produkteverwaltunglesen();
+            Produktelesen();
         }
 
         private void entfernprodukte_Click(object sender, RoutedEventArgs e)
@@ -531,7 +529,7 @@ namespace Kassa
         {
             DateTime date;
             string stringdate;
-            string query = "SELECT p.ID, p.Name, p.Preis, l.Lager, l.Lieferung FROM Produkte p JOIN Lager l ON p.ID = l.ID";
+            string query = "SELECT p.ID, p.Name, p.Preis, l.Lager, l.Lieferung FROM Produkte p JOIN Lager l ON p.ID = l.ID WHERE NOT l.Lager = 0";
             Data(out string[] output, query);
 
             produkte.Clear();
@@ -550,6 +548,8 @@ namespace Kassa
 
                 }
             }
+            reloadgprodukte();
+
         }
         private void produktesuche(ref List<Products> suche, string suchetb)
         {
