@@ -29,6 +29,8 @@ namespace Kassa
         List<Products> kaufen = new List<Products>();
         List<Products> produkte = new List<Products>();
         List<Products> produkteverwaltungl = new List<Products>();
+        List<Products> dbkaufen = new List<Products>();
+        int userID;
         public MainWindow()
         {
             InitializeComponent();
@@ -45,6 +47,7 @@ namespace Kassa
             if (anmelden.ShowDialog() == true)
             {
                 tbuid.Text += anmelden.Anmelden;
+                userID = Convert.ToInt32(anmelden.Anmelden);
                 Produktelesen();
                 CheckLieferDatum();
                 Produkteverwaltunglesen();
@@ -230,15 +233,17 @@ namespace Kassa
                 {
                     produktesuche(ref suche, suchetb);
                     kaufen.Add((Products)suche[id].Clone());
+                    dbkaufen.Add((Products)suche[id].Clone());
                     tbsuche.Text = "";
                 }
                 else
                 {
                     kaufen.Add((Products)produkte[id].Clone());
-                   
+                    dbkaufen.Add((Products)produkte[id].Clone());
                 }
                 
                 kaufen[kaufen.Count - 1].InStock = Convert.ToInt32(mengen.anzahl);
+                dbkaufen[kaufen.Count - 1].InStock = Convert.ToInt32(mengen.anzahl);
                 betrag.Text = Convert.ToString(gesamt);
 
                 if (Convert.ToInt32(Rowrechnung.ActualHeight) / 1.3 > Convert.ToInt32(Rechnung.Height))
@@ -260,8 +265,32 @@ namespace Kassa
 
         private void abschliessen_Click(object sender, RoutedEventArgs e)
         {
+            string query;
+            int gesamtpreis = Convert.ToInt32(betrag.Text);
             MessageBox.Show("Der Gesamt Betrag beträgt: " + betrag.Text + "€");
             kaufen.Clear();
+            query = $"EXEC PVerkauf {userID}, {dbkaufen.Count}, {gesamtpreis}";
+            Data(out string[] output, query);
+            for (int i = 0; i < dbkaufen.Count; i++)
+            {
+                query = $"EXEC AddProdukteVerkauf @VerkaufID = 0, @ProduktID = {dbkaufen[i].ID}, @Anzahl = {dbkaufen[i].InStock}, @Geamtpreis = {dbkaufen[i].Preis}";
+                Data(out output, query);
+            }
+            for (int i = 0; i < dbkaufen.Count; i++)
+            {
+                for (int k = 0; k < produkte.Count; k++)
+                {
+                    if (dbkaufen[i].ID == produkte[k].ID)
+                    {
+                        query = $"UPDATE Lager SET Lager = {produkte[k].InStock} WHERE ID = {dbkaufen[i].ID}";
+                        Data(out output, query);
+                    }
+                }
+            }
+            dbkaufen.Clear();
+            Produktelesen();
+            Produkteverwaltunglesen();
+
             Rechnung.ItemsSource = "";
             betrag.Text = "";
             Rechnung.Height = 30;
@@ -654,6 +683,7 @@ namespace Kassa
         }
         private void Produkteverwaltunglesen()
         {
+            produkteverwaltungl.Clear();
             string query = "SELECT l.ID, p.Name, p.Preis, l.Lager, l.Lieferung FROM Produkte p JOIN Lager l ON p.ID = l.ID";
             Data(out string[] output, query);
 
