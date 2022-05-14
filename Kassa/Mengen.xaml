@@ -10,12 +10,13 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Mengen.xaml"/>
+                <ResourceDictionary Source="Resources/Button.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
     <StackPanel>
-        <TextBlock>Menge:</TextBlock>
-        <TextBox KeyDown="OnKeyDownHandler" x:Name="tbMenge"></TextBox>
+        <TextBlock HorizontalAlignment="Center" FontSize="40" Foreground="White">Menge</TextBlock>
+        <TextBox KeyDown="OnKeyDownHandler" x:Name="tbMenge" Height="30" FontSize="20" Margin="30" Foreground="LightGray" GotFocus="tbMenge_GotFocus" LostFocus="tbMenge_LostFocus">Menge</TextBox>
         <Button x:Name="btbest" Click="btbest_Click">Bestätigen</Button>
     </StackPanel>
 </Window>

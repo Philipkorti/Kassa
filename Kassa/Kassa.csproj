@@ -61,7 +61,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\Rechnung.cs" />
     <Compile Include="Classes\User.cs" />
+    <Compile Include="Classes\VerkaufProdukte.cs" />
     <Compile Include="Datenändern.xaml.cs">
       <DependentUpon>Datenändern.xaml</DependentUpon>
     </Compile>
@@ -187,6 +189,9 @@
     <Resource Include="Bilder\look_password.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Bilder\exit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

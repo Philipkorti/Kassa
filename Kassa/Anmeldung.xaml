@@ -17,21 +17,36 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Background="Gray">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.1*"/>
+            </Grid.ColumnDefinitions>
+            <Button Style="{StaticResource exit}" Width="20" HorizontalAlignment="Center" Grid.Column="1" Click="Button_Click_1">
+                <Image Source="Bilder/exit.png" Width="20"/>
+            </Button>
+        </Grid>
         <StackPanel Grid.Row="1">
+            <TextBlock HorizontalAlignment="Center" FontSize="40">Kassa</TextBlock>
             <StackPanel>
-                <TextBlock>User-ID:</TextBlock>
-                <TextBox x:Name="tbuser" KeyDown="tbuser_KeyDown">User-ID</TextBox>
+                <TextBox x:Name="tbuser" Foreground="LightGray" Width="300" KeyDown="tbuser_KeyDown" GotFocus="tbuser_GotFocus" LostFocus="tbuser_LostFocus" Height="30" Margin="30,30" FontSize="20">User-ID</TextBox>
             </StackPanel>
             <StackPanel>
-                <TextBlock>Paswort:</TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <PasswordBox x:Name="pbpaswort" KeyDown="pbpaswort_KeyDown" Margin="0,0,0,0" Width="190" Height="20"></PasswordBox>
-                    <TextBox Name="showpasswort" Visibility="Collapsed" Width="190" Height="20"></TextBox>
-                    <Button Width="30" Height="20" Background="Gray" Name="passwortseebutton" PreviewMouseUp="passwortseebutton_MouseUp" PreviewMouseDown="passwortseebutton_MouseDown">
-                        <Image Source="Bilder/look_password.png" Name="passwortsee"/>
-                    </Button>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Background="White" Height="30" Width="300">
+                        <PasswordBox x:Name="pbpaswort" FontSize="20" KeyDown="pbpaswort_KeyDown" BorderThickness="0" Width="250" Height="30" Visibility="Collapsed" LostFocus="pbpaswort_LostFocus"></PasswordBox>
+                        <TextBox Name="showpasswort"  Width="250" Height="30" FontSize="20" GotFocus="showpasswort_GotFocus" BorderThickness="0" Foreground="LightGray">Passwort</TextBox>
+                        <Button Margin="0,0" Style="{StaticResource see}" Width="30" Height="20" Name="passwortseebutton" PreviewMouseUp="passwortseebutton_MouseUp" PreviewMouseDown="passwortseebutton_MouseDown">
+                            <Image Source="Bilder/look_password.png" Name="passwortsee"/>
+                        </Button>
+                    </StackPanel>
+                    
                 </StackPanel>
 
             </StackPanel>

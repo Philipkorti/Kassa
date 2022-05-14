@@ -30,6 +30,9 @@ namespace Kassa
         List<Products> produkte = new List<Products>();
         List<Products> produkteverwaltungl = new List<Products>();
         List<Products> dbkaufen = new List<Products>();
+        List<User> userVerwaltung = new List<User>();
+        List<Rechnung> rechnung = new List<Rechnung>();
+        List<VerkaufProdukte> produkteVerkauf = new List<VerkaufProdukte>();
         int userID;
         public MainWindow()
         {
@@ -43,6 +46,7 @@ namespace Kassa
             DateTime stdate = DateTime.Now;
             Anmeldung anmelden = new Anmeldung();
             string user;
+            string query;
 
             if (anmelden.ShowDialog() == true)
             {
@@ -57,8 +61,21 @@ namespace Kassa
                 lieferdatum.IsEnabled = true;
                 user = tbuid.Text;
                 Rechte(ref rechte, user);
+                query = "SELECT Rechte FROM Rechte";
+                Data(out string[] output, query);
+                foreach (string item in output)
+                {
+                    rechte.Add(item);
+                }
+                rechteanzeige.ItemsSource = rechte;
                 daten.Visibility = Visibility.Visible;
-
+                query = "SelECT * FROM Verkauf";
+                Data(out output, query);
+                for (int i = 0; i < output.Length - 1; i = i + 5)
+                {
+                    rechnung.Add(new Rechnung { ID = Convert.ToInt32(output[i]), User = Convert.ToInt32(output[i + 1]), Preis = Convert.ToDouble(output[i + 3]), Anzahl = Convert.ToInt32(output[i + 2]), Datum = Convert.ToDateTime(output[i + 4]) });
+                }
+                anzeigeRechnung.ItemsSource = rechnung;
             }
         }
 
@@ -350,23 +367,19 @@ namespace Kassa
         private void entfernprodukte_Click(object sender, RoutedEventArgs e)
         {
             int id = produkteverwaltung.SelectedIndex;
-            string query = $"DELETE Lager WHERE ID =  {produkte[id].ID}";
-            try
+            if (id != -1)
             {
+                string query = $"EXEC DELETEPRODUKTE {produkteverwaltungl[id].ID}";
                 Data(out string[] output, query);
-                query = $"DELETE Produkte WHERE ID = {produkte[id].ID}";
-                Data(out output, query);
-                produkte.RemoveAt(id);
+                produkteverwaltungl.RemoveAt(id);
                 Produktelesen();
                 reloadprodukteverwaltung();
                 reloadgprodukte();
-                
             }
-            catch
+            else
             {
                 MessageBox.Show("Es war kein Produkt selektiert!");
             }
-
         }
 
         private void produkteverwaltung_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
@@ -391,7 +404,7 @@ namespace Kassa
                 lieferDate.ShowDialog();
                 query = $"UPDATE Lager SET Lieferung = '{lieferDate.LieferDatum()}' WHERE ID = {produkte[id].ID}";
                 Data(out string[] output, query);
-                Produktelesen();
+                Produkteverwaltunglesen();
                 reloadprodukteverwaltung();
             }
             else
@@ -466,7 +479,7 @@ namespace Kassa
                     {
                         produkteanzeige.Visibility = Visibility.Visible;
                         useranzeige.Visibility = Visibility.Visible;
-                        UserAnzeige(ref userVerwaltung);
+                        UserAnzeige();
                         
                         break;
                     }
@@ -482,7 +495,7 @@ namespace Kassa
                         useranzeige.Visibility = Visibility.Visible;
                         useranzeige.IsSelected = true;
                         kassa.Visibility = Visibility.Collapsed;
-                        UserAnzeige(ref userVerwaltung);
+                        UserAnzeige();
                         rechte.Remove("Admin");
                         break;
                     }
@@ -493,7 +506,7 @@ namespace Kassa
                         useranzeige.Visibility = Visibility.Visible;
                         produkteanzeige.IsSelected = true;
                         kassa.Visibility = Visibility.Collapsed;
-                        UserAnzeige(ref userVerwaltung);
+                        UserAnzeige();
                         rechte.Remove("Admin");
                         break;
                     }
@@ -505,10 +518,9 @@ namespace Kassa
         }
         public void UserA()
         {
-            List<User> userVerwaltung = new List<User>();
-            UserAnzeige(ref userVerwaltung);
+            UserAnzeige();
         }
-        private void UserAnzeige(ref List<User> userVerwaltung)
+        private void UserAnzeige()
         {
             string query = "SELECT ku.M_ID, ku.Vorname, ku.Nachname, ku.DatumEinstelung, r.Rechte  FROM KUser ku JOIN Rechte r ON r.RechteID = ku.IDRechte";
             Data(out string[] output, query);
@@ -526,27 +538,29 @@ namespace Kassa
             string user = tbuid.Text;
             int id = userverwaltung.SelectedIndex;
             Rechtelesen(user, out string[] output);
-            List<User> userVerwaltung = new List<User>();
-            UserAnzeige(ref userVerwaltung);
-            if (output[0] == "Admin")
+            UserAnzeige();
+            if (id != -1)
             {
-                string query = $"DELETE KUser WHERE M_ID = {userVerwaltung[id].ID}";
-                Data(out output, query);
-            }
-            else
-            {
-                if (userVerwaltung[id].Rechte != "Admin")
+                if (output[0] == "Admin")
                 {
-                    string query = $"DELETE KUser WHERE M_ID = {userVerwaltung[id].ID}";
+                    string query = $"EXEC DELETEUSER {userVerwaltung[id].ID}, 0";
                     Data(out output, query);
                 }
                 else
                 {
-                    MessageBox.Show("Du darfst kein Admin löschen!");
+                    if (userVerwaltung[id].Rechte != "Admin")
+                    {
+                        string query = $"EXEC DELETEUSER {userVerwaltung[id].ID}, 0";
+                        Data(out output, query);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Du darfst kein Admin löschen!");
+                    }
                 }
             }
            
-            UserAnzeige(ref userVerwaltung);
+            UserAnzeige();
         }
         private void Rechtelesen(string user, out string[] output)
         {
@@ -607,8 +621,7 @@ namespace Kassa
             string suchetb = sucheuser.Text;
             string id;
             List<User> usersuche = new List<User>();
-            List<User> userVerwaltung = new List<User>();
-            UserAnzeige(ref userVerwaltung);
+            UserAnzeige();
             if (suchetb == null || suchetb == "" || suchetb == " ")
             {
                 userverwaltung.ItemsSource = "";
@@ -635,7 +648,7 @@ namespace Kassa
             string query;
             string user = tbuid.Text;
             List<User> userVerwaltung = new List<User>();
-            UserAnzeige(ref userVerwaltung);
+            UserAnzeige();
             Rechtelesen(user, out string[] output);
             if (id != -1)
             {
@@ -683,16 +696,58 @@ namespace Kassa
         }
         private void Produkteverwaltunglesen()
         {
+            DateTime date;
+            string stringdate;
             produkteverwaltungl.Clear();
             string query = "SELECT l.ID, p.Name, p.Preis, l.Lager, l.Lieferung FROM Produkte p JOIN Lager l ON p.ID = l.ID";
             Data(out string[] output, query);
 
             for (int i = 0; i < output.Length - 1; i = i+5)
             {
-                produkteverwaltungl.Add(new Products { ID = Convert.ToInt32(output[i]), Name = output[i+1], Preis = Convert.ToDouble(output[i+2]), InStock = Convert.ToInt32(output[i+3]), Lieferung = output[i+4] });
+                produkteverwaltungl.Add(new Products { ID = Convert.ToInt32(output[i]), Name = output[i+1], Preis = Convert.ToDouble(output[i+2]), InStock = Convert.ToInt32(output[i+3])});
+                if (DateTime.TryParse(output[i + 4], out date))
+                {
+                    stringdate = date.ToString("dd MMM yyyy");
+                    produkte[produkte.Count - 1].Lieferung = stringdate;
+
+                }
+                else
+                {
+                    produkte[produkte.Count - 1].Lieferung = "";
+
+                }
             }
             produkteverwaltung.ItemsSource = "";
             produkteverwaltung.ItemsSource = produkteverwaltungl;
+        }
+
+        private void userverwaltung_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            string query;
+            int id = userverwaltung.SelectedIndex;
+            string recht = (e.EditingElement as ComboBox).Text;
+            int userid = userVerwaltung[id].ID;
+            query = $"SELECT RechteID FROM Rechte WHERE Rechte = '{recht}'";
+            Data(out string[] output, query);
+            query = $"UPDATE KUser SET IDRechte = {output[0]} WHERE M_ID = {userid}";
+            Data(out output, query);
+
+        }
+
+        private void anzeigeRechnung_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int id = anzeigeRechnung.SelectedIndex;
+            string query = $"SELECT p.ID, p.Name, pv.Anzahl, pv.Geamtpreis FROM Produkte_Verkauf pv JOIN " +
+                $"Produkte p ON p.ID = pv.ProduktID WHERE pv.VerkaufID = {rechnung[id].ID}";
+            produkteVerkauf.Clear();
+            Data(out string[] output, query);
+            for (int i = 0; i < output.Length - 1; i = i + 4)
+            {
+                produkteVerkauf.Add(new VerkaufProdukte { ProduktID = Convert.ToInt32(output[i]), ProduktName = output[i + 1], Anzahl = Convert.ToInt32(output[i + 2]), Gesamtpreis = Convert.ToDouble(output[i + 3]) });
+            }
+            rechnungprodukte.ItemsSource = "";
+            rechnungprodukte.ItemsSource = produkteVerkauf;
+
         }
     }
 }

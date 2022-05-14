@@ -139,18 +139,24 @@ namespace Kassa
 
         private void passwortseebutton_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            passwortsee.Source = new BitmapImage(new Uri(@"Bilder/look_password.png", UriKind.Relative));
-            pbpaswort.Password = showpasswort.Text;
-            showpasswort.Visibility = Visibility.Collapsed;
-            pbpaswort.Visibility = Visibility.Visible;
+            if (showpasswort.Text != "Passwort")
+            {
+                passwortsee.Source = new BitmapImage(new Uri(@"Bilder/look_password.png", UriKind.Relative));
+                pbpaswort.Password = showpasswort.Text;
+                showpasswort.Visibility = Visibility.Collapsed;
+                pbpaswort.Visibility = Visibility.Visible;
+            }
         }
 
         private void passwortseebutton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            passwortsee.Source = new BitmapImage(new Uri(@"Bilder/password_see.png", UriKind.Relative));
-            showpasswort.Text = pbpaswort.Password;
-            showpasswort.Visibility = Visibility.Visible;
-            pbpaswort.Visibility = Visibility.Collapsed;
+            if (showpasswort.Text != "Passwort")
+            {
+                passwortsee.Source = new BitmapImage(new Uri(@"Bilder/password_see.png", UriKind.Relative));
+                showpasswort.Text = pbpaswort.Password;
+                showpasswort.Visibility = Visibility.Visible;
+                pbpaswort.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -163,6 +169,53 @@ namespace Kassa
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 DragMove();
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void tbuser_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (tbuser.Text == "User-ID")
+            {
+                tbuser.Text = "";
+                tbuser.Foreground = Brushes.Black;
+            }
+        }
+
+        private void tbuser_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tbuser.Text))
+            {
+                tbuser.Text = "User-ID";
+                tbuser.Foreground = Brushes.LightGray;
+            }
+               
+        }
+
+        private void showpasswort_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (showpasswort.Text == "Passwort")
+            {
+                showpasswort.Text = "";
+                showpasswort.Foreground = Brushes.Black;
+                pbpaswort.Visibility = Visibility.Visible;
+                showpasswort.Visibility = Visibility.Collapsed;
+                pbpaswort.Focus();
+            }
+        }
+
+        private void pbpaswort_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(pbpaswort.Password))
+            {
+                showpasswort.Text = "Passwort";
+                showpasswort.Foreground = Brushes.LightGray;
+                pbpaswort.Visibility = Visibility.Collapsed;
+                showpasswort.Visibility = Visibility.Visible;
             }
         }
     }

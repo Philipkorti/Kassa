@@ -99,5 +99,64 @@ namespace Kassa
             }
 
         }
+
+        private void UserID_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (UserID.Text == "User-ID")
+            {
+                UserID.Text = "";
+                UserID.Foreground = Brushes.Black;
+            }
+        }
+
+        private void UserID_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(UserID.Text))
+            {
+                UserID.Text = "User-ID";
+                UserID.Foreground = Brushes.LightGray;
+            }
+        }
+
+        private void firstname_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (firstname.Text == "Vorname")
+            {
+                firstname.Text = "";
+                firstname.Foreground = Brushes.Black;
+            }
+        }
+
+        private void firstname_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(firstname.Text))
+            {
+                firstname.Text = "Vorname";
+                firstname.Foreground = Brushes.LightGray;
+            }
+        }
+
+        private void lastname_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (lastname.Text == "Nachname")
+            {
+                lastname.Text = "";
+                lastname.Foreground = Brushes.Black;
+            }
+        }
+
+        private void lastname_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(lastname.Text))
+            {
+                lastname.Text = "Nachname";
+                lastname.Foreground = Brushes.LightGray;
+            }
+        }
+
+        private void userexit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

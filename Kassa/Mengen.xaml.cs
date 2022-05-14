@@ -22,7 +22,6 @@ namespace Kassa
         public Mengen()
         {
             InitializeComponent();
-            tbMenge.Focus();
         }
 
         private void btbest_Click(object sender, RoutedEventArgs e)
@@ -66,6 +65,24 @@ namespace Kassa
                     MessageBox.Show(ex.Message);
                 }
 
+            }
+        }
+
+        private void tbMenge_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (tbMenge.Text == "Menge")
+            {
+                tbMenge.Text = "";
+                tbMenge.Foreground = Brushes.Black;
+            }
+        }
+
+        private void tbMenge_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tbMenge.Text))
+            {
+                tbMenge.Text = "Menge";
+                tbMenge.Foreground = Brushes.LightGray;
             }
         }
     }

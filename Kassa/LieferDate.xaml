@@ -5,17 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kassa"
         mc:Ignorable="d"
-        Title="LieferDate" Height="400" Width="400">
-    <Grid>
+        Title="LieferDate" Height="340" Width="300">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Button.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="Gray">
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="0.4*"/>
         </Grid.RowDefinitions>
-        <DatePicker Name="lieferdate" Width="200" Height="50"/>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button Margin="30,0,0,0" Width="150" Height="50" Name="set" Click="set_Click">Set</Button>
-            <Button Margin="20,0,0,0" Width="150" Height="50" Name="abbrechen">Abbrechen</Button>
-        </StackPanel>
-        
+        <Calendar MouseDoubleClick="Calendar_MouseDoubleClick" x:Name="lieferdate" Height="200" Width="300" VerticalAlignment="Center"/>
+
+        <Button Grid.Row="1" Width="150" Height="50" Name="abbrechen" Click="abbrechen_Click" HorizontalAlignment="Center">Abbrechen</Button>
+
     </Grid>
 </Window>

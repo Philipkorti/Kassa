@@ -26,6 +26,23 @@ namespace Kassa
 
         private void set_Click(object sender, RoutedEventArgs e)
         {
+            
+            
+        }
+        public DateTime LieferDatum()
+        {
+            DateTime date;
+            date = Convert.ToDateTime(lieferdate.SelectedDate);
+            return date;
+        }
+
+        private void abbrechen_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Calendar_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
             DateTime dateTime = DateTime.Now;
             if (LieferDatum() > dateTime)
             {
@@ -35,13 +52,7 @@ namespace Kassa
             {
                 MessageBox.Show("Das Datum darf nicht in der vergangenheit sein!");
             }
-            
-        }
-        public DateTime LieferDatum()
-        {
-            DateTime date;
-            date = lieferdate.SelectedDate.Value.Date;
-            return date;
+
         }
     }
 }

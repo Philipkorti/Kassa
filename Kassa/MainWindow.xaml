@@ -167,12 +167,12 @@
                             <TextBlock>Suche:</TextBlock>
                             <TextBox  Width="400" FontSize="15" Margin="10,0,0,0" Name="sucheuser" TextChanged="sucheuser_TextChanged"/>
                         </StackPanel>
-                        <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="userverwaltung" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="userverwaltung" AutoGenerateColumns="False" CellEditEnding="userverwaltung_CellEditEnding">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Width="2*" Header="ID" Binding="{Binding ID}"/>
                                 <DataGridTextColumn Width="2*" Header="FullName" Binding="{Binding FullName}"/>
                                 <DataGridTextColumn Width="2*" Header="Einstellungsdatum" Binding="{Binding Datum}"/>
-                                <DataGridTextColumn Width="2*" Header="Rechte" Binding="{Binding Rechte}"/>
+                                <DataGridComboBoxColumn Width="2*" Header="Rechte" x:Name="rechteanzeige" SelectedItemBinding="{Binding Rechte}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
@@ -189,6 +189,43 @@
                         <Button Grid.Row="3" Margin="100,50" Click="Button_Click">Löschen</Button>
                     </Grid>
                 </Grid>
+            </TabItem>
+            <TabItem Header="Rechnungen">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.04*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock>Suche:</TextBlock>
+                            <TextBox Width="400" FontSize="15" Margin="10,0,0,0"></TextBox>
+                        </StackPanel>
+                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" x:Name="anzeigeRechnung" MouseDoubleClick="anzeigeRechnung_MouseDoubleClick">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                                <DataGridTextColumn Header="User-ID" Binding="{Binding User}"/>
+                                <DataGridTextColumn Header="Anzahl Produkte" Binding="{Binding Anzahl}"/>
+                                <DataGridTextColumn Header="Gesamt Preis" Binding="{Binding Preis}"/>
+                                <DataGridTextColumn Header="Verkaufs Datum" Binding="{Binding Datum}"/>
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+                    </Grid>
+                    <DataGrid Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True" Name="rechnungprodukte">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ProduktID" Binding="{Binding ProduktID}"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding ProduktName}"/>
+                            <DataGridTextColumn Header="Anzahl" Binding="{Binding Anzahl}"/>
+                            <DataGridTextColumn Header="Gesamtpreis" Binding="{Binding Gesamtpreis}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+                
             </TabItem>
         </TabControl>
     </Grid>

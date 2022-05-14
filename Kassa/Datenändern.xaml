@@ -3,39 +3,49 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:Kassa"
         mc:Ignorable="d"
-        Title="Datenändern" Height="450" Width="800">
-    <Grid>
+        Title="Datenändern" Height="450" Width="400">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Button.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="Gray">
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <StackPanel>
-                <TextBlock>Vorname:</TextBlock>
-                <TextBlock x:Name="vorname"></TextBlock>
-                <TextBox Visibility="Collapsed" Name="tbvorname" KeyDown="tbvorname_KeyDown"></TextBox>
-                <Button x:Name="vornameändern" Click="vornameändern_Click">Ändern</Button>
+        <StackPanel>
+            <TextBlock FontSize="30" HorizontalAlignment="Center">Daten ändern</TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20" Background="White">
+                <TextBlock Height="30" FontSize="20">Vorname:</TextBlock>
+                <TextBlock x:Name="vorname" Width="125" Height="30" FontSize="20" Margin="30,0,0,0"></TextBlock>
+                <TextBox Visibility="Collapsed" Name="tbvorname" KeyDown="tbvorname_KeyDown" FontSize="20" Width="125" Height="30" Margin="30,0,0,0"></TextBox> 
+                <Button x:Name="vornameändern" Style="{StaticResource see}" Click="vornameändern_Click" Width="50">
+                    <iconPacks:PackIconMaterial Kind="AccountEdit" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Button>
             </StackPanel>
-            <StackPanel Grid.Column="1">
-                <TextBlock>Nachname:</TextBlock>
-                <TextBlock x:Name="nachname"></TextBlock>
-                <TextBox Visibility="Collapsed" Name="tbnachname" KeyDown="tbnachname_KeyDown"></TextBox>
-                <Button x:Name="nachnameändern" Click="nachnameändern_Click">Ändern</Button>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20" Background="White">
+                <TextBlock Height="30" FontSize="20">Nachname:</TextBlock>
+                <TextBlock Width="130" Height="30" x:Name="nachname" FontSize="20" Margin="10,0,0,0"></TextBlock>
+                <TextBox Visibility="Collapsed" Name="tbnachname" KeyDown="tbnachname_KeyDown" Width="130" Height="30" FontSize="20" Margin="10,0,0,0"></TextBox>
+                <Button x:Name="nachnameändern" Click="nachnameändern_Click" Width="50" Style="{StaticResource see}">
+                    <iconPacks:PackIconMaterial Kind="AccountEdit" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Button>
             </StackPanel>
-            <StackPanel Grid.Column="2">
-                <TextBlock>Passwort:</TextBlock>
-                <TextBlock x:Name="passwort"></TextBlock>
-                <TextBox Visibility="Collapsed" Name="tbpasswort" KeyDown="tbpasswort_KeyDown"></TextBox>
-                <Button x:Name="passwortändern" Click="passwortändern_Click">Ändern</Button>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20" Background="White">
+                <TextBlock Height="30" FontSize="20">Passwort:</TextBlock>
+                <TextBlock x:Name="passwort" Width="125" FontSize="20" Margin="30,0,0,0"></TextBlock>
+                <TextBox Visibility="Collapsed" Name="tbpasswort" KeyDown="tbpasswort_KeyDown" FontSize="20" Width="125" Height="30" Margin="30,0,0,0"></TextBox>
+                <Button x:Name="passwortändern" Click="passwortändern_Click" Width="50" Style="{StaticResource see}">
+                    <iconPacks:PackIconMaterial Kind="AccountEdit" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Button>
             </StackPanel>
-        </Grid>
+        </StackPanel>
+        <Button Grid.Row="1" Click="Button_Click" Name="schliesen">OK</Button>
     </Grid>
 </Window>

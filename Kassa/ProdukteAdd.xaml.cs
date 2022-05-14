@@ -38,7 +38,7 @@ namespace Kassa
                 if (int.TryParse(produktlager, out intproduktlager))
                 {
 
-                    if (produktName.Length <= 20)
+                    if (produktName.Length <= 20 && produktName != "Name" && produktName.Length >=2)
                     {
                         if (doubleproduktPreis != 0)
                         {
@@ -66,7 +66,7 @@ namespace Kassa
                     }
                     else
                     {
-                        MessageBox.Show("Der Name von dem produkt ist zu lange!");
+                        MessageBox.Show("Der Name vom Produkt passt nicht!");
                         name.Focus();
                     }
                 }
@@ -87,6 +87,60 @@ namespace Kassa
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void name_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (name.Text == "Name")
+            {
+                name.Text = "";
+                name.Foreground = Brushes.Black;
+            }
+        }
+
+        private void name_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(name.Text))
+            {
+                name.Text = "Name";
+                name.Foreground = Brushes.LightGray;
+            }
+        }
+
+        private void preis_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (preis.Text == "Preis")
+            {
+                preis.Text = "";
+                preis.Foreground = Brushes.Black;
+            }
+        }
+
+        private void preis_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(preis.Text))
+            {
+                preis.Text = "Preis";
+                preis.Foreground = Brushes.LightGray;
+            }
+        }
+
+        private void lager_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (lager.Text == "Lager")
+            {
+                lager.Text = "";
+                lager.Foreground = Brushes.Black;
+            }
+        }
+
+        private void lager_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(lager.Text))
+            {
+                lager.Text = "Lager";
+                lager.Foreground = Brushes.LightGray;
+            }
         }
     }
 }

@@ -5,25 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kassa"
         mc:Ignorable="d"
-        Title="ProdukteAdd" Height="250" Width="800" Icon="Bilder/kassa.png">
+        Title="ProdukteAdd" Height="450" Width="300" Icon="Bilder/kassa.png">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Mengen.xaml"/>
+                <ResourceDictionary Source="Resources/Button.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <TextBlock Height="30" Margin="10,0,0,0">Name:</TextBlock>
-            <TextBox Width="200" Height=" 50" Margin="10,0,0,0" Name="name"/>
-            <TextBlock Height="30" Margin="20,0,0,0">Preis:</TextBlock>
-            <TextBox Width="200" Height="50" Margin="10,0,0,0" Name="preis"/>
-            <TextBlock Height="30" Margin="20,0,0,0">InStock:</TextBlock>
-            <TextBox Width="200" Height="50" Margin="10,0,0,0" Name="lager"/>
+        <StackPanel Grid.Row="0">
+            <TextBox Width="200" Height=" 30" Margin="30" FontSize="20" Name="name" Text="Name" Foreground="LightGray" GotFocus="name_GotFocus" LostFocus="name_LostFocus"/>
+            <TextBox Width="200" Height="30" Margin="30" FontSize="20" Name="preis" Text="Preis" Foreground="LightGray" GotFocus="preis_GotFocus" LostFocus="preis_LostFocus"/>
+            <TextBox Width="200" Height="30" Margin="30" FontSize="20" Name="lager" Text="Lager" Foreground="LightGray" GotFocus="lager_GotFocus" LostFocus="lager_LostFocus"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button  Width="200" Height="50" Click="Button_Click" >Add</Button>
-            <Button Width="200" Height="50" Margin="50,0,0,0" Click="Button_Click_1">Abbrechen</Button>
-        </StackPanel>
-        
+        <Grid Grid.Row="1" Background="Gray">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button  Width="100" Height="50" Click="Button_Click" >Add</Button>
+            <Button Grid.Column="1" Width="100" Height="50" Click="Button_Click_1">Abbrechen</Button>
+        </Grid>
     </Grid>
 </Window>
