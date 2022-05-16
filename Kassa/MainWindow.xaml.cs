@@ -352,7 +352,7 @@ namespace Kassa
         private void reloadprodukteverwaltung()
         {
             produkteverwaltung.ItemsSource = "";
-            produkteverwaltung.ItemsSource = produkte;
+            produkteverwaltung.ItemsSource = produkteverwaltungl;
         }
 
         private void addProdukte_Click(object sender, RoutedEventArgs e)
@@ -402,7 +402,7 @@ namespace Kassa
             if (id != -1)
             {
                 lieferDate.ShowDialog();
-                query = $"UPDATE Lager SET Lieferung = '{lieferDate.LieferDatum()}' WHERE ID = {produkte[id].ID}";
+                query = $"UPDATE Lager SET Lieferung = '{lieferDate.LieferDatum()}' WHERE ID = {produkteverwaltungl[id].ID}";
                 Data(out string[] output, query);
                 Produkteverwaltunglesen();
                 reloadprodukteverwaltung();
@@ -708,12 +708,12 @@ namespace Kassa
                 if (DateTime.TryParse(output[i + 4], out date))
                 {
                     stringdate = date.ToString("dd MMM yyyy");
-                    produkte[produkte.Count - 1].Lieferung = stringdate;
+                    produkteverwaltungl[produkteverwaltungl.Count - 1].Lieferung = stringdate;
 
                 }
                 else
                 {
-                    produkte[produkte.Count - 1].Lieferung = "";
+                    produkteverwaltungl[produkteverwaltungl.Count - 1].Lieferung = "";
 
                 }
             }
