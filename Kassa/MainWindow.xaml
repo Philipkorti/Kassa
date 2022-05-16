@@ -205,23 +205,23 @@
                             <TextBlock>Suche:</TextBlock>
                             <TextBox Width="400" FontSize="15" Margin="10,0,0,0"></TextBox>
                         </StackPanel>
-                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" x:Name="anzeigeRechnung" MouseDoubleClick="anzeigeRechnung_MouseDoubleClick">
+                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" x:Name="anzeigeRechnung" MouseDoubleClick="anzeigeRechnung_MouseDoubleClick" Margin="50" Background="White" BorderThickness="0"> 
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
-                                <DataGridTextColumn Header="User-ID" Binding="{Binding User}"/>
-                                <DataGridTextColumn Header="Anzahl Produkte" Binding="{Binding Anzahl}"/>
-                                <DataGridTextColumn Header="Gesamt Preis" Binding="{Binding Preis}"/>
-                                <DataGridTextColumn Header="Verkaufs Datum" Binding="{Binding Datum}"/>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="1*"/>
+                                <DataGridTextColumn Header="User-ID" Binding="{Binding User}" Width="1*"/>
+                                <DataGridTextColumn Header="Anzahl Produkte" Binding="{Binding Anzahl}" Width="1*"/>
+                                <DataGridTextColumn Header="Gesamt Preis" Binding="{Binding Preis}" Width="1*"/>
+                                <DataGridTextColumn Header="Verkaufs Datum" Binding="{Binding Datum}" Width="1*"/>
                             </DataGrid.Columns>
 
                         </DataGrid>
                     </Grid>
-                    <DataGrid Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True" Name="rechnungprodukte" >
+                    <DataGrid Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True" Name="rechnungprodukte" Background="White" Margin="50" BorderBrush="White" >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ProduktID" Binding="{Binding ProduktID}"/>
-                            <DataGridTextColumn Header="Name" Binding="{Binding ProduktName}"/>
-                            <DataGridTextColumn Header="Anzahl" Binding="{Binding Anzahl}"/>
-                            <DataGridTextColumn Header="Gesamtpreis" Binding="{Binding Gesamtpreis}"/>
+                            <DataGridTextColumn Header="ProduktID" Binding="{Binding ProduktID}" Width="1*"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding ProduktName}" Width="1*"/>
+                            <DataGridTextColumn Header="Anzahl" Binding="{Binding Anzahl}" Width="1*"/>
+                            <DataGridTextColumn Header="Gesamtpreis" Binding="{Binding Gesamtpreis}" Width="1*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

@@ -183,11 +183,18 @@ namespace Kassa
             string suchetb = tbsuche.Text;
             List<Products> suche = new List<Products>();
             dgProdukteliste.ItemsSource = null;
-            produktesuche(ref suche, suchetb);
-            if (suche.Count != 0)
+            suche.Clear();
+            
+            if (suchetb != "" && suchetb != " " && suchetb != null)
             {
+                produktesuche(ref suche, suchetb, produkte);
                 dgProdukteliste.ItemsSource = suche;
             }
+            else
+            {
+                dgProdukteliste.ItemsSource = produkte;
+            }
+            
         }
 
         private void Rechnung_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -248,7 +255,7 @@ namespace Kassa
                 dgProdukteliste.ItemsSource = produkte;
                 if (tbsuche.Text != "")
                 {
-                    produktesuche(ref suche, suchetb);
+                    produktesuche(ref suche, suchetb, produkte);
                     kaufen.Add((Products)suche[id].Clone());
                     dbkaufen.Add((Products)suche[id].Clone());
                     tbsuche.Text = "";
@@ -434,26 +441,13 @@ namespace Kassa
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string id;
-            string suchetb = produkteverwaltungsuche.Text;
-            int zahl = produkteverwaltungl.Count - 1;
+            string suchetb = produkteverwaltungsuche.Text; 
             List<Products> suche = new List<Products>();
             produkteverwaltung.ItemsSource = null;
             suche.Clear();
-           
-            if (suchetb != null || suchetb != "" || suchetb != " ")
+            if (suchetb != "" && suchetb != " " && suchetb != null)
             {
-
-                for (int i = 0; i < produkteverwaltungl.Count; i++)
-                {
-                    id = Convert.ToString(produkteverwaltungl[i].ID);
-                    if (id.StartsWith(suchetb))
-                    {
-                        suche.Add(produkteverwaltungl[i]);
-                    }
-
-                }   
-               
+                produktesuche(ref suche, suchetb, produkteverwaltungl);
                 produkteverwaltung.ItemsSource = suche;
             }
             else
@@ -461,6 +455,8 @@ namespace Kassa
                 produkteverwaltung.ItemsSource = produkteverwaltungl;
             }
             
+
+
         }
 
         private void Useradd_Click(object sender, RoutedEventArgs e)
@@ -594,26 +590,30 @@ namespace Kassa
             reloadgprodukte();
 
         }
-        private void produktesuche(ref List<Products> suche, string suchetb)
+        private void produktesuche(ref List<Products> suche, string suchetb, List<Products> input)
         {
             string test;
             suche = new List<Products>();
             suche.Clear();
-            if (suchetb == null || suchetb == "" || suchetb == " ")
+            string[,] suchearray = new string[produkte.Count, 4]; 
+            
+            for (int i = 0; i < produkte.Count; i++)
             {
-                dgProdukteliste.ItemsSource = produkte;
+                suchearray[i, 0] = Convert.ToString(input[i].ID);
+                suchearray[i, 1] = Convert.ToString(input[i].Name);
+                suchearray[i, 2] = Convert.ToString(input[i].InStock);
+                suchearray[i, 3] = Convert.ToString(input[i].Preis);
             }
-            else
+            for (int i = 0; i < suchearray.GetLength(0); i++)
             {
-                for (int i = 0; i < produkte.Count; i++)
+                for (int k = 0; k < suchearray.GetLength(1); k++)
                 {
-                    test = Convert.ToString(produkte[i].ID);
+                    test = suchearray[i, k];
                     if (test.StartsWith(suchetb))
                     {
-                        suche.Add(produkte[i]);
+                        suche.Add(input[i]);
                     }
                 }
-                
             }
         }
         private void sucheuser_TextChanged(object sender, TextChangedEventArgs e)
