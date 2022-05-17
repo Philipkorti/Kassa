@@ -53,8 +53,8 @@ namespace Kassa
                 tbuid.Text += anmelden.Anmelden;
                 userID = Convert.ToInt32(anmelden.Anmelden);
                 Produktelesen();
-                CheckLieferDatum();
                 Produkteverwaltunglesen();
+                CheckLieferDatum();
                 dgProdukteliste.ItemsSource = produkte;
                 entfernprodukte.IsEnabled = true;
                 addProdukte.IsEnabled = true;
@@ -425,15 +425,17 @@ namespace Kassa
             dateTime = dateTime.AddDays(-2);
             DateTime date;
             string query;
-            for (int i = 0; i < produkte.Count; i++)
+            for (int i = 0; i < produkteverwaltungl.Count; i++)
             {
-                if (DateTime.TryParse(produkte[i].Lieferung, out date))
+                if (DateTime.TryParse(produkteverwaltungl[i].Lieferung, out date))
                 {
                     if (date < dateTime)
                     {
-                        produkte[i].Lieferung = "";
-                        query = $"UPDATE Lager SET Lieferung = null WHERE ID = {produkte[i].ID}";
+                        query = $"INSERT INTO Lieferungen VALUES ({produkteverwaltungl[i].ID},'{produkteverwaltungl[i].Lieferung}')";
                         Data(out string[] output, query);
+                        produkteverwaltungl[i].Lieferung = "";
+                        query = $"UPDATE Lager SET Lieferung = null WHERE ID = {produkteverwaltungl[i].ID}";
+                        Data(out output, query);
                     }
                 }
             }
