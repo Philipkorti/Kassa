@@ -73,7 +73,7 @@ namespace Kassa
                 Data(out output, query);
                 for (int i = 0; i < output.Length - 1; i = i + 5)
                 {
-                    rechnung.Add(new Rechnung { ID = Convert.ToInt32(output[i]), User = Convert.ToInt32(output[i + 1]), Preis = Convert.ToDouble(output[i + 3]), Anzahl = Convert.ToInt32(output[i + 2]), Datum = Convert.ToDateTime(output[i + 4]) });
+                    rechnung.Add(new Rechnung { ID = Convert.ToInt32(output[i]), User = Convert.ToInt32(output[i + 1]), Preis = Convert.ToDouble(output[i + 3]), Anzahl = Convert.ToInt32(output[i + 2]), RechnungsDatum = Convert.ToDateTime(output[i + 4]) });
                 }
                 anzeigeRechnung.ItemsSource = rechnung;
             }
@@ -620,8 +620,9 @@ namespace Kassa
         {
             string suchetb = sucheuser.Text;
             string id;
+            string test;
             List<User> usersuche = new List<User>();
-            UserAnzeige();
+            string[,] suchearray = new string[userVerwaltung.Count, 4];
             if (suchetb == null || suchetb == "" || suchetb == " ")
             {
                 userverwaltung.ItemsSource = "";
@@ -631,10 +632,20 @@ namespace Kassa
             {
                 for (int i = 0; i < userVerwaltung.Count; i++)
                 {
-                    id = Convert.ToString(userVerwaltung[i].ID);
-                    if (id.StartsWith(suchetb))
+                    suchearray[i, 0] = Convert.ToString(userVerwaltung[i].ID);
+                    suchearray[i, 1] = Convert.ToString(userVerwaltung[i].Vorname);
+                    suchearray[i, 2] = Convert.ToString(userVerwaltung[i].Nachname);
+                    suchearray[i, 3] = Convert.ToString(userVerwaltung[i].Rechte);
+                }
+                for (int i = 0; i < suchearray.GetLength(0); i++)
+                {
+                    for (int k = 0; k < suchearray.GetLength(1); k++)
                     {
-                        usersuche.Add(userVerwaltung[i]);
+                        test = suchearray[i, k];
+                        if (test.StartsWith(suchetb))
+                        {
+                            usersuche.Add(userVerwaltung[i]);
+                        }
                     }
                 }
                 userverwaltung.ItemsSource = "";
@@ -748,6 +759,56 @@ namespace Kassa
             rechnungprodukte.ItemsSource = "";
             rechnungprodukte.ItemsSource = produkteVerkauf;
 
+        }
+
+        private void rechnungsuche_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string suchetb = rechnungsuche.Text;
+            int id;
+            string test;
+            bool check = true;
+            List<Rechnung> suche = new List<Rechnung>();
+            string[,] suchearray = new string[rechnung.Count, 4];
+            if (suchetb == null || suchetb == "" || suchetb == " ")
+            {
+                anzeigeRechnung.ItemsSource = "";
+                anzeigeRechnung.ItemsSource = rechnung;
+            }
+            else
+            {
+                for (int i = 0; i < rechnung.Count; i++)
+                {
+                    suchearray[i, 0] = Convert.ToString(rechnung[i].ID);
+                    suchearray[i, 1] = Convert.ToString(rechnung[i].User);
+                    suchearray[i, 2] = Convert.ToString(rechnung[i].Anzahl);
+                    suchearray[i, 3] = Convert.ToString(rechnung[i].Preis);
+                }
+                for (int i = 0; i < suchearray.GetLength(0); i++)
+                {
+                    for (int k = 0; k < suchearray.GetLength(1); k++)
+                    {
+                        test = suchearray[i, k];
+                        if (test.StartsWith(suchetb))
+                        {
+                            for (int j = 0; j < suche.Count; j++)
+                            {
+                                if (suche[j].ID == rechnung[i].ID)
+                                {
+                                    check = false;
+                                }
+                            }
+                            if (check)
+                            {
+                                suche.Add(rechnung[i]);
+                                break;
+                            }
+                            
+                        }
+                    }
+                }
+                anzeigeRechnung.ItemsSource = "";
+                anzeigeRechnung.ItemsSource = suche;
+            }
         }
     }
 }

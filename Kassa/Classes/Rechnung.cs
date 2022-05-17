@@ -12,6 +12,15 @@ namespace Kassa.Classes
         public int User { get; set; }
         public int Anzahl { get; set; }
         public double Preis { get; set; }
-        public DateTime Datum { get; set; }
+        public DateTime RechnungsDatum { get; set; }
+
+        public string Datum
+        {
+            get
+            {
+                string datum = RechnungsDatum.ToString("dd MMMM yyyy");
+                return datum;
+            }
+        }
     }
 }

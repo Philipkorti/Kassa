@@ -203,7 +203,7 @@
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock>Suche:</TextBlock>
-                            <TextBox Width="400" FontSize="15" Margin="10,0,0,0"></TextBox>
+                            <TextBox x:Name="rechnungsuche" Width="400" FontSize="15" Margin="10,0,0,0" TextChanged="rechnungsuche_TextChanged"></TextBox>
                         </StackPanel>
                         <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" x:Name="anzeigeRechnung" MouseDoubleClick="anzeigeRechnung_MouseDoubleClick" Margin="50" Background="White" BorderThickness="0"> 
                             <DataGrid.Columns>
