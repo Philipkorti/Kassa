@@ -406,13 +406,19 @@ namespace Kassa
             int id = produkteverwaltung.SelectedIndex;
             string query;
             LieferDate lieferDate = new LieferDate();
+            string date;
             if (id != -1)
             {
                 lieferDate.ShowDialog();
-                query = $"UPDATE Lager SET Lieferung = '{lieferDate.LieferDatum()}' WHERE ID = {produkteverwaltungl[id].ID}";
-                Data(out string[] output, query);
-                Produkteverwaltunglesen();
-                reloadprodukteverwaltung();
+                date = lieferDate.LieferDatum().ToString("dd MMM yyyy");
+                if (date != "01 Jan 0001")
+                {
+                    query = $"UPDATE Lager SET Lieferung = '{lieferDate.LieferDatum()}' WHERE ID = {produkteverwaltungl[id].ID}";
+                    Data(out string[] output, query);
+                    Produkteverwaltunglesen();
+                    reloadprodukteverwaltung();
+                }
+                
             }
             else
             {
