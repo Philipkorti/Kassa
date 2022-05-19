@@ -19,7 +19,6 @@
         <Setter Property="Height" Value="30"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
-
     <Style x:Key="HederDataGridRechnung" TargetType="DataGridColumnHeader">
         <Setter Property="Background" Value="{StaticResource colorwhite}"/>
         <Setter Property="Margin" Value="70,0,0,0"/>
@@ -27,6 +26,7 @@
     <Style TargetType="DataGridCell" x:Key="CellDatagridRechnung">
         <Setter Property="Margin" Value="70,0,0,0"/>
     </Style>
+    
     <Style TargetType="TextBlock" x:Key="textbetrag">
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="Margin" Value="400,0,0,0"/>
@@ -44,4 +44,5 @@
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Orientation" Value="Horizontal"/>
     </Style>
+    
 </ResourceDictionary>

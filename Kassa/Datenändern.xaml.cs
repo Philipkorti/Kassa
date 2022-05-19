@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -76,11 +77,19 @@ namespace Kassa
 
         private void tbpasswort_KeyDown(object sender, KeyEventArgs e)
         {
+            string check; 
             if (e.Key == Key.Enter)
             {
-                tbpasswort.Visibility = Visibility.Collapsed;
-                passwort.Visibility = Visibility.Visible;
-                passwort.Text = tbpasswort.Text;
+                check = tbpasswort.Text;
+                Regex regex = new Regex(@"^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#$%^&+=]).*$");
+                Match match;
+                match = regex.Match(check);
+                if (match.Success)
+                {
+                    tbpasswort.Visibility = Visibility.Collapsed;
+                    passwort.Visibility = Visibility.Visible;
+                    passwort.Text = tbpasswort.Text;
+                }
             }
         }
         public void datenaendernreturn(out string[] edit)

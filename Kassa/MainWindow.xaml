@@ -194,7 +194,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
-                        <ColumnDefinition x:Name="test" Width="*"/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -216,7 +216,7 @@
 
                         </DataGrid>
                     </Grid>
-                    <DataGrid Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True" Name="rechnungprodukte" Background="White" Margin="50" BorderBrush="White" >
+                    <DataGrid Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True" Name="rechnungprodukte" Margin="80" Background="White" BorderThickness="0">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ProduktID" Binding="{Binding ProduktID}" Width="1*"/>
                             <DataGridTextColumn Header="Name" Binding="{Binding ProduktName}" Width="1*"/>
