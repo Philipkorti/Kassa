@@ -18,7 +18,7 @@
             <RowDefinition/>
             <RowDefinition Height="0.4*"/>
         </Grid.RowDefinitions>
-        <Calendar MouseDoubleClick="Calendar_MouseDoubleClick" x:Name="lieferdate" Height="200" Width="300" VerticalAlignment="Center"/>
+        <Calendar HorizontalAlignment="Center" Height="200" Width="428" MouseDoubleClick="Calendar_MouseDoubleClick" x:Name="lieferdate"/>
 
         <Button Grid.Row="1" Width="150" Height="50" Name="abbrechen" Click="abbrechen_Click" HorizontalAlignment="Center">Abbrechen</Button>
 

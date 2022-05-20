@@ -14,6 +14,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Anmeldung.xaml"/>
                 <ResourceDictionary Source="Resources/Button.xaml"/>
+                <ResourceDictionary Source="Resources/TextBlockTextBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -33,16 +34,16 @@
             </Button>
         </Grid>
         <StackPanel Grid.Row="1">
-            <TextBlock HorizontalAlignment="Center" FontSize="40">Kassa</TextBlock>
+            <TextBlock Style="{StaticResource Header}">Kassa</TextBlock>
             <StackPanel>
-                <TextBox x:Name="tbuser" Foreground="LightGray" Width="300" KeyDown="tbuser_KeyDown" GotFocus="tbuser_GotFocus" LostFocus="tbuser_LostFocus" Height="30" Margin="30,30" FontSize="20">User-ID</TextBox>
+                <TextBox x:Name="tbuser" Style="{StaticResource InputUSer}" KeyDown="tbuser_KeyDown" GotFocus="tbuser_GotFocus" LostFocus="tbuser_LostFocus">User-ID</TextBox>
             </StackPanel>
             <StackPanel>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Background="White" Height="30" Width="300">
-                        <PasswordBox x:Name="pbpaswort" FontSize="20" KeyDown="pbpaswort_KeyDown" BorderThickness="0" Width="250" Height="30" Visibility="Collapsed" LostFocus="pbpaswort_LostFocus"></PasswordBox>
-                        <TextBox Name="showpasswort"  Width="250" Height="30" FontSize="20" GotFocus="showpasswort_GotFocus" BorderThickness="0" Foreground="LightGray">Passwort</TextBox>
-                        <Button Margin="0,0" Style="{StaticResource see}" Width="30" Height="20" Name="passwortseebutton" PreviewMouseUp="passwortseebutton_MouseUp" PreviewMouseDown="passwortseebutton_MouseDown">
+                        <PasswordBox x:Name="pbpaswort" Style="{StaticResource inputPasswort}" KeyDown="pbpaswort_KeyDown" BorderThickness="0" Visibility="Collapsed" LostFocus="pbpaswort_LostFocus"></PasswordBox>
+                        <TextBox Name="showpasswort" Style="{StaticResource InputPasswort}"  GotFocus="showpasswort_GotFocus" BorderThickness="0">Passwort</TextBox>
+                        <Button Style="{StaticResource see}" Width="30" Height="20" Name="passwortseebutton" PreviewMouseUp="passwortseebutton_MouseUp" PreviewMouseDown="passwortseebutton_MouseDown">
                             <Image Source="Bilder/look_password.png" Name="passwortsee"/>
                         </Button>
                     </StackPanel>

@@ -24,4 +24,22 @@
         <Setter Property="Height" Value="20"/>
         <Setter Property="Width" Value="450"/>
     </Style>
+    <Style TargetType="TextBox" x:Key="InputUSer">
+        <Setter Property="Foreground" Value="{StaticResource placeholder}"/>
+        <Setter Property="Width" Value="300"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Margin" Value="30,30"/>
+        <Setter Property="FontSize" Value="20"/>
+    </Style>
+    <Style TargetType="TextBox" x:Key="InputPasswort">
+        <Setter Property="Width" Value="250"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Foreground" Value="{StaticResource placeholder}"/>
+    </Style>
+    <Style TargetType="PasswordBox" x:Key="inputPasswort">
+        <Setter Property="Width" Value="250"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="FontSize" Value="20"/>
+    </Style>
 </ResourceDictionary>

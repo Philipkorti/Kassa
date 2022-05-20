@@ -11,6 +11,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Button.xaml"/>
+                <ResourceDictionary Source="Resources/TextBlockTextBox.xaml"/>
+                <ResourceDictionary Source="Resources/Datenaendern.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -20,27 +22,27 @@
             <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
         <StackPanel>
-            <TextBlock FontSize="30" HorizontalAlignment="Center">Daten ändern</TextBlock>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20" Background="White">
-                <TextBlock Height="30" FontSize="20">Vorname:</TextBlock>
-                <TextBlock x:Name="vorname" Width="125" Height="30" FontSize="20" Margin="30,0,0,0"></TextBlock>
-                <TextBox Visibility="Collapsed" Name="tbvorname" KeyDown="tbvorname_KeyDown" FontSize="20" Width="125" Height="30" Margin="30,0,0,0"></TextBox> 
+            <TextBlock Style="{StaticResource Header}">Daten ändern</TextBlock>
+            <StackPanel Style="{StaticResource Daten}">
+                <TextBlock Style="{StaticResource namechange}">Vorname:</TextBlock>
+                <TextBlock x:Name="vorname" Margin="30,0,0,0"></TextBlock>
+                <TextBox Visibility="Collapsed" Name="tbvorname" KeyDown="tbvorname_KeyDown"></TextBox> 
                 <Button x:Name="vornameändern" Style="{StaticResource see}" Click="vornameändern_Click" Width="50">
                     <iconPacks:PackIconMaterial Kind="AccountEdit" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Button>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20" Background="White">
-                <TextBlock Height="30" FontSize="20">Nachname:</TextBlock>
-                <TextBlock Width="130" Height="30" x:Name="nachname" FontSize="20" Margin="10,0,0,0"></TextBlock>
-                <TextBox Visibility="Collapsed" Name="tbnachname" KeyDown="tbnachname_KeyDown" Width="130" Height="30" FontSize="20" Margin="10,0,0,0"></TextBox>
+            <StackPanel Style="{StaticResource Daten}">
+                <TextBlock Style="{StaticResource namechange}">Nachname:</TextBlock>
+                <TextBlock x:Name="nachname"></TextBlock>
+                <TextBox Visibility="Collapsed" Name="tbnachname" KeyDown="tbnachname_KeyDown" Margin="10,0,0,0"></TextBox>
                 <Button x:Name="nachnameändern" Click="nachnameändern_Click" Width="50" Style="{StaticResource see}">
                     <iconPacks:PackIconMaterial Kind="AccountEdit" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Button>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20" Background="White">
-                <TextBlock Height="30" FontSize="20">Passwort:</TextBlock>
-                <TextBlock x:Name="passwort" Width="125" FontSize="20" Margin="30,0,0,0"></TextBlock>
-                <TextBox Visibility="Collapsed" Name="tbpasswort" KeyDown="tbpasswort_KeyDown" FontSize="20" Width="125" Height="30" Margin="30,0,0,0"></TextBox>
+            <StackPanel Style="{StaticResource Daten}">
+                <TextBlock Style="{StaticResource namechange}">Passwort:</TextBlock>
+                <TextBlock x:Name="passwort" Margin="30,0,0,0"></TextBlock>
+                <TextBox Visibility="Collapsed" Name="tbpasswort" KeyDown="tbpasswort_KeyDown"></TextBox>
                 <Button x:Name="passwortändern" Click="passwortändern_Click" Width="50" Style="{StaticResource see}">
                     <iconPacks:PackIconMaterial Kind="AccountEdit" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Button>

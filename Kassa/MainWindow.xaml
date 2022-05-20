@@ -53,7 +53,7 @@
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="1" Orientation="Horizontal">
                             <TextBlock>Suche:</TextBlock>
-                            <TextBox Margin="10,0,0,0" FontSize="15" Name="tbsuche" TextChanged="tbsuche_TextChanged" Width="400"/>
+                            <TextBox Style="{StaticResource suche}" Name="tbsuche" TextChanged="tbsuche_TextChanged"/>
                         </StackPanel>
 
                         <DataGrid Grid.Row="3"  Name="dgProdukteliste" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="dgProdukteliste_MouseDoubleClick">
@@ -123,7 +123,7 @@
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="1">
                             <TextBlock>Suche:</TextBlock>
-                            <TextBox  Width="400" FontSize="15" Margin="10,0,0,0" TextChanged="TextBox_TextChanged" Name="produkteverwaltungsuche"/>
+                            <TextBox Style="{StaticResource suche}" TextChanged="TextBox_TextChanged" Name="produkteverwaltungsuche"/>
                         </StackPanel>
                         <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="produkteverwaltung" AutoGenerateColumns="False" CellEditEnding="produkteverwaltung_CellEditEnding">
                             <DataGrid.Columns>
@@ -144,9 +144,9 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Button Grid.Row="1" Margin="100,50,100,50" Click="addProdukte_Click" Name="addProdukte" IsEnabled="False">Neues Produkt</Button>
-                        <Button Grid.Row="2" Margin="100, 50, 100,50" Name="lieferdatum" Click="lieferdatum_Click" IsEnabled="False">Lieferdatum setzen</Button>
-                        <Button Grid.Row="3" Margin="100,50,100,50" Name="entfernprodukte" Click="entfernprodukte_Click" IsEnabled="False">Löschen</Button>
+                        <Button Grid.Row="1" Margin="100,50" Click="addProdukte_Click" Name="addProdukte" IsEnabled="False">Neues Produkt</Button>
+                        <Button Grid.Row="2" Margin="100, 50" Name="lieferdatum" Click="lieferdatum_Click" IsEnabled="False">Lieferdatum setzen</Button>
+                        <Button Grid.Row="3" Margin="100,50" Name="entfernprodukte" Click="entfernprodukte_Click" IsEnabled="False">Löschen</Button>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -165,7 +165,7 @@
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="1">
                             <TextBlock>Suche:</TextBlock>
-                            <TextBox  Width="400" FontSize="15" Margin="10,0,0,0" Name="sucheuser" TextChanged="sucheuser_TextChanged"/>
+                            <TextBox Style="{StaticResource suche}" Name="sucheuser" TextChanged="sucheuser_TextChanged"/>
                         </StackPanel>
                         <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="userverwaltung" AutoGenerateColumns="False" CellEditEnding="userverwaltung_CellEditEnding">
                             <DataGrid.Columns>
@@ -203,7 +203,7 @@
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock>Suche:</TextBlock>
-                            <TextBox x:Name="rechnungsuche" Width="400" FontSize="15" Margin="10,0,0,0" TextChanged="rechnungsuche_TextChanged"></TextBox>
+                            <TextBox x:Name="rechnungsuche" Style="{StaticResource suche}" TextChanged="rechnungsuche_TextChanged"></TextBox>
                         </StackPanel>
                         
                         <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" x:Name="anzeigeRechnung" MouseDoubleClick="anzeigeRechnung_MouseDoubleClick" Margin="50" Background="White" BorderThickness="0"> 

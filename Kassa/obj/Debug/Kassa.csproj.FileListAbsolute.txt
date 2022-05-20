@@ -38,3 +38,6 @@ C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispi
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\Datenändern.baml
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\Resources\Button.baml
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\Kassa.csproj.SuggestedBindingRedirects.cache
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\Resources\TextBlockTextBox.baml
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\Resources\Datenaendern.baml
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\Resources\Lieferdatum.baml
