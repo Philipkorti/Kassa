@@ -1,0 +1,32 @@
+﻿<Window x:Class="Kassa.Kunden"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kassa"
+        mc:Ignorable="d"
+        Title="Kunden" Height="450" Width="800">
+
+    <DockPanel>
+        <StackPanel VerticalAlignment="Center">
+            <Button Margin="20" Name="hinzufuegen" Click="hinzufuegen_Click">Neuer User</Button>
+            <Button Margin="20" Name="loescheuser" Click="loescheuser_Click">User Löschen</Button>
+        </StackPanel>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock>Suche:</TextBlock>
+                <TextBox Width="200" Name="suche" TextChanged="suche_TextChanged"/>
+            </StackPanel>
+            <DataGrid x:Name="DgKunden" AutoGenerateColumns="False" MouseDoubleClick="DgKunden_MouseDoubleClick">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="KundenID" Width="1*" Binding="{Binding KundenID}"/>
+                    <DataGridTextColumn Header="Name" Width="1*" Binding="{Binding Fullname}"/>
+                    <DataGridTextColumn Header="Punkte" Width="1*" Binding="{Binding Punkte}"/>
+                    <DataGridTextColumn Header="Email" Width="1*" Binding="{Binding Email}"/>
+                    <DataGridTextColumn Header="Telefone" Width="1*" Binding="{Binding Telefone}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        
+    </DockPanel>
+</Window>

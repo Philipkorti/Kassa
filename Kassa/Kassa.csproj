@@ -61,11 +61,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\Kundenanzeige.cs" />
     <Compile Include="Classes\Rechnung.cs" />
     <Compile Include="Classes\User.cs" />
     <Compile Include="Classes\VerkaufProdukte.cs" />
     <Compile Include="Datenändern.xaml.cs">
       <DependentUpon>Datenändern.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Kunden.xaml.cs">
+      <DependentUpon>Kunden.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="KundenHizufuegen.xaml.cs">
+      <DependentUpon>KundenHizufuegen.xaml</DependentUpon>
     </Compile>
     <Compile Include="LieferDate.xaml.cs">
       <DependentUpon>LieferDate.xaml</DependentUpon>
@@ -78,6 +85,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Datenändern.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Kunden.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="KundenHizufuegen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

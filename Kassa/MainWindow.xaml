@@ -200,6 +200,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.04*"/>
                             <RowDefinition/>
+                            <RowDefinition Height="0.2*"/>
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock>Suche:</TextBlock>
@@ -216,6 +217,7 @@
                             </DataGrid.Columns>
 
                         </DataGrid>
+                        <Button Grid.Row="2">Zurück buchen</Button>
                     </Grid>
                     <DataGrid Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True" Name="rechnungprodukte" Margin="80" Background="White" BorderThickness="0">
                         <DataGrid.Columns>

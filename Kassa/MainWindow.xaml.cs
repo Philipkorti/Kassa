@@ -34,6 +34,7 @@ namespace Kassa
         List<Rechnung> rechnung = new List<Rechnung>();
         List<VerkaufProdukte> produkteVerkauf = new List<VerkaufProdukte>();
         int userID;
+        int betragpreis;
         public MainWindow()
         {
             InitializeComponent();
@@ -291,7 +292,9 @@ namespace Kassa
         {
             string query;
             int gesamtpreis = Convert.ToInt32(betrag.Text);
-            MessageBox.Show("Der Gesamt Betrag beträgt: " + betrag.Text + "€");
+            betragpreis = gesamtpreis;
+            Kunden kunden = new Kunden(gesamtpreis);
+            kunden.ShowDialog();
             kaufen.Clear();
             query = $"EXEC PVerkauf {userID}, {dbkaufen.Count}, {gesamtpreis}";
             Data(out string[] output, query);
@@ -817,6 +820,10 @@ namespace Kassa
                 anzeigeRechnung.ItemsSource = "";
                 anzeigeRechnung.ItemsSource = suche;
             }
+        }
+        public int PreisBetrag()
+        {
+            return betragpreis;
         }
     }
 }
