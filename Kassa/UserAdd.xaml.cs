@@ -29,7 +29,7 @@ namespace Kassa
             List<string> rechte = new List<string>();
             string query = "EXEC RechteName";
             MainWindow mainWindow = new MainWindow();
-            mainWindow.Datenbank(out string[] output, query);
+            mainWindow.Data(out string[] output, query);
             for (int i = 0; i < output.Length-1; i++)
             {
                 rechte.Add(output[i]);
@@ -63,7 +63,7 @@ namespace Kassa
                             {
                                 datetime = date.ToString("dd MMM yyyy");
                                 query = $"EXEC AddUser {userid}, '{vorname}', '{nachname}', '{passwort}', '{datetime}', '{recht}'";
-                                mainWindow.Datenbank(out string[] output, query);
+                                mainWindow.Data(out string[] output, query);
                                 mainWindow.UserA();
                             }
                             else

@@ -33,6 +33,7 @@ namespace Kassa
         List<User> userVerwaltung = new List<User>();
         List<Rechnung> rechnung = new List<Rechnung>();
         List<VerkaufProdukte> produkteVerkauf = new List<VerkaufProdukte>();
+        List<Kundenanzeige> kundenanzeigel = new List<Kundenanzeige>();
         int userID;
         int betragpreis;
         public MainWindow()
@@ -43,8 +44,6 @@ namespace Kassa
         private void anmelden_Click(object sender, RoutedEventArgs e)
         {
             List<string> rechte = new List<string>();
-            DateTime date;
-            DateTime stdate = DateTime.Now;
             Anmeldung anmelden = new Anmeldung();
             string user;
             string query;
@@ -70,13 +69,8 @@ namespace Kassa
                 }
                 rechteanzeige.ItemsSource = rechte;
                 daten.Visibility = Visibility.Visible;
-                query = "SelECT * FROM Verkauf";
-                Data(out output, query);
-                for (int i = 0; i < output.Length - 1; i = i + 5)
-                {
-                    rechnung.Add(new Rechnung { ID = Convert.ToInt32(output[i]), User = Convert.ToInt32(output[i + 1]), Preis = Convert.ToDouble(output[i + 3]), Anzahl = Convert.ToInt32(output[i + 2]), RechnungsDatum = Convert.ToDateTime(output[i + 4]) });
-                }
-                anzeigeRechnung.ItemsSource = rechnung;
+                LesenRechnung();
+                LesenKunden();
             }
         }
 
@@ -103,14 +97,13 @@ namespace Kassa
             }
 
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="output"></param>
+        /// <param name="query"></param>
 
-        public void Datenbank(out string[] output, string query)
-        {
-            Data(out output, query);
-
-
-        }
-        private void Data(out string[] output, string query)
+        public void Data(out string[] output, string query)
         {
 
             List<string> input = new List<string>();
@@ -159,12 +152,16 @@ namespace Kassa
             }
             output[output.Length - 1] = "";
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="input"></param>
         private void WriteSQLData(SqlDataReader reader, out List<string> input)
         {
             input = new List<string>();
             try
             {
-
                 while (reader.Read())
                 {
                     for (int i = 0; i < reader.FieldCount; i++)
@@ -173,7 +170,7 @@ namespace Kassa
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
 
             }
@@ -188,7 +185,7 @@ namespace Kassa
             
             if (suchetb != "" && suchetb != " " && suchetb != null)
             {
-                produktesuche(ref suche, suchetb, produkte);
+                Produktesuche(ref suche, suchetb, produkte);
                 dgProdukteliste.ItemsSource = suche;
             }
             else
@@ -256,7 +253,7 @@ namespace Kassa
                 dgProdukteliste.ItemsSource = produkte;
                 if (tbsuche.Text != "")
                 {
-                    produktesuche(ref suche, suchetb, produkte);
+                    Produktesuche(ref suche, suchetb, produkte);
                     kaufen.Add((Products)suche[id].Clone());
                     dbkaufen.Add((Products)suche[id].Clone());
                     tbsuche.Text = "";
@@ -291,12 +288,14 @@ namespace Kassa
         private void abschliessen_Click(object sender, RoutedEventArgs e)
         {
             string query;
+            int kundenid;
             int gesamtpreis = Convert.ToInt32(betrag.Text);
             betragpreis = gesamtpreis;
             Kunden kunden = new Kunden(gesamtpreis);
             kunden.ShowDialog();
             kaufen.Clear();
-            query = $"EXEC PVerkauf {userID}, {dbkaufen.Count}, {gesamtpreis}";
+            kundenid = kunden.ReadDGID;
+            query = $"EXEC PVerkauf {userID}, {kundenanzeigel[kundenid].KundenID},{dbkaufen.Count}, {gesamtpreis}";
             Data(out string[] output, query);
             for (int i = 0; i < dbkaufen.Count; i++)
             {
@@ -323,6 +322,7 @@ namespace Kassa
             Rechnung.Height = 30;
             entfernen.Visibility = Visibility.Hidden;
             abschliessen.Visibility = Visibility.Hidden;
+            LesenRechnung();
         }
 
 
@@ -428,6 +428,9 @@ namespace Kassa
                 MessageBox.Show("Sie müssen ein Element auswählen!");
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
         private void CheckLieferDatum()
         {
             DateTime dateTime = DateTime.Now;
@@ -458,7 +461,7 @@ namespace Kassa
             suche.Clear();
             if (suchetb != "" && suchetb != " " && suchetb != null)
             {
-                produktesuche(ref suche, suchetb, produkteverwaltungl);
+                Produktesuche(ref suche, suchetb, produkteverwaltungl);
                 produkteverwaltung.ItemsSource = suche;
             }
             else
@@ -476,6 +479,11 @@ namespace Kassa
             UserAdd userAdd = new UserAdd(user);
             userAdd.ShowDialog();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rechte"></param>
+        /// <param name="user"></param>
         public void Rechte(ref List<string> rechte, string user)
         {
             Rechtelesen(user, out string[] output);
@@ -523,10 +531,16 @@ namespace Kassa
                     }
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public void UserA()
         {
             UserAnzeige();
         }
+        /// <summary>
+        /// 
+        /// </summary>
         private void UserAnzeige()
         {
             string query = "SELECT ku.M_ID, ku.Vorname, ku.Nachname, ku.DatumEinstelung, r.Rechte  FROM KUser ku JOIN Rechte r ON r.RechteID = ku.IDRechte";
@@ -569,12 +583,20 @@ namespace Kassa
            
             UserAnzeige();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="output"></param>
         private void Rechtelesen(string user, out string[] output)
         {
             string[] userid = user.Split(' ');
             string query = $"SELECT r.Rechte FROM KUser ku JOIN Rechte r ON r.RechteID = ku.IDRechte WHERE ku.M_ID = {userid[1]}";
             Data(out output, query);
         }
+        /// <summary>
+        /// Read the products from the data base
+        /// </summary>
         private void Produktelesen()
         {
             DateTime date;
@@ -601,7 +623,13 @@ namespace Kassa
             reloadgprodukte();
 
         }
-        private void produktesuche(ref List<Products> suche, string suchetb, List<Products> input)
+        /// <summary>
+        /// This is for the surch of Products
+        /// </summary>
+        /// <param name="suche"></param>
+        /// <param name="suchetb"></param>
+        /// <param name="input"></param>
+        private void Produktesuche(ref List<Products> suche, string suchetb, List<Products> input)
         {
             string test;
             suche = new List<Products>();
@@ -630,7 +658,6 @@ namespace Kassa
         private void sucheuser_TextChanged(object sender, TextChangedEventArgs e)
         {
             string suchetb = sucheuser.Text;
-            string id;
             string test;
             List<User> usersuche = new List<User>();
             string[,] suchearray = new string[userVerwaltung.Count, 4];
@@ -716,6 +743,9 @@ namespace Kassa
             Data(out output, query);
 
         }
+        /// <summary>
+        /// Read the Produkts from the Data Base
+        /// </summary>
         private void Produkteverwaltunglesen()
         {
             DateTime date;
@@ -759,13 +789,13 @@ namespace Kassa
         private void anzeigeRechnung_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int id = anzeigeRechnung.SelectedIndex;
-            string query = $"SELECT p.ID, p.Name, pv.Anzahl, pv.Geamtpreis FROM Produkte_Verkauf pv JOIN " +
+            string query = $"SELECT pv.VerkaufID, p.ID, p.Name, pv.Anzahl, pv.Geamtpreis FROM Produkte_Verkauf pv JOIN " +
                 $"Produkte p ON p.ID = pv.ProduktID WHERE pv.VerkaufID = {rechnung[id].ID}";
             produkteVerkauf.Clear();
             Data(out string[] output, query);
-            for (int i = 0; i < output.Length - 1; i = i + 4)
+            for (int i = 0; i < output.Length - 1; i = i + 5)
             {
-                produkteVerkauf.Add(new VerkaufProdukte { ProduktID = Convert.ToInt32(output[i]), ProduktName = output[i + 1], Anzahl = Convert.ToInt32(output[i + 2]), Gesamtpreis = Convert.ToDouble(output[i + 3]) });
+                produkteVerkauf.Add(new VerkaufProdukte {VerkaufID = Convert.ToInt32(output[i]) ,ProduktID = Convert.ToInt32(output[i+1]), ProduktName = output[i + 2], Anzahl = Convert.ToInt32(output[i + 3]), Gesamtpreis = Convert.ToDouble(output[i + 4]) });
             }
             rechnungprodukte.ItemsSource = "";
             rechnungprodukte.ItemsSource = produkteVerkauf;
@@ -775,11 +805,10 @@ namespace Kassa
         private void rechnungsuche_TextChanged(object sender, TextChangedEventArgs e)
         {
             string suchetb = rechnungsuche.Text;
-            int id;
             string test;
             bool check = true;
             List<Rechnung> suche = new List<Rechnung>();
-            string[,] suchearray = new string[rechnung.Count, 4];
+            string[,] suchearray = new string[rechnung.Count, 6];
             if (suchetb == null || suchetb == "" || suchetb == " ")
             {
                 anzeigeRechnung.ItemsSource = "";
@@ -791,8 +820,10 @@ namespace Kassa
                 {
                     suchearray[i, 0] = Convert.ToString(rechnung[i].ID);
                     suchearray[i, 1] = Convert.ToString(rechnung[i].User);
-                    suchearray[i, 2] = Convert.ToString(rechnung[i].Anzahl);
-                    suchearray[i, 3] = Convert.ToString(rechnung[i].Preis);
+                    suchearray[i, 2] = rechnung[i].KundenVorname;
+                    suchearray[i, 3] = rechnung[i].KundenNachname;
+                    suchearray[i, 4] = Convert.ToString(rechnung[i].Anzahl);
+                    suchearray[i, 5] = Convert.ToString(rechnung[i].Preis);
                 }
                 for (int i = 0; i < suchearray.GetLength(0); i++)
                 {
@@ -821,9 +852,195 @@ namespace Kassa
                 anzeigeRechnung.ItemsSource = suche;
             }
         }
-        public int PreisBetrag()
+
+        private void buchen_Click(object sender, RoutedEventArgs e)
         {
-            return betragpreis;
+            int idrechnung = anzeigeRechnung.SelectedIndex;
+            int idprodukte = rechnungprodukte.SelectedIndex;
+            string query;
+            int lager;
+            int menge;
+            int anzahlprodukte = 0;
+            List<VerkaufProdukte> produktebuchung = new List<VerkaufProdukte>();
+            if (idrechnung != -1)
+            {
+                if (idprodukte != -1)
+                {
+                    if (produkteVerkauf[idprodukte].Anzahl > 0)
+                    {
+                        Mengen mengen = new Mengen();
+                        mengen.ShowDialog();
+                        menge = Convert.ToInt32(mengen.anzahl);
+
+                        if (menge <= 0 || menge > produkteVerkauf[idprodukte].Anzahl)
+                        {
+                            MessageBox.Show("Die menge ist zu klein oder zu groß!");
+
+                        }
+                        else
+                        {
+                            anzahlprodukte = menge;
+                            Buchung(idprodukte, idrechnung, anzahlprodukte);
+                        }
+                    }
+                    else
+                    {
+                        anzahlprodukte = produkteVerkauf[idprodukte].Anzahl;
+                        Buchung( idprodukte, idrechnung, anzahlprodukte);
+                    }
+                    
+                }
+                else
+                {
+                    query = $"SELECT ProduktID, Anzahl FROM Produkte_Verkauf WHERE VerkaufID = {rechnung[idrechnung].ID}";
+                    Data(out string[] output, query);
+                    for (int i = 0; i < output.Length - 1; i = i + 2)
+                    {
+                        produktebuchung.Add(new VerkaufProdukte { ProduktID = Convert.ToInt32(output[i]), Anzahl = Convert.ToInt32(output[i + 1]) });
+                    }
+                    for (int i = 0; i < produktebuchung.Count; i++)
+                    {
+                        query = $"SELECT Lager FROM Lager WHERE ID = {produktebuchung[i].ProduktID}";
+                        Data(out output, query);
+                        lager = Convert.ToInt32(output[0]);
+                        lager += produktebuchung[i].Anzahl;
+                        query = $"UPDATE Lager SET Lager = {lager} WHERE ID = {produktebuchung[i].ProduktID}";
+                        Data(out output, query);
+
+                    }
+                    query = $"DELETE Produkte_Verkauf WHERE VerkaufID = {rechnung[idrechnung].ID}";
+                    Data(out output, query);
+                    query = $"DELETE Verkauf WHERE VerkaufID = {rechnung[idrechnung].ID}";
+                    Data(out output, query);
+                    LesenRechnung();
+                    Produktelesen();
+                }
+                
+            }
+            else
+            {
+              MessageBox.Show("Sie müssen ein Element asuswählen!");   
+            }
+        }
+        /// <summary>
+        /// read the invoice from the Data Base
+        /// </summary>
+        private void LesenRechnung()
+        {
+            string query;
+            query = "SelECT v.VerkaufID, v.UserID, k.Vorname, k.Nachname, v.AnzahlProdukte, v.GesamtPreis, v.Datum FROM Verkauf v JOIN Kunden k ON k.KundenID = v.KundenID";
+            Data(out string[] output, query);
+            rechnung.Clear();
+            for (int i = 0; i < output.Length - 1; i = i + 7)
+            {
+                rechnung.Add(new Rechnung { ID = Convert.ToInt32(output[i]),User = Convert.ToInt32(output[i+1]), KundenVorname = output[i+2], KundenNachname = output[i+3], Anzahl = Convert.ToInt32(output[i+4]), Preis = Convert.ToInt32(output[i+5]), RechnungsDatum = Convert.ToDateTime(output[i+6]) });
+            }
+            anzeigeRechnung.ItemsSource = "";
+            anzeigeRechnung.ItemsSource = rechnung;
+        }
+        /// <summary>
+        /// Delete Produkts from the Invoce and Insert the prodack back do the istock. 
+        /// When the Invoice empty is then it is deleted 
+        /// </summary>
+        /// <param name="idprodukte"></param>
+        /// <param name="idrechnung"></param>
+        /// <param name="anzahlprodukte"></param>
+        private void Buchung(int idprodukte, int idrechnung, int anzahlprodukte)
+        {
+            double preis;
+            string query;
+            preis = rechnung[idrechnung].Preis - produkteVerkauf[idprodukte].Gesamtpreis * anzahlprodukte;
+            query = $"EXEC produkteverkaufbuchnung {anzahlprodukte}, {produkteVerkauf[idprodukte].ProduktID}, {produkteVerkauf[idprodukte].VerkaufID}, 0, 0";
+            Data(out string[] output, query);
+            query = $"UPDATE Verkauf SET GesamtPreis = {preis} WHERE VerkaufID = {produkteVerkauf[idprodukte].VerkaufID}";
+            Data(out output, query);
+            query = $"SELECT Anzahlprodukte FROM Verkauf WHERE VerkaufID = {produkteVerkauf[idprodukte].VerkaufID}";
+            Data(out output, query);
+            if (Convert.ToInt32(output[0]) == 0)
+            {
+                query = $"DELETE Verkauf WHERE VerkaufID = {produkteVerkauf[idprodukte].VerkaufID}";
+                Data(out output, query);
+            }
+            produkteVerkauf.RemoveAt(idprodukte);
+            rechnungprodukte.ItemsSource = "";
+            rechnungprodukte.ItemsSource = produkteVerkauf;
+            LesenRechnung();
+            Produktelesen();
+        }
+
+        private void Kundeadd_Click(object sender, RoutedEventArgs e)
+        {
+            KundenHizufuegen kundenHizufuegen = new KundenHizufuegen();
+            kundenHizufuegen.ShowDialog();
+            LesenKunden();
+        }
+
+        private void Kundedelete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        /// <summary>
+        /// Reading out Coustomer from the Data Base
+        /// </summary>
+        public void LesenKunden()
+        {
+            string query = "SELECT * FROM Kunden";
+            Data(out string[] output, query);
+            kundenanzeigel.Clear();
+            for (int i = 0; i < output.Length - 1; i = i+6)
+            {
+                kundenanzeigel.Add(new Kundenanzeige { KundenID = Convert.ToInt32(output[i]), Vorname = output[i+1], Nachname = output[i+2], Punkte = Convert.ToInt32(output[i+3]), Email = output[i+4], Telefone = output[i+5] });
+            }
+            kundenverwaltung.ItemsSource = "";
+            kundenverwaltung.ItemsSource = kundenanzeigel;
+        }
+
+        private void suchekunden_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string suchetb = suchekunden.Text;
+            string test;
+            bool check = true;
+            List<Kundenanzeige> suche = new List<Kundenanzeige>();
+            string[,] suchearray = new string[rechnung.Count, 3];
+            if (suchetb == null || suchetb == "" || suchetb == " ")
+            {
+                kundenverwaltung.ItemsSource = "";
+                kundenverwaltung.ItemsSource = kundenanzeigel;
+            }
+            else
+            {
+                for (int i = 0; i < rechnung.Count; i++)
+                {
+                    suchearray[i, 0] = Convert.ToString(kundenanzeigel[i].KundenID);
+                    suchearray[i, 1] = kundenanzeigel[i].Vorname;
+                    suchearray[i, 2] = kundenanzeigel[i].Nachname;
+                }
+                for (int i = 0; i < suchearray.GetLength(0); i++)
+                {
+                    for (int k = 0; k < suchearray.GetLength(1); k++)
+                    {
+                        test = suchearray[i, k];
+                        if (test.StartsWith(suchetb))
+                        {
+                            for (int j = 0; j < suche.Count; j++)
+                            {
+                                if (suche[j].KundenID == kundenanzeigel[i].KundenID)
+                                {
+                                    check = false;
+                                }
+                            }
+                            if (check)
+                            {
+                                suche.Add(kundenanzeigel[i]);
+                                break;
+                            }
+
+                        }
+                    }
+                }
+                kundenverwaltung.ItemsSource = "";
+                kundenverwaltung.ItemsSource = suche;
+            }
         }
     }
 }

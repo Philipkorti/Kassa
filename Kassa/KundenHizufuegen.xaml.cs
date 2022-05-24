@@ -115,7 +115,8 @@ namespace Kassa
                         {
                             query = $"INSERT INTO Kunden VALUES ('{tbvorname.Text}', '{tbnachname.Text}', 0, '{tbemail.Text}', '{tbtelefone.Text}')";
                             MainWindow mainWindow = new MainWindow();
-                            mainWindow.Datenbank(out string[] output, query);
+                            mainWindow.Data(out string[] output, query);
+                            mainWindow.LesenKunden();
                             this.Close();
                         }
                         else

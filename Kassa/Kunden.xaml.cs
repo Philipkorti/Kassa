@@ -25,21 +25,15 @@ namespace Kassa
         public Kunden(int gesamtpreis)
         {
             InitializeComponent();
-            MainWindow mainWindow = new MainWindow();
-            string query = "SELECT * FROM Kunden";
-            mainWindow.Datenbank(out string[] output,query);
-            for (int i = 0; i < output.Length - 1; i = i +6)
-            {
-                kundenList.Add(new Kundenanzeige { KundenID = Convert.ToInt32(output[i]), Vorname = output[i+1], Nachname = output[i+2], Punkte = Convert.ToInt32(output[i+3]), Email = output[i+4], Telefone = output[i+5] });
-            }
-            DgKunden.ItemsSource = kundenList;
             preis = Convert.ToDouble(gesamtpreis);
+            LesenKunden();
         }
 
         private void hinzufuegen_Click(object sender, RoutedEventArgs e)
         {
             KundenHizufuegen kundenHizufuegen = new KundenHizufuegen();
             kundenHizufuegen.ShowDialog();
+            LesenKunden();
         }
 
         private void loescheuser_Click(object sender, RoutedEventArgs e)
@@ -50,7 +44,7 @@ namespace Kassa
             {
                 query = $"DELET Kunden WHERE KundenID = {kundenList[id].KundenID}";
                 MainWindow mainWindow = new MainWindow();
-                mainWindow.Datenbank(out string[] output, query);
+                mainWindow.Data(out string[] output, query);
             }
             else
             {
@@ -67,14 +61,14 @@ namespace Kassa
             string query;
             count += Convert.ToInt32(preis / 2);
             query = $"UPDATE Kunden SET Punkte = {count} WHERE KundenID = {kundenList[id].KundenID}";
-            mainWindow.Datenbank(out string[] output, query);
+            mainWindow.Data(out string[] output, query);
             if (count >= 200)
             {
                 count -= 200;
                 rabat = (preis / 100) * 10;
                 preis = preis - rabat;
                 query = $"UPDATE Kunden SET Punkte = {count} WHERE KundenID = {kundenList[id].KundenID}";
-                mainWindow.Datenbank(out output, query);
+                mainWindow.Data(out output, query);
             }
             MessageBox.Show("Der Gesamt Betrag beträgt: " + preis + "€");
             this.Close();
@@ -114,6 +108,24 @@ namespace Kassa
                 DgKunden.ItemsSource = "";
                 DgKunden.ItemsSource = kundenList;
             }
+        }
+        public int ReadDGID
+        {
+            get { return (int)DgKunden.SelectedIndex; }
+        }
+        private void LesenKunden()
+        {
+            MainWindow mainWindow = new MainWindow();
+            kundenList.Clear();
+            string query = "SELECT * FROM Kunden";
+            mainWindow.Data(out string[] output, query);
+            for (int i = 0; i < output.Length - 1; i = i + 6)
+            {
+                kundenList.Add(new Kundenanzeige { KundenID = Convert.ToInt32(output[i]), Vorname = output[i + 1], Nachname = output[i + 2], Punkte = Convert.ToInt32(output[i + 3]), Email = output[i + 4], Telefone = output[i + 5] });
+            }
+            DgKunden.ItemsSource = "";
+            DgKunden.ItemsSource = kundenList;
+            
         }
     }
 }

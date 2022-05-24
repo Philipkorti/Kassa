@@ -43,7 +43,7 @@ namespace Kassa
                         if (doubleproduktPreis != 0)
                         {
                             query = $"EXEC AddP '{produktName}', {produktPreis}";
-                            mainWindow.Datenbank(out string[] output, query);
+                            mainWindow.Data(out string[] output, query);
 
                             if (int.TryParse(output[0], out int zahl) && zahl == 1)
                             {
@@ -52,9 +52,9 @@ namespace Kassa
                             else
                             {
                                 query = $"SELECT ID FROM Produkte WHERE Name = '{produktName}'";
-                                mainWindow.Datenbank(out output, query);
+                                mainWindow.Data(out output, query);
                                 query = $"INSERT INTO Lager VALUES ({output[0]}, {intproduktlager}, null)";
-                                mainWindow.Datenbank(out output, query);
+                                mainWindow.Data(out output, query);
                             }
 
                         }

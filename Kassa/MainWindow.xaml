@@ -13,6 +13,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/MainPage.xaml"/>
                 <ResourceDictionary Source="Resources/Button.xaml"/>
+                <ResourceDictionary Source="Resources/TextBlockTextBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -199,25 +200,28 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.04*"/>
+                            <RowDefinition Height="0.04*"/>
+                            <RowDefinition Height="0.004*"/>
                             <RowDefinition/>
                             <RowDefinition Height="0.2*"/>
                         </Grid.RowDefinitions>
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Grid.Row="1">
                             <TextBlock>Suche:</TextBlock>
                             <TextBox x:Name="rechnungsuche" Style="{StaticResource suche}" TextChanged="rechnungsuche_TextChanged"></TextBox>
                         </StackPanel>
                         
-                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" x:Name="anzeigeRechnung" MouseDoubleClick="anzeigeRechnung_MouseDoubleClick" Margin="50" Background="White" BorderThickness="0"> 
+                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="3" x:Name="anzeigeRechnung" MouseDoubleClick="anzeigeRechnung_MouseDoubleClick" Margin="50" Background="White" BorderThickness="0"> 
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="1*"/>
                                 <DataGridTextColumn Header="User-ID" Binding="{Binding User}" Width="1*"/>
+                                <DataGridTextColumn Header="Kunden Name" Binding="{Binding FullName}" Width="1*"/>
                                 <DataGridTextColumn Header="Anzahl Produkte" Binding="{Binding Anzahl}" Width="1*"/>
                                 <DataGridTextColumn Header="Gesamt Preis" Binding="{Binding Preis}" Width="1*"/>
                                 <DataGridTextColumn Header="Verkaufs Datum" Binding="{Binding Datum}" Width="1*"/>
                             </DataGrid.Columns>
 
                         </DataGrid>
-                        <Button Grid.Row="2">Zurück buchen</Button>
+                        <Button Grid.Row="2" Name="buchen" Click="buchen_Click">Zurück buchen</Button>
                     </Grid>
                     <DataGrid Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True" Name="rechnungprodukte" Margin="80" Background="White" BorderThickness="0">
                         <DataGrid.Columns>
@@ -229,6 +233,46 @@
                     </DataGrid>
                 </Grid>
                 
+            </TabItem>
+            <TabItem Header="Kunden">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.04*"/>
+                            <RowDefinition Height="0.04*"/>
+                            <RowDefinition Height="0.04*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1">
+                            <TextBlock>Suche:</TextBlock>
+                            <TextBox Style="{StaticResource suche}" Name="suchekunden" TextChanged="suchekunden_TextChanged"/>
+                        </StackPanel>
+                        <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="kundenverwaltung" AutoGenerateColumns="False" CellEditEnding="userverwaltung_CellEditEnding">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Width="1*" Header="ID" Binding="{Binding KundenID}"/>
+                                <DataGridTextColumn Width="1*" Header="FullName" Binding="{Binding Fullname}"/>
+                                <DataGridTextColumn Width="1*" Header="Punkte" Binding="{Binding Punkte}"/>
+                                <DataGridTextColumn Width="1*" Header="Email" Binding="{Binding Email}"/>
+                                <DataGridTextColumn Width="1*" Header="Telefone" Binding="{Binding Telefone}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="1" Margin="100,50" Name="Kundeadd" Click="Kundeadd_Click">Neuer Kunde</Button>
+                        <Button Grid.Row="3" Margin="100,50" Name="Kundedelete" Click="Kundedelete_Click">Löschen</Button>
+                    </Grid>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

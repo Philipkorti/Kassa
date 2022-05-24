@@ -42,7 +42,7 @@ namespace Kassa
                 UserN = Convert.ToInt32(Text);
 
                 return UserN;
-            }catch(FormatException ex)
+            }catch
             {
                 wronginput();
             }
@@ -108,7 +108,7 @@ namespace Kassa
                 else
                 {
                     MainWindow mainwindow = new MainWindow();
-                    mainwindow.Datenbank(out string[] output, query);
+                    mainwindow.Data(out string[] output, query);
                     for (int i = 0; i < output.Length - 1; i = i + 2)
                     {
                         User.Add(Convert.ToInt32(output[i]), output[i + 1]);

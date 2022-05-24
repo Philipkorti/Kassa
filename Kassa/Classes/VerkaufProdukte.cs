@@ -8,6 +8,7 @@ namespace Kassa.Classes
 {
     class VerkaufProdukte
     {
+        public int VerkaufID { get; set; }
         public int ProduktID { get; set; }
         public string ProduktName { get; set; }
         public int Anzahl { get; set; }

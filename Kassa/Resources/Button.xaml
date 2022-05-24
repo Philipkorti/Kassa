@@ -6,6 +6,7 @@
         <Setter Property="Margin" Value="0,20"/>
         <Setter Property="BorderBrush" Value="Gray"/>
         <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="20"/>
 
         <Setter Property="Template">
             <Setter.Value>
