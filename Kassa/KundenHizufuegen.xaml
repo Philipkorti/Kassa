@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:Kassa"
         mc:Ignorable="d"
-        Title="KundenHizufuegen" Height="350" Width="400">
+        Title="KundenHizufuegen" Height="450" Width="600">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -15,7 +16,10 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Background="Gray">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Bilder/hintergrund.jpg"></ImageBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
             <RowDefinition/>
@@ -32,21 +36,45 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBox x:Name="tbvorname" Width="150" Height="30" FontSize="20" Foreground="{StaticResource placeholder}" GotFocus="tbvorname_GotFocus" LostFocus="tbvorname_LostFocus">Vorname</TextBox>
-                <TextBox x:Name="tbemail" Grid.Column="1" Width="150" Height="30" FontSize="20" Foreground="{StaticResource placeholder}" GotFocus="tbemail_GotFocus" LostFocus="tbemail_LostFocus">Email</TextBox>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock FontSize="20" HorizontalAlignment="Center" Foreground="LightGray" Name="textVorname"></TextBlock>
+                    <TextBox x:Name="tbvorname" Width="200" Height="30" FontSize="20" Margin="0,10,0,0" Foreground="{StaticResource placeholder}" Background="Transparent" BorderThickness="0" GotFocus="tbvorname_GotFocus" LostFocus="tbvorname_LostFocus">Vorname</TextBox>
+                    <Border SnapsToDevicePixels="True" Margin="0,10,0,0" Background="Gray" CornerRadius="9,0,0,9" Width="200" Height="2"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock FontSize="20" HorizontalAlignment="Center" Foreground="LightGray" Name="textEmail"></TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <TextBox x:Name="tbemail" Grid.Column="1" Width="200" Height="30" FontSize="20" Foreground="{StaticResource placeholder}" Background="Transparent" BorderThickness="0" GotFocus="tbemail_GotFocus" LostFocus="tbemail_LostFocus">Email</TextBox>
+                        <iconPacks:PackIconMaterial Kind="Email" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="20"/>
+                    </StackPanel>
+                    <Border SnapsToDevicePixels="True" Margin="0,10,0,0" Background="Gray" CornerRadius="9,0,0,9" Width="250" Height="2"/>
+                </StackPanel>
+                
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBox Name="tbnachname" Width="150" Height="30" FontSize="20" Foreground="{StaticResource placeholder}" GotFocus="tbnachname_GotFocus" LostFocus="tbnachname_LostFocus">Nachname</TextBox>
-                <TextBox x:Name="tbtelefone" Grid.Column="1" Width="150" Height="30" FontSize="20" Foreground="{StaticResource placeholder}" GotFocus="tbtelefone_GotFocus" LostFocus="tbtelefone_LostFocus">Telefone</TextBox>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock FontSize="20" HorizontalAlignment="Center" Foreground="LightGray" Name="textnachname"></TextBlock>
+                    <TextBox Name="tbnachname" Width="200" Height="30" FontSize="20" Foreground="{StaticResource placeholder}" Background="Transparent" BorderThickness="0" GotFocus="tbnachname_GotFocus" LostFocus="tbnachname_LostFocus">Nachname</TextBox>
+                    <Border SnapsToDevicePixels="True" Margin="0,10,0,0" Background="Gray" CornerRadius="9,0,0,9" Width="200" Height="2"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock FontSize="20" HorizontalAlignment="Center" Foreground="LightGray" Name="texttelephone"></TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="tbtelefone" Width="200" Height="30" FontSize="20" Foreground="{StaticResource placeholder}" Background="Transparent" BorderThickness="0" GotFocus="tbtelefone_GotFocus" LostFocus="tbtelefone_LostFocus">Telefone</TextBox>
+                        <iconPacks:PackIconMaterial Kind="Phone" Height="20" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <Border SnapsToDevicePixels="True" Margin="0,10,0,0" Background="Gray" CornerRadius="9,0,0,9" Width="250" Height="2"/>
+                </StackPanel>
+                
             </Grid>
         </Grid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Margin="10" Name="kundenadd" Click="kundenadd_Click">Hinzufuegen</Button>
-            <Button Margin="10" Name="abbrechen" Click="abbrechen_Click"> Abbrechen</Button>
+            <Button Margin="10" Name="kundenadd" Click="kundenadd_Click" Style="{StaticResource delete}">Hinzufuegen</Button>
+            <Button Margin="10" Name="abbrechen" Click="abbrechen_Click" Style="{StaticResource delete}"> Abbrechen</Button>
         </StackPanel>
     </Grid>
 </Window>

@@ -12,8 +12,10 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/MainPage.xaml"/>
-                <ResourceDictionary Source="Resources/Button.xaml"/>
                 <ResourceDictionary Source="Resources/TextBlockTextBox.xaml"/>
+                <ResourceDictionary Source="Resources/Tabitem.xaml"/>
+                <ResourceDictionary Source="Resources/Button.xaml"/>
+                <ResourceDictionary Source="Resources/Datagrid.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -53,18 +55,15 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="1" Orientation="Horizontal">
-                            <TextBlock>Suche:</TextBlock>
-                            <TextBox Style="{StaticResource suche}" Name="tbsuche" TextChanged="tbsuche_TextChanged"/>
+                            <TextBox Style="{StaticResource suche}" Name="tbsuche" TextChanged="tbsuche_TextChanged"></TextBox>
                         </StackPanel>
-
                         <DataGrid Grid.Row="3"  Name="dgProdukteliste" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="dgProdukteliste_MouseDoubleClick">
                             <DataGrid.Columns>
                                 <DataGridTextColumn x:Name="id" Header="ID" Width="1*" Binding="{Binding ID}"/>
                                 <DataGridTextColumn x:Name="name" Header="Name" Width="2*" Binding="{Binding Name}" />
                                 <DataGridTextColumn x:Name="preis" Header="Preis" Width="1*" Binding="{Binding Preis}"/>
-                                <DataGridTextColumn x:Name="instock" Header="InStock" Width="1*" Binding="{Binding InStock}"/>
+                                <DataGridTextColumn x:Name="instock" Header="Lager" Width="1*" Binding="{Binding InStock}"/>
                             </DataGrid.Columns>
-
                         </DataGrid>
 
                     </Grid>
@@ -91,6 +90,7 @@
                             <StackPanel Style="{StaticResource stackbetrag}">
                                 <TextBlock x:Name="textbetrag" Style="{StaticResource textbetrag}">Betrag:</TextBlock>
                                 <TextBlock x:Name="betrag" HorizontalAlignment="Center" Style="{StaticResource betrag}"></TextBlock>
+                                <iconPacks:PackIconMaterial Kind="CurrencyEur" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0,0,0"/>
                             </StackPanel>
 
                         </StackPanel>
@@ -100,8 +100,8 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" x:Name="entfernen" Click="entfernen_Click">Löschen</Button>
-                            <Button Grid.Column="1" x:Name="abschliessen" Click="abschliessen_Click">Abschließen</Button>
+                            <Button Grid.Column="0" x:Name="entfernen" Click="entfernen_Click" Height="50" Width="200">Löschen</Button>
+                            <Button Grid.Column="1" x:Name="abschliessen" Click="abschliessen_Click" Height="50" Width="200">Abschließen</Button>
                         </Grid>
 
 
@@ -111,87 +111,82 @@
             </TabItem>
             <TabItem Header="Produkte" x:Name="produkteanzeige" Visibility="Collapsed">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.04*"/>
                             <RowDefinition Height="0.04*"/>
-                            <RowDefinition Height="0.04*"/>
+                            <RowDefinition Height="0.1*"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="1">
-                            <TextBlock>Suche:</TextBlock>
-                            <TextBox Style="{StaticResource suche}" TextChanged="TextBox_TextChanged" Name="produkteverwaltungsuche"/>
+                            <TextBox Style="{StaticResource suche}" TextChanged="TextBox_TextChanged" Name="produkteverwaltungsuche"></TextBox>
                         </StackPanel>
-                        <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="produkteverwaltung" AutoGenerateColumns="False" CellEditEnding="produkteverwaltung_CellEditEnding">
+                        <Border Grid.Row="2" Background="LightGray" BorderThickness="1" Height="60" Width="160" HorizontalAlignment="Right" Margin="40,0">
+                            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button Margin="10,10" Click="addProdukte_Click" Name="addProdukte" IsEnabled="False" Background="Transparent" BorderBrush="Transparent" Width="35" Height="30">
+                                    <iconPacks:PackIconMaterial Kind="ArchivePlus" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="30"/>
+                                </Button>
+                                <Button Margin="10, 10" Name="lieferdatum" Click="lieferdatum_Click" IsEnabled="False" Background="Transparent" BorderBrush="Transparent" Width="35" Height="30">
+                                    <iconPacks:PackIconMaterial Kind="ArchiveClock" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30" Height="30"/>
+                                </Button>
+                                <Button Margin="10,10" Name="entfernprodukte" Click="entfernprodukte_Click" IsEnabled="False" Background="Transparent" BorderBrush="Transparent" Width="35" Height="30">
+                                    <iconPacks:PackIconMaterial Kind="ArchiveMinus" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30" Height="30"/>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                        
+                        <DataGrid Grid.Row="3" Margin="40,0,40,0" Name="produkteverwaltung" AutoGenerateColumns="False" CellEditEnding="produkteverwaltung_CellEditEnding">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" IsReadOnly="True" Width="1*" Binding="{Binding ID}"/>
                                 <DataGridTextColumn Header="Name" IsReadOnly="True" Width="2*" Binding="{Binding Name}"/>
                                 <DataGridTextColumn Header="Preis" IsReadOnly="True" Width="1*" Binding="{Binding Preis}"/>
-                                <DataGridTextColumn Header="InStock" Width="1*" Binding="{Binding InStock}"/>
+                                <DataGridTextColumn Header="Lager" Width="1*" Binding="{Binding InStock}"/>
                                 <DataGridTextColumn Header="Lieferung" Width="2*" IsReadOnly="True" Binding="{Binding Lieferung}"/>
-                                <DataGridTextColumn Header="Angekommen" IsReadOnly="True" Width="2*" Binding="{Binding Angekommen}"/>
+                                <DataGridTextColumn Header="Angekommen" IsReadOnly="True" Width="2*" Binding="{Binding Angekommen}" CellStyle="{StaticResource angekommnenstyle}"/>
                             </DataGrid.Columns>
                         </DataGrid>
+                        
                     </Grid>
-                    <Grid Grid.Column="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Button Grid.Row="1" Margin="100,50" Click="addProdukte_Click" Name="addProdukte" IsEnabled="False">Neues Produkt</Button>
-                        <Button Grid.Row="2" Margin="100, 50" Name="lieferdatum" Click="lieferdatum_Click" IsEnabled="False">Lieferdatum setzen</Button>
-                        <Button Grid.Row="3" Margin="100,50" Name="entfernprodukte" Click="entfernprodukte_Click" IsEnabled="False">Löschen</Button>
-                    </Grid>
+                   
                 </Grid>
             </TabItem>
-            <TabItem Header="User" Name="useranzeige" Visibility="Collapsed">
+            <TabItem Header="Benutzern" Name="useranzeige" Visibility="Collapsed">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.04*"/>
                             <RowDefinition Height="0.04*"/>
-                            <RowDefinition Height="0.04*"/>
+                            <RowDefinition Height="0.1*"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="1">
                             <TextBlock>Suche:</TextBlock>
-                            <TextBox Style="{StaticResource suche}" Name="sucheuser" TextChanged="sucheuser_TextChanged"/>
+                            <TextBox Style="{StaticResource suche}" Name="sucheuser" TextChanged="sucheuser_TextChanged"></TextBox>
                         </StackPanel>
-                        <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="userverwaltung" AutoGenerateColumns="False" CellEditEnding="userverwaltung_CellEditEnding">
+                        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
+                            <Button Grid.Row="1" Margin="10,10" Name="Useradd" Click="Useradd_Click" Background="Transparent" BorderBrush="Transparent" Height="30" Width="35">
+                                <iconPacks:PackIconMaterial Kind="AccountPlus" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="30"/>
+                            </Button>
+                            <Button Grid.Row="2" Margin="10,10" Name="psr" Click="psr_Click" Background="Transparent" Height="30" Width="35" BorderBrush="Transparent">
+                                <iconPacks:PackIconMaterial Kind="LockReset" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30" Height="30"/>
+                            </Button>
+                            <Button Grid.Row="3" Margin="10,10" Click="Button_Click" Background="White" BorderBrush="Transparent" Height="30" Width="35">
+                                <iconPacks:PackIconMaterial Kind="AccountMinus" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30" Height="30"/>
+                            </Button>
+                        </StackPanel>
+                        <DataGrid Grid.Row="4" Margin="40,0,0,40" Name="userverwaltung" AutoGenerateColumns="False" CellEditEnding="userverwaltung_CellEditEnding">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Width="2*" Header="ID" Binding="{Binding ID}"/>
-                                <DataGridTextColumn Width="2*" Header="FullName" Binding="{Binding FullName}"/>
-                                <DataGridTextColumn Width="2*" Header="Einstellungsdatum" Binding="{Binding Datum}"/>
+                                <DataGridTextColumn Width="2*" IsReadOnly="True" Header="ID" Binding="{Binding ID}"/>
+                                <DataGridTextColumn Width="2*" IsReadOnly="True" Header="Name" Binding="{Binding FullName}"/>
+                                <DataGridTextColumn Width="2*" IsReadOnly="True" Header="Einstellungsdatum" Binding="{Binding Datum}"/>
                                 <DataGridComboBoxColumn Width="2*" Header="Rechte" x:Name="rechteanzeige" SelectedItemBinding="{Binding Rechte}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
-                    <Grid Grid.Column="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Button Grid.Row="1" Margin="100,50" Name="Useradd" Click="Useradd_Click">Neuer User</Button>
-                        <Button Grid.Row="2" Margin="100,50" Name="psr" Click="psr_Click">Passwort Reset</Button>
-                        <Button Grid.Row="3" Margin="100,50" Click="Button_Click">Löschen</Button>
-                    </Grid>
+                    
                 </Grid>
             </TabItem>
-            <TabItem Header="Rechnungen">
+            <TabItem Header="Rechnungen" Visibility="Collapsed" Name="tabrechnung">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -206,14 +201,13 @@
                             <RowDefinition Height="0.2*"/>
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="1">
-                            <TextBlock>Suche:</TextBlock>
                             <TextBox x:Name="rechnungsuche" Style="{StaticResource suche}" TextChanged="rechnungsuche_TextChanged"></TextBox>
                         </StackPanel>
                         
                         <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="3" x:Name="anzeigeRechnung" MouseDoubleClick="anzeigeRechnung_MouseDoubleClick" Margin="50" Background="White" BorderThickness="0"> 
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="1*"/>
-                                <DataGridTextColumn Header="User-ID" Binding="{Binding User}" Width="1*"/>
+                                <DataGridTextColumn Header="Mitarbeiter-ID" Binding="{Binding User}" Width="1*"/>
                                 <DataGridTextColumn Header="Kunden Name" Binding="{Binding FullName}" Width="1*"/>
                                 <DataGridTextColumn Header="Anzahl Produkte" Binding="{Binding Anzahl}" Width="1*"/>
                                 <DataGridTextColumn Header="Gesamt Preis" Binding="{Binding Preis}" Width="1*"/>
@@ -234,44 +228,37 @@
                 </Grid>
                 
             </TabItem>
-            <TabItem Header="Kunden">
+            <TabItem Header="Kunden" Visibility="Collapsed" Name="tabkunde">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.04*"/>
                             <RowDefinition Height="0.04*"/>
-                            <RowDefinition Height="0.04*"/>
+                            <RowDefinition Height="0.1*"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="1">
-                            <TextBlock>Suche:</TextBlock>
-                            <TextBox Style="{StaticResource suche}" Name="suchekunden" TextChanged="suchekunden_TextChanged"/>
+                            <TextBox Style="{StaticResource suche}" Name="suchekunden" TextChanged="suchekunden_TextChanged"></TextBox>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Margin="10,10" Name="Kundeadd" Click="Kundeadd_Click" Background="Transparent" BorderBrush="Transparent" Height="30" Width="35">
+                                <iconPacks:PackIconMaterial Kind="AccountPlus" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30" Height="30"/>
+                            </Button>
+                            <Button Margin="10,10" Name="Kundedelete" Click="Kundedelete_Click" Background="Transparent" BorderBrush="Transparent" Width="35" Height="30">
+                                <iconPacks:PackIconMaterial Kind="AccountMinus" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30" Height="30"/>
+                            </Button>
                         </StackPanel>
                         <DataGrid Grid.Row="3" Margin="40,0,0,40" Name="kundenverwaltung" AutoGenerateColumns="False" CellEditEnding="userverwaltung_CellEditEnding">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Width="1*" Header="ID" Binding="{Binding KundenID}"/>
-                                <DataGridTextColumn Width="1*" Header="FullName" Binding="{Binding Fullname}"/>
+                                <DataGridTextColumn Width="1*" Header="Name" Binding="{Binding Fullname}"/>
                                 <DataGridTextColumn Width="1*" Header="Punkte" Binding="{Binding Punkte}"/>
                                 <DataGridTextColumn Width="1*" Header="Email" Binding="{Binding Email}"/>
                                 <DataGridTextColumn Width="1*" Header="Telefone" Binding="{Binding Telefone}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
-                    <Grid Grid.Column="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Button Grid.Row="1" Margin="100,50" Name="Kundeadd" Click="Kundeadd_Click">Neuer Kunde</Button>
-                        <Button Grid.Row="3" Margin="100,50" Name="Kundedelete" Click="Kundedelete_Click">Löschen</Button>
-                    </Grid>
+                    
                 </Grid>
             </TabItem>
         </TabControl>

@@ -179,10 +179,11 @@ namespace Kassa
 
         private void tbuser_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (tbuser.Text == "User-ID")
+            if (tbuser.Text == "Benutzer-ID")
             {
                 tbuser.Text = "";
                 tbuser.Foreground = Brushes.Black;
+                textUser.Text = "Benutzer-ID";
             }
         }
 
@@ -190,8 +191,9 @@ namespace Kassa
         {
             if (string.IsNullOrWhiteSpace(tbuser.Text))
             {
-                tbuser.Text = "User-ID";
+                tbuser.Text = "Benutzer-ID";
                 tbuser.Foreground = Brushes.LightGray;
+                textUser.Text = "";
             }
                
         }
@@ -205,6 +207,11 @@ namespace Kassa
                 pbpaswort.Visibility = Visibility.Visible;
                 showpasswort.Visibility = Visibility.Collapsed;
                 pbpaswort.Focus();
+                if (string.IsNullOrWhiteSpace(pbpaswort.Password))
+                {
+                    textpasswort.Text = "Passwort";
+                }
+                
             }
         }
 
@@ -216,6 +223,7 @@ namespace Kassa
                 showpasswort.Foreground = Brushes.LightGray;
                 pbpaswort.Visibility = Visibility.Collapsed;
                 showpasswort.Visibility = Visibility.Visible;
+                textpasswort.Text = "";
             }
         }
     }

@@ -18,13 +18,17 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Bilder/hintergrund.jpg"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.05*"/>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="0.5*"/>
             <RowDefinition/>
+            <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
-        <Grid Background="Gray">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="0.1*"/>
@@ -33,34 +37,35 @@
                 <Image Source="Bilder/exit.png" Width="20"/>
             </Button>
         </Grid>
-        <StackPanel Grid.Row="1">
-            <TextBlock Style="{StaticResource Header}">Kassa</TextBlock>
+        <TextBlock Grid.Row="1" Style="{StaticResource Header}">Kassa</TextBlock>
+        <StackPanel Grid.Row="2">
+
             <StackPanel>
-                <TextBox x:Name="tbuser" Style="{StaticResource InputUSer}" KeyDown="tbuser_KeyDown" GotFocus="tbuser_GotFocus" LostFocus="tbuser_LostFocus">User-ID</TextBox>
+                <TextBlock FontSize="20" HorizontalAlignment="Center" Name="textUser" Foreground="LightGray"></TextBlock>
+                <TextBox x:Name="tbuser" Style="{StaticResource InputUSer}" KeyDown="tbuser_KeyDown" GotFocus="tbuser_GotFocus" Margin="0,10,0,0" LostFocus="tbuser_LostFocus">Benutzer-ID</TextBox>
+                <Border SnapsToDevicePixels="True" Background="Gray" CornerRadius="9,0,0,9" Width="310" Height="2" Margin="0,0,0,30"/>
             </StackPanel>
             <StackPanel>
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal" Background="White" Height="30" Width="300">
+                <TextBlock FontSize="20" HorizontalAlignment="Center" Name="textpasswort" Foreground="LightGray"></TextBlock>
+                    <StackPanel Orientation="Horizontal" Background="Transparent" Height="30" Width="300" Margin="0,10,0,0">
                         <PasswordBox x:Name="pbpaswort" Style="{StaticResource inputPasswort}" KeyDown="pbpaswort_KeyDown" BorderThickness="0" Visibility="Collapsed" LostFocus="pbpaswort_LostFocus"></PasswordBox>
                         <TextBox Name="showpasswort" Style="{StaticResource InputPasswort}"  GotFocus="showpasswort_GotFocus" BorderThickness="0">Passwort</TextBox>
                         <Button Style="{StaticResource see}" Width="30" Height="20" Name="passwortseebutton" PreviewMouseUp="passwortseebutton_MouseUp" PreviewMouseDown="passwortseebutton_MouseDown">
                             <Image Source="Bilder/look_password.png" Name="passwortsee"/>
                         </Button>
                     </StackPanel>
-                    
-                </StackPanel>
-
+                    <Border SnapsToDevicePixels="True" Background="Gray" CornerRadius="9,0,0,9" Width="310" Height="2"/>
             </StackPanel>
-            <TextBlock x:Name="errorMs" Style="{StaticResource erorms}"></TextBlock>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="1" Click="Button_Click" Content="Abbrechen"/>
-                <Button x:Name="btnAnmelden" Click="btnAnmelden_Click">Anmelden</Button>
-            </Grid>
+                <TextBlock x:Name="errorMs" Style="{StaticResource erorms}"></TextBlock>
         </StackPanel>
-       
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Click="Button_Click" Content="Abbrechen" Style="{StaticResource delete}"/>
+            <Button x:Name="btnAnmelden" Click="btnAnmelden_Click" Style="{StaticResource delete}">Anmelden</Button>
+        </Grid>
+
     </Grid>
 </Window>

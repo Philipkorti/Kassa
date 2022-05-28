@@ -44,3 +44,5 @@ C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispi
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\Kunden.baml
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\KundenHizufuegen.g.cs
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\KundenHizufuegen.baml
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\Resources\Tabitem.baml
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\2.Klasse\2.Semester\POS\Beispiele\Kassa\Kassa\obj\Debug\Resources\Datagrid.baml

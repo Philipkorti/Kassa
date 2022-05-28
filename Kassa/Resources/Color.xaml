@@ -8,5 +8,9 @@
     <SolidColorBrush x:Key="colorwhite" Color="White"/>
     <SolidColorBrush x:Key="errorcolor" Color="DarkRed"/>
     <SolidColorBrush x:Key="placeholder" Color="LightGray"/>
+    <SolidColorBrush x:Key="tabitemschrift" Color="White"/>
+    <SolidColorBrush x:Key="tabitemschriftselected" Color="Black"/>
+    <SolidColorBrush x:Key="tabitembackground" Color="Blue"/>
+    <SolidColorBrush x:Key="tabitembackgroundselected" Color="Yellow"/>
 
 </ResourceDictionary>

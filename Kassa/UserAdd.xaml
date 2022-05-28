@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kassa"
         mc:Ignorable="d"
-        Title="UserAdd" Height="450" Width="300">
+        Title="UserAdd" Height="450" Width="600">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -13,31 +13,47 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Background="Gray">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Bilder/hintergrund.jpg"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.4*"/>
             <RowDefinition/>
             <RowDefinition Height="0.4*"/>
         </Grid.RowDefinitions>
-
-        <StackPanel Grid.Row="0">
-            <TextBlock FontSize="30" HorizontalAlignment="Center" Foreground="White">Neuer User</TextBlock>
-            <TextBox Width="200" Height="30" Foreground="LightGray" Margin="15" FontSize="20" Name="UserID" GotFocus="UserID_GotFocus" LostFocus="UserID_LostFocus">User-ID</TextBox>
-            <TextBox Width="200" Height="30" Foreground="LightGray" Margin="15" FontSize="20" Name="firstname" GotFocus="firstname_GotFocus" LostFocus="firstname_LostFocus">Vorname</TextBox>
-            <TextBox Width="200" Height="30" Foreground="LightGray" Margin="15" FontSize="20" Name="lastname" GotFocus="lastname_GotFocus" LostFocus="lastname_LostFocus">Nachname</TextBox>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                <TextBlock Height="30" FontSize="15" Margin="0,20,0,0" Width="60">Rechhte:</TextBlock>
-                <ComboBox Width="130" Margin="10,20,0,0" Name="rechteaswahl"  Height="30" SelectedValue="Kassa">
-                </ComboBox>
-            </StackPanel>
-            
-        </StackPanel>
+        <TextBlock FontSize="30" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center">Neuer User</TextBlock>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button  Height="50" Width="100" Name="useradd" Click="useradd_Click">Add</Button>
-            <Button Grid.Column="1" Width="100" Name="userexit" Height="50" Click="userexit_Click">Abbrechen</Button>
+            <StackPanel Grid.Row="0">
+                <TextBlock FontSize="20" Foreground="LightGray" HorizontalAlignment="Center" Name="tbuserid"></TextBlock>
+                <TextBox Width="200" Height="30" Foreground="LightGray" Margin="10" FontSize="20" Background="Transparent" BorderThickness="0" Name="UserID" GotFocus="UserID_GotFocus" LostFocus="UserID_LostFocus">Benutzer-ID</TextBox>
+                <Border SnapsToDevicePixels="True" Background="Gray" CornerRadius="9,0,0,9" Width="200" Height="2"/>
+                <TextBlock FontSize="20" Foreground="LightGray" Margin="0,20,0,0" HorizontalAlignment="Center" Name="tbfirstname"></TextBlock>
+                <TextBox Width="200" Height="30" Foreground="LightGray" Margin="10" FontSize="20" Background="Transparent" BorderThickness="0" Name="firstname" GotFocus="firstname_GotFocus" LostFocus="firstname_LostFocus">Vorname</TextBox>
+                <Border SnapsToDevicePixels="True" Background="Gray" CornerRadius="9,0,0,9" Width="200" Height="2"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <TextBlock FontSize="20" Foreground="LightGray" Margin="0,0,0,0" HorizontalAlignment="Center" Name="tblastname"></TextBlock>
+                <TextBox Width="200" Height="30" Foreground="LightGray" Margin="10" FontSize="20" Background="Transparent" BorderThickness="0" Name="lastname" GotFocus="lastname_GotFocus" LostFocus="lastname_LostFocus">Nachname</TextBox>
+                <Border SnapsToDevicePixels="True" Background="Gray" CornerRadius="9,0,0,9" Width="200" Height="2"/>
+                <StackPanel HorizontalAlignment="Center" >
+                    <TextBlock Height="30" FontSize="20" Margin="0,20,0,0" Foreground="LightGray" Width="60">Rechte</TextBlock>
+                    <ComboBox Width="200" Margin="10,20,0,0" Name="rechteaswahl"  Height="30" SelectedValue="Kassa">
+                    </ComboBox>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button  Height="50" Width="100" Name="useradd" Click="useradd_Click" Style="{StaticResource delete}">Add</Button>
+            <Button Grid.Column="1" Width="100" Name="userexit" Height="50" Click="userexit_Click" Style="{StaticResource delete}">Abbrechen</Button>
         </Grid>
         
     </Grid>

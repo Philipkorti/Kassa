@@ -7,7 +7,7 @@
 
    
     <Style TargetType="StackPanel">
-        <Setter Property="Background" Value="{StaticResource colorgrey}"/>
+        
     </Style>
     <Style TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource colorwhite}"/>
@@ -28,18 +28,25 @@
         <Setter Property="Foreground" Value="{StaticResource placeholder}"/>
         <Setter Property="Width" Value="300"/>
         <Setter Property="Height" Value="30"/>
-        <Setter Property="Margin" Value="30,30"/>
+        <Setter Property="Margin" Value="0,30,0,0"/>
         <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
     </Style>
     <Style TargetType="TextBox" x:Key="InputPasswort">
         <Setter Property="Width" Value="250"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="Foreground" Value="{StaticResource placeholder}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
     </Style>
     <Style TargetType="PasswordBox" x:Key="inputPasswort">
         <Setter Property="Width" Value="250"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Background" Value="Transparent"/>
     </Style>
 </ResourceDictionary>

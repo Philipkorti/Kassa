@@ -102,10 +102,11 @@ namespace Kassa
 
         private void UserID_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (UserID.Text == "User-ID")
+            if (UserID.Text == "Benutzer-ID")
             {
                 UserID.Text = "";
                 UserID.Foreground = Brushes.Black;
+                tbuserid.Text = "Benutzer-ID";
             }
         }
 
@@ -113,8 +114,9 @@ namespace Kassa
         {
             if (string.IsNullOrWhiteSpace(UserID.Text))
             {
-                UserID.Text = "User-ID";
+                UserID.Text = "Benutzer-ID";
                 UserID.Foreground = Brushes.LightGray;
+                tbuserid.Text = "";
             }
         }
 
@@ -124,6 +126,7 @@ namespace Kassa
             {
                 firstname.Text = "";
                 firstname.Foreground = Brushes.Black;
+                tbfirstname.Text = "Vorname";
             }
         }
 
@@ -133,6 +136,7 @@ namespace Kassa
             {
                 firstname.Text = "Vorname";
                 firstname.Foreground = Brushes.LightGray;
+                tbfirstname.Text = "";
             }
         }
 
@@ -142,6 +146,7 @@ namespace Kassa
             {
                 lastname.Text = "";
                 lastname.Foreground = Brushes.Black;
+                tblastname.Text = "Nachname";
             }
         }
 
@@ -151,6 +156,7 @@ namespace Kassa
             {
                 lastname.Text = "Nachname";
                 lastname.Foreground = Brushes.LightGray;
+                tblastname.Text = "";
             }
         }
 

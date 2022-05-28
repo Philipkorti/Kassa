@@ -6,7 +6,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="StackPanel">
-        <Setter Property="Background" Value="{StaticResource colorgrey}"/>
+        
     </Style>
     
 </ResourceDictionary>

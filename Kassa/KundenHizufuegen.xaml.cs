@@ -31,6 +31,7 @@ namespace Kassa
             {
                 tbvorname.Text = "";
                 tbvorname.Foreground = Brushes.Black;
+                textVorname.Text = "Vorname";
             }
         }
 
@@ -40,6 +41,7 @@ namespace Kassa
             {
                 tbvorname.Text = "Vorname";
                 tbvorname.Foreground = Brushes.LightGray;
+                textVorname.Text = "";
             }
         }
 
@@ -49,6 +51,7 @@ namespace Kassa
             {
                 tbemail.Text = "";
                 tbemail.Foreground = Brushes.Black;
+                textEmail.Text = "Email";
             }
         }
 
@@ -58,6 +61,7 @@ namespace Kassa
             {
                 tbemail.Text = "Email";
                 tbemail.Foreground = Brushes.LightGray;
+                textEmail.Text = "";
             }
         }
 
@@ -67,6 +71,7 @@ namespace Kassa
             {
                 tbnachname.Text = "";
                 tbnachname.Foreground = Brushes.Black;
+                textnachname.Text = "Nachname";
             }
         }
 
@@ -76,6 +81,7 @@ namespace Kassa
             {
                 tbnachname.Text = "Nachname";
                 tbnachname.Foreground = Brushes.LightGray;
+                textnachname.Text = "";
             }
         }
 
@@ -85,6 +91,7 @@ namespace Kassa
             {
                 tbtelefone.Text = "";
                 tbtelefone.Foreground = Brushes.Black;
+                texttelephone.Text = "Telefone";
             }
         }
 
@@ -94,6 +101,7 @@ namespace Kassa
             {
                 tbtelefone.Text = "Telefone";
                 tbtelefone.Foreground = Brushes.LightGray;
+                texttelephone.Text = "";
             }
         }
 
@@ -113,7 +121,7 @@ namespace Kassa
                         match = regtel.Match(tbtelefone.Text);
                         if (tbtelefone.Text != " " && tbtelefone.Text != "Telefone" && tbtelefone.Text != null && match.Success && tbtelefone.Text.Length <= 50)
                         {
-                            query = $"INSERT INTO Kunden VALUES ('{tbvorname.Text}', '{tbnachname.Text}', 0, '{tbemail.Text}', '{tbtelefone.Text}')";
+                            query = $"EXEC KundenAdd '{tbvorname.Text}', '{tbnachname.Text}', 0, '{tbemail.Text}', '{tbtelefone.Text}'";
                             MainWindow mainWindow = new MainWindow();
                             mainWindow.Data(out string[] output, query);
                             mainWindow.LesenKunden();

@@ -88,6 +88,8 @@ namespace Kassa
                 kassa.IsSelected = true;
                 useranzeige.Visibility = Visibility.Collapsed;
                 produkteanzeige.Visibility = Visibility.Collapsed;
+                tabkunde.Visibility = Visibility.Collapsed;
+                tabrechnung.Visibility = Visibility.Collapsed;
                 MessageBox.Show("Du wurdest erfolgfreich abgemeldet!");
                 daten.Visibility = Visibility.Collapsed;
             }
@@ -182,8 +184,8 @@ namespace Kassa
             List<Products> suche = new List<Products>();
             dgProdukteliste.ItemsSource = null;
             suche.Clear();
-            
-            if (suchetb != "" && suchetb != " " && suchetb != null)
+
+            if (suchetb != "" && suchetb != " " && suchetb != null && suchetb != "Suche")
             {
                 Produktesuche(ref suche, suchetb, produkte);
                 dgProdukteliste.ItemsSource = suche;
@@ -192,7 +194,7 @@ namespace Kassa
             {
                 dgProdukteliste.ItemsSource = produkte;
             }
-            
+
         }
 
         private void Rechnung_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -289,64 +291,73 @@ namespace Kassa
         {
             string query;
             int kundenid;
-            int gesamtpreis = Convert.ToInt32(betrag.Text);
-            betragpreis = gesamtpreis;
-            Kunden kunden = new Kunden(gesamtpreis);
-            kunden.ShowDialog();
-            kaufen.Clear();
-            kundenid = kunden.ReadDGID;
-            query = $"EXEC PVerkauf {userID}, {kundenanzeigel[kundenid].KundenID},{dbkaufen.Count}, {gesamtpreis}";
-            Data(out string[] output, query);
-            for (int i = 0; i < dbkaufen.Count; i++)
+            int gesamtpreis;
+            if (rechnung.Count != 0)
             {
-                query = $"EXEC AddProdukteVerkauf @VerkaufID = 0, @ProduktID = {dbkaufen[i].ID}, @Anzahl = {dbkaufen[i].InStock}, @Geamtpreis = {dbkaufen[i].Preis}";
-                Data(out output, query);
-            }
-            for (int i = 0; i < dbkaufen.Count; i++)
-            {
-                for (int k = 0; k < produkte.Count; k++)
+                gesamtpreis = Convert.ToInt32(betrag.Text);
+                betragpreis = gesamtpreis;
+                Kunden kunden = new Kunden(gesamtpreis);
+                kunden.ShowDialog();
+                kaufen.Clear();
+                kundenid = kunden.ReadDGID;
+                query = $"EXEC PVerkauf {userID}, {kundenanzeigel[kundenid].KundenID},{dbkaufen.Count}, {gesamtpreis}";
+                Data(out string[] output, query);
+                for (int i = 0; i < dbkaufen.Count; i++)
                 {
-                    if (dbkaufen[i].ID == produkte[k].ID)
+                    query = $"EXEC AddProdukteVerkauf @VerkaufID = 0, @ProduktID = {dbkaufen[i].ID}, @Anzahl = {dbkaufen[i].InStock}, @Geamtpreis = {dbkaufen[i].Preis}";
+                    Data(out output, query);
+                }
+                for (int i = 0; i < dbkaufen.Count; i++)
+                {
+                    for (int k = 0; k < produkte.Count; k++)
                     {
-                        query = $"UPDATE Lager SET Lager = {produkte[k].InStock} WHERE ID = {dbkaufen[i].ID}";
-                        Data(out output, query);
+                        if (dbkaufen[i].ID == produkte[k].ID)
+                        {
+                            query = $"UPDATE Lager SET Lager = {produkte[k].InStock} WHERE ID = {dbkaufen[i].ID}";
+                            Data(out output, query);
+                        }
                     }
                 }
-            }
-            dbkaufen.Clear();
-            Produktelesen();
-            Produkteverwaltunglesen();
+                dbkaufen.Clear();
+                Produktelesen();
+                Produkteverwaltunglesen();
 
-            Rechnung.ItemsSource = "";
-            betrag.Text = "";
-            Rechnung.Height = 30;
-            entfernen.Visibility = Visibility.Hidden;
-            abschliessen.Visibility = Visibility.Hidden;
-            LesenRechnung();
+                Rechnung.ItemsSource = "";
+                betrag.Text = "";
+                Rechnung.Height = 30;
+                entfernen.Visibility = Visibility.Hidden;
+                abschliessen.Visibility = Visibility.Hidden;
+                LesenRechnung();
+            }
+           
         }
 
 
         private void entfernen_Click(object sender, RoutedEventArgs e)
         {
             int pos = Rechnung.SelectedIndex;
-            betrag.Text = Convert.ToString(Convert.ToDouble(betrag.Text) - (kaufen[pos].Preis * kaufen[pos].InStock));
-            for (int i = 0; i < produkte.Count; i++)
+            if (pos != -1)
             {
-                if (kaufen[pos].ID == produkte[i].ID)
+                betrag.Text = Convert.ToString(Convert.ToDouble(betrag.Text) - (kaufen[pos].Preis * kaufen[pos].InStock));
+                for (int i = 0; i < produkte.Count; i++)
                 {
-                    produkte[i].InStock += kaufen[pos].InStock; 
+                    if (kaufen[pos].ID == produkte[i].ID)
+                    {
+                        produkte[i].InStock += kaufen[pos].InStock;
+                    }
+                }
+                reloadgprodukte();
+                kaufen.RemoveAt(pos);
+                reloadrechnung();
+                Rechnung.Height = Rechnung.Height - 30;
+
+                if (kaufen.Count == 0)
+                {
+                    entfernen.Visibility = Visibility.Hidden;
+                    abschliessen.Visibility = Visibility.Hidden;
                 }
             }
-            reloadgprodukte();
-            kaufen.RemoveAt(pos);
-            reloadrechnung();
-            Rechnung.Height = Rechnung.Height - 30;
             
-            if (kaufen.Count == 0)
-            {
-                entfernen.Visibility = Visibility.Hidden;
-                abschliessen.Visibility = Visibility.Hidden;
-            }
         }
         private void reloadgprodukte()
         {
@@ -494,6 +505,8 @@ namespace Kassa
                     {
                         produkteanzeige.Visibility = Visibility.Visible;
                         useranzeige.Visibility = Visibility.Visible;
+                        tabkunde.Visibility = Visibility.Visible;
+                        tabrechnung.Visibility = Visibility.Visible;
                         UserAnzeige();
                         
                         break;
@@ -510,6 +523,7 @@ namespace Kassa
                         useranzeige.Visibility = Visibility.Visible;
                         useranzeige.IsSelected = true;
                         kassa.Visibility = Visibility.Collapsed;
+                        tabkunde.Visibility = Visibility.Visible;
                         UserAnzeige();
                         rechte.Remove("Admin");
                         break;
@@ -521,12 +535,14 @@ namespace Kassa
                         useranzeige.Visibility = Visibility.Visible;
                         produkteanzeige.IsSelected = true;
                         kassa.Visibility = Visibility.Collapsed;
+                        tabkunde.Visibility = Visibility.Visible;
                         UserAnzeige();
                         rechte.Remove("Admin");
                         break;
                     }
                 case "Kassa":
                     {
+                        tabrechnung.Visibility = Visibility.Visible;
                         break;
                     }
             }
@@ -977,7 +993,17 @@ namespace Kassa
 
         private void Kundedelete_Click(object sender, RoutedEventArgs e)
         {
-
+            int id = kundenverwaltung.SelectedIndex;
+            string query;
+            if (id != -1)
+            {
+                query = $"EXEC DeleteKunde {kundenanzeigel[id].KundenID}, 0";
+                Data(out string[] output, query);
+            }
+            else
+            {
+                MessageBox.Show("Sie müssen einen Kunden auswählen!");
+            }
         }
         /// <summary>
         /// Reading out Coustomer from the Data Base
@@ -1042,5 +1068,7 @@ namespace Kassa
                 kundenverwaltung.ItemsSource = suche;
             }
         }
+
+        
     }
 }

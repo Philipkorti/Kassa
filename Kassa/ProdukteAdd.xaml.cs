@@ -95,6 +95,7 @@ namespace Kassa
             {
                 name.Text = "";
                 name.Foreground = Brushes.Black;
+                tbname.Text = "Name";
             }
         }
 
@@ -104,6 +105,7 @@ namespace Kassa
             {
                 name.Text = "Name";
                 name.Foreground = Brushes.LightGray;
+                tbname.Text = "";
             }
         }
 
@@ -113,6 +115,7 @@ namespace Kassa
             {
                 preis.Text = "";
                 preis.Foreground = Brushes.Black;
+                tbpreis.Text = "Preis";
             }
         }
 
@@ -122,6 +125,7 @@ namespace Kassa
             {
                 preis.Text = "Preis";
                 preis.Foreground = Brushes.LightGray;
+                tbpreis.Text = "";
             }
         }
 
@@ -131,6 +135,7 @@ namespace Kassa
             {
                 lager.Text = "";
                 lager.Foreground = Brushes.Black;
+                tblager.Text = "Lager";
             }
         }
 
@@ -140,6 +145,7 @@ namespace Kassa
             {
                 lager.Text = "Lager";
                 lager.Foreground = Brushes.LightGray;
+                tblager.Text = "";
             }
         }
     }

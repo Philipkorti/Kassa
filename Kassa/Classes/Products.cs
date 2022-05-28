@@ -30,6 +30,7 @@ namespace Kassa.Classes
         {
             get
             {
+                MainWindow mainWindow = new MainWindow();
                 DateTime date = DateTime.Now;
                 DateTime dateTime;
                 string datestring = date.ToString("dd MM yyyy");
@@ -39,6 +40,7 @@ namespace Kassa.Classes
                     dateTimestring = dateTime.ToString("dd MM yyyy");
                     if (dateTime > date)
                     {
+                        
                         return "Nicht Angekommen";
                     }
                     else
