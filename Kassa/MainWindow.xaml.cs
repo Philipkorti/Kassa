@@ -650,7 +650,8 @@ namespace Kassa
             string test;
             suche = new List<Products>();
             suche.Clear();
-            string[,] suchearray = new string[produkte.Count, 4]; 
+            string[,] suchearray = new string[produkte.Count, 4];
+            bool check = true;
             
             for (int i = 0; i < produkte.Count; i++)
             {
@@ -666,7 +667,18 @@ namespace Kassa
                     test = suchearray[i, k];
                     if (test.StartsWith(suchetb))
                     {
-                        suche.Add(input[i]);
+                        for (int j = 0; j < suche.Count; j++)
+                        {
+                            if (suche[j].ID == rechnung[i].ID)
+                            {
+                                check = false;
+                            }
+                        }
+                        if (check)
+                        {
+                            suche.Add(input[i]);
+                            break;
+                        }
                     }
                 }
             }

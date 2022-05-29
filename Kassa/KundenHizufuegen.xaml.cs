@@ -129,24 +129,25 @@ namespace Kassa
                         }
                         else
                         {
-                            MessageBox.Show("Die Telefonnummer darf nicht null sein oder sie muss diesen muster stimmen: xxx xxxxxxxxx");
+                            errorms.Text = "Die Telefonnummer darf nicht null sein oder sie muss diesen muster stimmen: xxx xxxxxxxxx";
+                            tbtelefone.Focus();
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Die Email ist null oder die Email passt nicht den Muster!");
+                        errorms.Text = "Die Email ist null oder die Email ist nicht richtig geschrieben!";
                         tbemail.Focus();
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Der Nachname darf nicht null sein und darf maximal 50 zeichen lang sein!");
+                    errorms.Text = "Der Nachname darf nicht null sein und darf maximal 50 zeichen lang sein!";
                     tbnachname.Focus();
                 }
             }
             else
             {
-                MessageBox.Show("Der Vorname darf nicht null sein und darf maximal 50 zeichen lang sein!");
+                errorms.Text = "Der Vorname darf nicht null sein und darf maximal 50 zeichen lang sein!";
                 tbvorname.Focus();
             }
         }

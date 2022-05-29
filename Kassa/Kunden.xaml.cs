@@ -56,22 +56,27 @@ namespace Kassa
         {
             MainWindow mainWindow = new MainWindow();
             int id = DgKunden.SelectedIndex;
-            int count = kundenList[id].Punkte;
+            int count;
             double rabat;
             string query;
-            count += Convert.ToInt32(preis / 2);
-            query = $"UPDATE Kunden SET Punkte = {count} WHERE KundenID = {kundenList[id].KundenID}";
-            mainWindow.Data(out string[] output, query);
-            if (count >= 200)
+            if(id != -1)
             {
-                count -= 200;
-                rabat = (preis / 100) * 10;
-                preis = preis - rabat;
+                count = kundenList[id].Punkte;
+                count += Convert.ToInt32(preis / 2);
                 query = $"UPDATE Kunden SET Punkte = {count} WHERE KundenID = {kundenList[id].KundenID}";
-                mainWindow.Data(out output, query);
+                mainWindow.Data(out string[] output, query);
+                if (count >= 200)
+                {
+                    count -= 200;
+                    rabat = (preis / 100) * 10;
+                    preis = preis - rabat;
+                    query = $"UPDATE Kunden SET Punkte = {count} WHERE KundenID = {kundenList[id].KundenID}";
+                    mainWindow.Data(out output, query);
+                }
+                MessageBox.Show("Der Gesamt Betrag beträgt: " + preis + "€");
+                this.Close();
             }
-            MessageBox.Show("Der Gesamt Betrag beträgt: " + preis + "€");
-            this.Close();
+            
         }
 
         private void suche_TextChanged(object sender, TextChangedEventArgs e)

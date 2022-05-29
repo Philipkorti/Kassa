@@ -49,5 +49,10 @@
         <Setter Property="Height" Value="20"/>
         <Setter Property="Background" Value="LightGray"/>
     </Style>
-    
+    <Style TargetType="StackPanel" x:Key="stackicons">
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Background" Value="{StaticResource iconbackground}"/>
+        <Setter Property="Margin" Value="0,0,40,5"/>
+    </Style>
 </ResourceDictionary>

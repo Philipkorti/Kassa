@@ -44,28 +44,17 @@ namespace Kassa
         private void Input()
         {
             int kontrolle;
-            if (tbMenge.Text == null || tbMenge.Text == "" || tbMenge.Text == " ")
-            {
-                MessageBox.Show("Sie müssen eine Menge eingeben!");
-            }
-            else
-            {
+            
                 try
                 {
                     kontrolle = Convert.ToInt32(tbMenge.Text);
                     this.Close();
 
                 }
-                catch (FormatException ex)
+                catch
                 {
-                    MessageBox.Show(ex.Message);
+                    errorms.Text = "Sie müssen eine Menge eingeben!";
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
-            }
         }
 
         private void tbMenge_GotFocus(object sender, RoutedEventArgs e)
@@ -74,6 +63,7 @@ namespace Kassa
             {
                 tbMenge.Text = "";
                 tbMenge.Foreground = Brushes.Black;
+                textmenge.Text = "Menge";
             }
         }
 
@@ -83,7 +73,13 @@ namespace Kassa
             {
                 tbMenge.Text = "Menge";
                 tbMenge.Foreground = Brushes.LightGray;
+                textmenge.Text = "";
             }
+        }
+
+        private void btabbrechen_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

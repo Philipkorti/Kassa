@@ -11,14 +11,18 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Button.xaml"/>
                 <ResourceDictionary Source="Resources/TextBlocktextBox.xaml"/>
+                <ResourceDictionary Source="Resources/Datagrid.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
 
     <DockPanel>
+        <DockPanel.Background>
+            <ImageBrush ImageSource="Bilder/hintergrund.jpg"/>
+        </DockPanel.Background>
         <StackPanel VerticalAlignment="Center">
-            <Button Margin="20" Name="hinzufuegen" Click="hinzufuegen_Click">Neuer User</Button>
-            <Button Margin="20" Name="loescheuser" Click="loescheuser_Click">User Löschen</Button>
+            <Button Margin="20" Name="hinzufuegen" Click="hinzufuegen_Click" Style="{StaticResource delete}">Neuer User</Button>
+            <Button Margin="20" Name="loescheuser" Click="loescheuser_Click" Style="{StaticResource delete}">User Löschen</Button>
         </StackPanel>
         <Grid>
             <Grid.RowDefinitions>

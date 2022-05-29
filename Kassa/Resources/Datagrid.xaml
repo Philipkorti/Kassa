@@ -13,4 +13,14 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
+    <Style TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="Red"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style TargetType="DataGrid">
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="GridLinesVisibility" Value="Vertical"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="CanUserSortColumns" Value="False"/>
+    </Style>
 </ResourceDictionary>

@@ -23,7 +23,7 @@ namespace Kassa
         public Datenändern(int intid)
         {
             InitializeComponent();
-            string query = $"EXEC {intid}";
+            string query = $"EXEC Benutzerinfo {intid}";
             MainWindow mainWindow = new MainWindow();
             mainWindow.Data(out string[] output, query);
             vorname.Text = output[0];
@@ -59,9 +59,16 @@ namespace Kassa
         {
             if (e.Key == Key.Enter)
             {
-                tbvorname.Visibility = Visibility.Collapsed;
-                vorname.Visibility = Visibility.Visible;
-                vorname.Text = tbvorname.Text;
+                if (tbvorname.Text.Length > 3 && tbvorname.Text.Length < 50)
+                {
+                    tbvorname.Visibility = Visibility.Collapsed;
+                    vorname.Visibility = Visibility.Visible;
+                    vorname.Text = tbvorname.Text;
+                }
+                else
+                {
+                    errorms.Text = "Der Vorname muss zwischen 3 und 50 zeichen lang sein!";
+                }
             }
         }
 
@@ -69,9 +76,16 @@ namespace Kassa
         {
             if (e.Key == Key.Enter)
             {
-                tbnachname.Visibility = Visibility.Collapsed;
-                nachname.Visibility = Visibility.Visible;
-                nachname.Text = tbnachname.Text;
+                if (tbnachname.Text.Length > 3 && tbnachname.Text.Length < 50)
+                {
+                    tbnachname.Visibility = Visibility.Collapsed;
+                    nachname.Visibility = Visibility.Visible;
+                    nachname.Text = tbnachname.Text;
+                }
+                else
+                {
+                    errorms.Text = "Der Nachname muss zwischen 3 und 50 zeichen lang sein!";
+                }
             }
         }
 
@@ -89,6 +103,10 @@ namespace Kassa
                     tbpasswort.Visibility = Visibility.Collapsed;
                     passwort.Visibility = Visibility.Visible;
                     passwort.Text = tbpasswort.Text;
+                }
+                else
+                {
+                    errorms.Text = "Das Passwort passt nicht!";
                 }
             }
         }
