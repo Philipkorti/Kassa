@@ -55,16 +55,17 @@ namespace Kassa
             {
                 if (vorname != "")
                 {
-                    if (vorname.Length <= 50)
+                    if (vorname.Length >= 2 && vorname.Length <= 50)
                     {
                         if (nachname != "")
                         {
-                            if (nachname.Length <= 50)
+                            if (nachname.Length >= 2 && nachname.Length <= 50)
                             {
                                 datetime = date.ToString("dd MMM yyyy");
                                 query = $"EXEC AddUser {userid}, '{vorname}', '{nachname}', '{passwort}', '{datetime}', '{recht}'";
                                 mainWindow.Data(out string[] output, query);
                                 mainWindow.UserA();
+                                this.Close();
                             }
                             else
                             {

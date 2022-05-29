@@ -24,7 +24,7 @@
         <Setter Property="Margin" Value="70,0,0,0"/>
     </Style>
     <Style TargetType="DataGridCell" x:Key="CellDatagridRechnung">
-        <Setter Property="Margin" Value="70,0,0,0"/>
+        <Setter Property="Margin" Value="0,0,0,0"/>
     </Style>
     
     <Style TargetType="TextBlock" x:Key="textbetrag">

@@ -23,12 +23,6 @@ namespace Kassa
         {
             InitializeComponent();
         }
-
-        private void set_Click(object sender, RoutedEventArgs e)
-        {
-            
-            
-        }
         public DateTime LieferDatum()
         {
             DateTime date;

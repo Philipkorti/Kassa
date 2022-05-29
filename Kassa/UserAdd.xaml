@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kassa"
         mc:Ignorable="d"
-        Title="UserAdd" Height="450" Width="600">
+        Title="UserAdd" Height="450" Width="600" MinHeight="450" MinWidth="600" Icon="Bilder/kassa.png">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

@@ -31,7 +31,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Menu Grid.Row="0" Background="Blue">
-            <MenuItem Margin="10">
+            <MenuItem Margin="5">
                 <MenuItem.Icon>
                     <iconPacks:PackIconMaterial Kind="Account" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
                 </MenuItem.Icon>
@@ -169,7 +169,7 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="1">
-                            <TextBlock>Suche:</TextBlock>
+                            <TextBlock FontSize="20" Margin="10,0,0,0">Suche:</TextBlock>
                             <TextBox Style="{StaticResource suche}" Name="sucheuser" TextChanged="sucheuser_TextChanged"></TextBox>
                         </StackPanel>
                         <StackPanel Style="{StaticResource stackicons}" Grid.Row="2">
@@ -236,7 +236,7 @@
                             </DataGrid.Columns>
 
                         </DataGrid>
-                        <Button Grid.Row="4" Style="{StaticResource abschliesen}" Name="buchen" Click="buchen_Click">Zurück buchen</Button>
+                        <Button Grid.Row="4" Style="{StaticResource abschliesen}" Name="buchen" Click="buchen_Click" Width="200">Zurück buchen</Button>
                     </Grid>
                     <StackPanel Grid.Column="1">
                         <TextBlock Style="{StaticResource Header}" Margin="0,25,0,0">Produkte</TextBlock>

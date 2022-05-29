@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Kassa"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="Anmeldung" Height="450" Width="380" AllowsTransparency="True"
+        Title="Anmeldung" Height="550" Width="380" AllowsTransparency="True"
         WindowStyle="None" ResizeMode="NoResize"
         MouseDown="Window_MouseDown">
     <Window.Resources>

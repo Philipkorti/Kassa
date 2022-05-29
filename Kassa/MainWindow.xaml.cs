@@ -246,39 +246,47 @@ namespace Kassa
             {
                 entfernen.Visibility = Visibility.Visible;
                 abschliessen.Visibility = Visibility.Visible;
-                gesamt += produkte[id].Preis * Convert.ToDouble(mengen.anzahl);
-                anzahl = produkte[id].InStock;
-                zahl = Convert.ToInt32(mengen.anzahl);
-                anzahl = anzahl - zahl;
-                produkte[id].InStock = anzahl;
-                dgProdukteliste.ItemsSource = "";
-                dgProdukteliste.ItemsSource = produkte;
-                if (tbsuche.Text != "")
+                if (Convert.ToInt32(mengen.anzahl) < produkte[id].InStock)
                 {
-                    Produktesuche(ref suche, suchetb, produkte);
-                    kaufen.Add((Products)suche[id].Clone());
-                    dbkaufen.Add((Products)suche[id].Clone());
-                    tbsuche.Text = "";
+                    gesamt += produkte[id].Preis * Convert.ToDouble(mengen.anzahl);
+                    anzahl = produkte[id].InStock;
+                    zahl = Convert.ToInt32(mengen.anzahl);
+                    anzahl = anzahl - zahl;
+                    produkte[id].InStock = anzahl;
+                    dgProdukteliste.ItemsSource = "";
+                    dgProdukteliste.ItemsSource = produkte;
+                    if (tbsuche.Text != "")
+                    {
+                        Produktesuche(ref suche, suchetb, produkte);
+                        kaufen.Add((Products)suche[id].Clone());
+                        dbkaufen.Add((Products)suche[id].Clone());
+                        tbsuche.Text = "";
+                    }
+                    else
+                    {
+                        kaufen.Add((Products)produkte[id].Clone());
+                        dbkaufen.Add((Products)produkte[id].Clone());
+                    }
+
+                    kaufen[kaufen.Count - 1].InStock = Convert.ToInt32(mengen.anzahl);
+                    dbkaufen[kaufen.Count - 1].InStock = Convert.ToInt32(mengen.anzahl);
+                    betrag.Text = Convert.ToString(gesamt);
+
+                    if (Convert.ToInt32(Rowrechnung.ActualHeight) / 1.3 > Convert.ToInt32(Rechnung.Height))
+                    {
+                        Rechnung.Height = Rechnung.Height + 30;
+                    }
+                    else
+                    {
+                        kaufen.RemoveAt(0);
+                    }
+                    reloadrechnung();
                 }
                 else
                 {
-                    kaufen.Add((Products)produkte[id].Clone());
-                    dbkaufen.Add((Products)produkte[id].Clone());
+                    MessageBox.Show("Die Menge kann niht mehr sein als im Lager!");
                 }
                 
-                kaufen[kaufen.Count - 1].InStock = Convert.ToInt32(mengen.anzahl);
-                dbkaufen[kaufen.Count - 1].InStock = Convert.ToInt32(mengen.anzahl);
-                betrag.Text = Convert.ToString(gesamt);
-
-                if (Convert.ToInt32(Rowrechnung.ActualHeight) / 1.3 > Convert.ToInt32(Rechnung.Height))
-                {
-                    Rechnung.Height = Rechnung.Height + 30;
-                }
-                else
-                {
-                    kaufen.RemoveAt(0);
-                }
-                reloadrechnung();
                
             }
             catch(Exception ex)
@@ -292,7 +300,7 @@ namespace Kassa
             string query;
             int kundenid;
             int gesamtpreis;
-            if (rechnung.Count != 0)
+            if (kaufen.Count != 0)
             {
                 gesamtpreis = Convert.ToInt32(betrag.Text);
                 betragpreis = gesamtpreis;
@@ -300,6 +308,7 @@ namespace Kassa
                 kunden.ShowDialog();
                 kaufen.Clear();
                 kundenid = kunden.ReadDGID;
+                LesenKunden();
                 query = $"EXEC PVerkauf {userID}, {kundenanzeigel[kundenid].KundenID},{dbkaufen.Count}, {gesamtpreis}";
                 Data(out string[] output, query);
                 for (int i = 0; i < dbkaufen.Count; i++)
@@ -421,11 +430,12 @@ namespace Kassa
             string query;
             LieferDate lieferDate = new LieferDate();
             string date;
+            DateTime checkdate = DateTime.Now;
             if (id != -1)
             {
                 lieferDate.ShowDialog();
                 date = lieferDate.LieferDatum().ToString("dd MMM yyyy");
-                if (date != "01 Jan 0001")
+                if (checkdate < Convert.ToDateTime(date))
                 {
                     query = $"UPDATE Lager SET Lieferung = '{lieferDate.LieferDatum()}' WHERE ID = {produkteverwaltungl[id].ID}";
                     Data(out string[] output, query);
@@ -489,6 +499,8 @@ namespace Kassa
             string user = tbuid.Text;
             UserAdd userAdd = new UserAdd(user);
             userAdd.ShowDialog();
+            UserAnzeige();
+            
         }
         /// <summary>
         /// 
@@ -942,6 +954,7 @@ namespace Kassa
                     Data(out output, query);
                     LesenRechnung();
                     Produktelesen();
+                    Produkteverwaltunglesen();
                 }
                 
             }
@@ -994,6 +1007,7 @@ namespace Kassa
             rechnungprodukte.ItemsSource = produkteVerkauf;
             LesenRechnung();
             Produktelesen();
+            Produkteverwaltunglesen();
         }
 
         private void Kundeadd_Click(object sender, RoutedEventArgs e)
@@ -1007,10 +1021,25 @@ namespace Kassa
         {
             int id = kundenverwaltung.SelectedIndex;
             string query;
+            string[] VerkaufID;
             if (id != -1)
             {
-                query = $"EXEC DeleteKunde {kundenanzeigel[id].KundenID}, 0";
+                query = $"SELECT VerkaufID FROM Verkauf WHERE KundenID = {kundenanzeigel[id].KundenID}";
                 Data(out string[] output, query);
+                VerkaufID = new string[output.Length];
+                for (int i = 0; i < output.Length; i++)
+                {
+                    VerkaufID[i] = output[i];
+                }
+                for (int i = 0; i < VerkaufID.Length - 1; i++)
+                {
+                    query = $"DELETE Produkte_Verkauf WHERE VerkaufID = {VerkaufID[i]}";
+                    Data(out output, query);
+                }
+                query = $"EXEC DeleteKunde {kundenanzeigel[id].KundenID}";
+                Data(out output, query);
+                LesenRechnung();
+                LesenKunden();
             }
             else
             {

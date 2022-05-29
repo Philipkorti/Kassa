@@ -129,7 +129,7 @@ namespace Kassa
                         }
                         else
                         {
-                            errorms.Text = "Die Telefonnummer darf nicht null sein oder sie muss diesen muster stimmen: xxx xxxxxxxxx";
+                            errorms.Text = "Die Telefonnummer muss eine Vorwahl von 4 haben und 7 die Telefone nummer!";
                             tbtelefone.Focus();
                         }
                     }

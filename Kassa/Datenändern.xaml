@@ -6,7 +6,7 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:Kassa"
         mc:Ignorable="d"
-        Title="Datenändern" Height="450" Width="400">
+        Title="Datenändern" Height="450" Width="400" MinHeight="450" MinWidth="400" Icon="Bilder/kassa.png">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

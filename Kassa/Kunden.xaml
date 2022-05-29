@@ -22,7 +22,6 @@
         </DockPanel.Background>
         <StackPanel VerticalAlignment="Center">
             <Button Margin="20" Name="hinzufuegen" Click="hinzufuegen_Click" Style="{StaticResource delete}">Neuer User</Button>
-            <Button Margin="20" Name="loescheuser" Click="loescheuser_Click" Style="{StaticResource delete}">User Löschen</Button>
         </StackPanel>
         <Grid>
             <Grid.RowDefinitions>

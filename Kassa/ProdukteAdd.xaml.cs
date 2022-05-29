@@ -47,7 +47,7 @@ namespace Kassa
 
                             if (int.TryParse(output[0], out int zahl) && zahl == 1)
                             {
-                                MessageBox.Show("Das Produkt exestiert bereits!");
+                                errorms.Text = "Das Produkt exestiert bereits!";
                             }
                             else
                             {
@@ -55,30 +55,31 @@ namespace Kassa
                                 mainWindow.Data(out output, query);
                                 query = $"INSERT INTO Lager VALUES ({output[0]}, {intproduktlager}, null)";
                                 mainWindow.Data(out output, query);
+                                this.Close();
                             }
 
                         }
                         else
                         {
-                            MessageBox.Show("Der Preis von dem Produkt darf nicht 0 sein!");
+                            errorms.Text = "Der Preis von dem Produkt darf nicht 0 sein!";
                             preis.Focus();
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Der Name vom Produkt passt nicht!");
+                        errorms.Text = "Der Name vom Produkt passt nicht!";
                         name.Focus();
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Die Eingabe vom Lagerbestand war nicht richtig!");
+                    errorms.Text = "Die Eingabe vom Lagerbestand war nicht richtig!";
                     lager.Focus();
                 }
             }
             else
             {
-                MessageBox.Show("Die Eingabe vom Preis war nicht richtig!");
+                errorms.Text = "Die Eingabe vom Preis war nicht richtig!";
                 preis.Focus();
             }
 

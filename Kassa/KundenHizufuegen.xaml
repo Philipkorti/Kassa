@@ -6,7 +6,7 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:Kassa"
         mc:Ignorable="d"
-        Title="KundenHizufuegen" Height="450" Width="600">
+        Title="KundenHizufuegen" Height="450" Width="600" MinHeight="450" MinWidth="600" Icon="Bilder/kassa.png">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

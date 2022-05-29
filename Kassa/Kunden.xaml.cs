@@ -34,24 +34,9 @@ namespace Kassa
             KundenHizufuegen kundenHizufuegen = new KundenHizufuegen();
             kundenHizufuegen.ShowDialog();
             LesenKunden();
+            MainWindow main = new MainWindow();
+            main.LesenKunden();
         }
-
-        private void loescheuser_Click(object sender, RoutedEventArgs e)
-        {
-            int id = DgKunden.SelectedIndex;
-            string query;
-            if (id != -1)
-            {
-                query = $"DELET Kunden WHERE KundenID = {kundenList[id].KundenID}";
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Data(out string[] output, query);
-            }
-            else
-            {
-                MessageBox.Show("Sie müssen ein Element auswählen");
-            }
-        }
-
         private void DgKunden_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             MainWindow mainWindow = new MainWindow();
@@ -63,16 +48,15 @@ namespace Kassa
             {
                 count = kundenList[id].Punkte;
                 count += Convert.ToInt32(preis / 2);
-                query = $"UPDATE Kunden SET Punkte = {count} WHERE KundenID = {kundenList[id].KundenID}";
-                mainWindow.Data(out string[] output, query);
                 if (count >= 200)
                 {
                     count -= 200;
                     rabat = (preis / 100) * 10;
                     preis = preis - rabat;
-                    query = $"UPDATE Kunden SET Punkte = {count} WHERE KundenID = {kundenList[id].KundenID}";
-                    mainWindow.Data(out output, query);
+                    
                 }
+                query = $"UPDATE Kunden SET Punkte = {count} WHERE KundenID = {kundenList[id].KundenID}";
+                mainWindow.Data(out string[] output, query);
                 MessageBox.Show("Der Gesamt Betrag beträgt: " + preis + "€");
                 this.Close();
             }
