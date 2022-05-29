@@ -66,8 +66,6 @@ namespace Kassa
                 {
                     this.DialogResult = true;
                     this.Close();
-
-
                 }
                 else
                 {
@@ -194,8 +192,7 @@ namespace Kassa
                 tbuser.Text = "Benutzer-ID";
                 tbuser.Foreground = Brushes.LightGray;
                 textUser.Text = "";
-            }
-               
+            } 
         }
 
         private void showpasswort_GotFocus(object sender, RoutedEventArgs e)
@@ -211,7 +208,6 @@ namespace Kassa
                 {
                     textpasswort.Text = "Passwort";
                 }
-                
             }
         }
 

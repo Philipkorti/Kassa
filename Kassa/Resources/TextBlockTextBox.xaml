@@ -26,4 +26,32 @@
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="20"/>
     </Style>
+    <Style TargetType="TextBlock" x:Key="inputheader">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="LightGray"/>
+    </Style>
+    <Style TargetType="Border" x:Key="underline">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Background" Value="Gray"/>
+        <Setter Property="CornerRadius" Value="9,0,0,9"/>
+        <Setter Property="Width" Value="310"/>
+        <Setter Property="Height" Value="2"/>
+        <Setter Property="Margin" Value="0,0,0,30"/>
+    </Style>
+    <Style TargetType="TextBox" x:Key="changedata">
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    <Style TargetType="TextBox" x:Key="input">
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Margin" Value="0,10,0,0"/>
+        <Setter Property="Foreground" Value="{StaticResource placeholder}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
 </ResourceDictionary>

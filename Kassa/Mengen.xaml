@@ -20,14 +20,13 @@
             <ImageBrush ImageSource="Bilder/hintergrund.jpg"/>
         </StackPanel.Background>
         <TextBlock HorizontalAlignment="Center" FontSize="40" Foreground="White">Menge</TextBlock>
-        <TextBlock Margin="0,20,0,0" HorizontalAlignment="Center" FontSize="20" Foreground="LightGray" Name="textmenge"></TextBlock>
-        <TextBox KeyDown="OnKeyDownHandler" x:Name="tbMenge" HorizontalAlignment="Center" Height="30" Width="170" Background="Transparent" BorderBrush="Transparent" FontSize="20" Margin="10,10,10,0" Foreground="LightGray" GotFocus="tbMenge_GotFocus" LostFocus="tbMenge_LostFocus">Menge</TextBox>
-        <Border SnapsToDevicePixels="True" Background="Gray" CornerRadius="9,0,0,9" Width="170" Height="2" Margin="0,0,0,10"/>
+        <TextBlock Style="{StaticResource inputheader}" Name="textmenge"></TextBlock>
+        <TextBox KeyDown="OnKeyDownHandler" x:Name="tbMenge" Style="{StaticResource input}" GotFocus="tbMenge_GotFocus" LostFocus="tbMenge_LostFocus">Menge</TextBox>
+        <Border Style="{StaticResource underline}" Width="200"/>
         <TextBlock Style="{StaticResource erorms}" Name="errorms"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="btbest" Click="btbest_Click" Style="{StaticResource delete}" Width="120">Bestätigen</Button>
             <Button x:Name="btabbrechen" Style="{StaticResource delete}" Width="120" Click="btabbrechen_Click">Abbrechen</Button>
         </StackPanel>
-        
     </StackPanel>
 </Window>

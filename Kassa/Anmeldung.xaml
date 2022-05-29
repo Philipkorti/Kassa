@@ -33,7 +33,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="0.1*"/>
             </Grid.ColumnDefinitions>
-            <Button Style="{StaticResource exit}" Width="20" HorizontalAlignment="Center" Grid.Column="1" Click="Button_Click_1">
+            <Button Style="{StaticResource exit}" Grid.Column="1" Click="Button_Click_1">
                 <Image Source="Bilder/exit.png" Width="20"/>
             </Button>
         </Grid>
@@ -41,20 +41,20 @@
         <StackPanel Grid.Row="2">
 
             <StackPanel>
-                <TextBlock FontSize="20" HorizontalAlignment="Center" Name="textUser" Foreground="LightGray"></TextBlock>
+                <TextBlock Name="textUser" Style="{StaticResource inputheader}"></TextBlock>
                 <TextBox x:Name="tbuser" Style="{StaticResource InputUSer}" KeyDown="tbuser_KeyDown" GotFocus="tbuser_GotFocus" Margin="0,10,0,0" LostFocus="tbuser_LostFocus">Benutzer-ID</TextBox>
-                <Border SnapsToDevicePixels="True" Background="Gray" CornerRadius="9,0,0,9" Width="310" Height="2" Margin="0,0,0,30"/>
+                <Border Style="{StaticResource underline}"/>
             </StackPanel>
             <StackPanel>
-                <TextBlock FontSize="20" HorizontalAlignment="Center" Name="textpasswort" Foreground="LightGray"></TextBlock>
+                <TextBlock Style="{StaticResource inputheader}" Name="textpasswort"></TextBlock>
                     <StackPanel Orientation="Horizontal" Background="Transparent" Height="30" Width="300" Margin="0,10,0,0">
                         <PasswordBox x:Name="pbpaswort" Style="{StaticResource inputPasswort}" KeyDown="pbpaswort_KeyDown" BorderThickness="0" Visibility="Collapsed" LostFocus="pbpaswort_LostFocus"></PasswordBox>
                         <TextBox Name="showpasswort" Style="{StaticResource InputPasswort}"  GotFocus="showpasswort_GotFocus" BorderThickness="0">Passwort</TextBox>
-                        <Button Style="{StaticResource see}" Width="30" Height="20" Name="passwortseebutton" PreviewMouseUp="passwortseebutton_MouseUp" PreviewMouseDown="passwortseebutton_MouseDown">
+                        <Button Style="{StaticResource see}" Name="passwortseebutton" PreviewMouseUp="passwortseebutton_MouseUp" PreviewMouseDown="passwortseebutton_MouseDown">
                             <Image Source="Bilder/look_password.png" Name="passwortsee"/>
                         </Button>
                     </StackPanel>
-                    <Border SnapsToDevicePixels="True" Background="Gray" CornerRadius="9,0,0,9" Width="310" Height="2"/>
+                    <Border Style="{StaticResource underline}"/>
             </StackPanel>
                 <TextBlock x:Name="errorMs" Style="{StaticResource erorms}"></TextBlock>
         </StackPanel>

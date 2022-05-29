@@ -13,14 +13,15 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Background="Gray">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Bilder/hintergrund.jpg"/> 
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="0.4*"/>
         </Grid.RowDefinitions>
         <Calendar HorizontalAlignment="Center" Height="200" Width="428" MouseDoubleClick="Calendar_MouseDoubleClick" x:Name="lieferdate"/>
-
-        <Button Grid.Row="1" Width="150" Height="50" Name="abbrechen" Click="abbrechen_Click" HorizontalAlignment="Center">Abbrechen</Button>
-
+        <Button Style="{StaticResource delete}" Grid.Row="1" Name="abbrechen" Click="abbrechen_Click">Abbrechen</Button>
     </Grid>
 </Window>

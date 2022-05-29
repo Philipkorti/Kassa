@@ -11,6 +11,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Mengen.xaml"/>
                 <ResourceDictionary Source="Resources/Button.xaml"/>
+                <ResourceDictionary Source="Resources/TextBlockTextBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -22,16 +23,16 @@
             <RowDefinition/>
             <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
-            <TextBlock Name="tbname" HorizontalAlignment="Center" FontSize="20" Margin="0,20,0,0" Foreground="LightGray"></TextBlock>
-            <TextBox Width="200" Height="30" Margin="0,10,0,0" FontSize="20" Name="name" Text="Name" Foreground="LightGray" Background="Transparent" BorderThickness="0" GotFocus="name_GotFocus" LostFocus="name_LostFocus"/>
-            <Border SnapsToDevicePixels="True" Background="Gray" CornerRadius="9,0,0,9" Width="200" Height="2" Margin="0,0,0,30"/>
-            <TextBlock x:Name="tbpreis" Foreground="LightGray" HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="20"></TextBlock>
-            <TextBox Width="200" Height="30" Margin="0,10,0,0" FontSize="20" Name="preis" Text="Preis" Foreground="LightGray" Background="Transparent" BorderThickness="0" GotFocus="preis_GotFocus" LostFocus="preis_LostFocus"/>
-            <Border SnapsToDevicePixels="True" Background="Gray" CornerRadius="9,0,0,9" Width="200" Height="2" Margin="0,0,0,30"/>
-            <TextBlock x:Name="tblager" Foreground="LightGray" HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="20"></TextBlock>
-            <TextBox Width="200" Height="30" Margin="0,10,0,0" FontSize="20" Name="lager" Text="Lager" Foreground="LightGray" Background="Transparent" BorderThickness="0" GotFocus="lager_GotFocus" LostFocus="lager_LostFocus"/>
-            <Border SnapsToDevicePixels="True" Background="Gray" CornerRadius="9,0,0,9" Width="200" Height="2" Margin="0,0,0,30"/>
+        <StackPanel Grid.Row="0" VerticalAlignment="Center">
+            <TextBlock Name="tbname" Style="{StaticResource inputheader}"></TextBlock>
+            <TextBox Style="{StaticResource input}" Name="name" Text="Name" GotFocus="name_GotFocus" LostFocus="name_LostFocus"/>
+            <Border Style="{StaticResource underline}" Width="200"/>
+            <TextBlock x:Name="tbpreis" Style="{StaticResource inputheader}"></TextBlock>
+            <TextBox Style="{StaticResource input}" Name="preis" Text="Preis" GotFocus="preis_GotFocus" LostFocus="preis_LostFocus"/>
+            <Border Style="{StaticResource underline}" Width="200"/>
+            <TextBlock x:Name="tblager" Style="{StaticResource inputheader}"></TextBlock>
+            <TextBox Style="{StaticResource input}" Name="lager" Text="Lager" GotFocus="lager_GotFocus" LostFocus="lager_LostFocus"/>
+            <Border Style="{StaticResource underline}" Width="200"/>
         </StackPanel>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>

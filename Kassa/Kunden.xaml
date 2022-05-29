@@ -35,7 +35,14 @@
                 <TextBlock>Suche:</TextBlock>
                 <TextBox Name="suche" TextChanged="suche_TextChanged" Style="{StaticResource suche}"/>
             </StackPanel>
-            <DataGrid x:Name="DgKunden" AutoGenerateColumns="False" MouseDoubleClick="DgKunden_MouseDoubleClick" IsReadOnly="True" Grid.Row="3">
+            <DataGrid x:Name="DgKunden"
+                      AutoGenerateColumns="False"
+                      MouseDoubleClick="DgKunden_MouseDoubleClick"
+                      IsReadOnly="True"
+                      Grid.Row="3"
+                      Margin="10"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="KundenID" Width="1*" Binding="{Binding KundenID}"/>
                     <DataGridTextColumn Header="Name" Width="1*" Binding="{Binding Fullname}"/>

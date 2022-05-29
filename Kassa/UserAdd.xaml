@@ -10,6 +10,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Button.xaml"/>
+                <ResourceDictionary Source="Resources/TextBlockTextBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -29,19 +30,19 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Row="0">
-                <TextBlock FontSize="20" Foreground="LightGray" HorizontalAlignment="Center" Name="tbuserid"></TextBlock>
-                <TextBox Width="200" Height="30" Foreground="LightGray" Margin="10" FontSize="20" Background="Transparent" BorderThickness="0" Name="UserID" GotFocus="UserID_GotFocus" LostFocus="UserID_LostFocus">Benutzer-ID</TextBox>
-                <Border SnapsToDevicePixels="True" Background="Gray" CornerRadius="9,0,0,9" Width="200" Height="2"/>
-                <TextBlock FontSize="20" Foreground="LightGray" Margin="0,20,0,0" HorizontalAlignment="Center" Name="tbfirstname"></TextBlock>
-                <TextBox Width="200" Height="30" Foreground="LightGray" Margin="10" FontSize="20" Background="Transparent" BorderThickness="0" Name="firstname" GotFocus="firstname_GotFocus" LostFocus="firstname_LostFocus">Vorname</TextBox>
-                <Border SnapsToDevicePixels="True" Background="Gray" CornerRadius="9,0,0,9" Width="200" Height="2"/>
+                <TextBlock Style="{StaticResource inputheader}" Name="tbuserid"></TextBlock>
+                <TextBox Style="{StaticResource input}" Name="UserID" GotFocus="UserID_GotFocus" LostFocus="UserID_LostFocus">Benutzer-ID</TextBox>
+                <Border Style="{StaticResource underline}" Width="200"/>
+                <TextBlock Style="{StaticResource inputheader}" Name="tbfirstname"></TextBlock>
+                <TextBox Style="{StaticResource input}" Name="firstname" GotFocus="firstname_GotFocus" LostFocus="firstname_LostFocus">Vorname</TextBox>
+                <Border Style="{StaticResource underline}" Width="200"/>
             </StackPanel>
             <StackPanel Grid.Column="1">
-                <TextBlock FontSize="20" Foreground="LightGray" Margin="0,0,0,0" HorizontalAlignment="Center" Name="tblastname"></TextBlock>
-                <TextBox Width="200" Height="30" Foreground="LightGray" Margin="10" FontSize="20" Background="Transparent" BorderThickness="0" Name="lastname" GotFocus="lastname_GotFocus" LostFocus="lastname_LostFocus">Nachname</TextBox>
-                <Border SnapsToDevicePixels="True" Background="Gray" CornerRadius="9,0,0,9" Width="200" Height="2"/>
+                <TextBlock Style="{StaticResource inputheader}" Name="tblastname"></TextBlock>
+                <TextBox Style="{StaticResource input}" Name="lastname" GotFocus="lastname_GotFocus" LostFocus="lastname_LostFocus">Nachname</TextBox>
+                <Border Style="{StaticResource underline}" Width="200"/>
                 <StackPanel HorizontalAlignment="Center" >
-                    <TextBlock Height="30" FontSize="20" Margin="0,20,0,0" Foreground="LightGray" Width="60">Rechte</TextBlock>
+                    <TextBlock Style="{StaticResource inputheader}">Rechte</TextBlock>
                     <ComboBox Width="200" Margin="10,20,0,0" Name="rechteaswahl"  Height="30" SelectedValue="Kassa">
                     </ComboBox>
                 </StackPanel>

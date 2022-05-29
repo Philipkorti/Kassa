@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="Resources/Tabitem.xaml"/>
                 <ResourceDictionary Source="Resources/Button.xaml"/>
                 <ResourceDictionary Source="Resources/Datagrid.xaml"/>
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -30,7 +31,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Menu Grid.Row="0" Background="Blue">
-            <MenuItem>
+            <MenuItem Margin="10">
                 <MenuItem.Icon>
                     <iconPacks:PackIconMaterial Kind="Account" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
                 </MenuItem.Icon>
@@ -58,7 +59,12 @@
                             <TextBlock FontSize="20">Suche:</TextBlock>
                             <TextBox Style="{StaticResource suche}" Name="tbsuche" TextChanged="tbsuche_TextChanged"></TextBox>
                         </StackPanel>
-                        <DataGrid Grid.Row="3"  Name="dgProdukteliste" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="dgProdukteliste_MouseDoubleClick">
+                        <DataGrid Grid.Row="3"  Name="dgProdukteliste"
+                                  AutoGenerateColumns="False"
+                                  CanUserDeleteRows="False"
+                                  CanUserAddRows="False"
+                                  IsReadOnly="True"
+                                  MouseDoubleClick="dgProdukteliste_MouseDoubleClick">
                             <DataGrid.Columns>
                                 <DataGridTextColumn x:Name="id" Header="ID" Width="1*" Binding="{Binding ID}"/>
                                 <DataGridTextColumn x:Name="name" Header="Name" Width="2*" Binding="{Binding Name}" />
@@ -80,7 +86,10 @@
                         </StackPanel>
 
                         <StackPanel Grid.Row="1" Grid.RowSpan="2" x:Name="Rowrechnung">
-                            <DataGrid x:Name="Rechnung"  Style="{StaticResource DataGridRechnung}" MouseDoubleClick="Rechnung_MouseDoubleClick">
+                            <DataGrid x:Name="Rechnung"  Style="{StaticResource DataGridRechnung}"
+                                      MouseDoubleClick="Rechnung_MouseDoubleClick"
+                                      CanUserAddRows="False"
+                                      CanUserDeleteRows="False">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Name" Width="1*"  Binding="{Binding Name}"/>
                                     <DataGridTextColumn Header="Menge" Width="0.7*"  Binding="{Binding InStock}" />
@@ -104,11 +113,8 @@
                             <Button Grid.Column="0" x:Name="entfernen" Click="entfernen_Click" Height="50" Width="200" Style="{StaticResource abschliesen}">Löschen</Button>
                             <Button Grid.Column="1" x:Name="abschliessen" Click="abschliessen_Click" Height="50" Width="200" Style="{StaticResource abschliesen}">Abschließen</Button>
                         </Grid>
-
-
                     </Grid>
                 </Grid>
-
             </TabItem>
             <TabItem Header="Produkte" x:Name="produkteanzeige" Visibility="Collapsed">
                 <Grid>
@@ -134,7 +140,11 @@
                                 <iconPacks:PackIconMaterial Kind="ArchiveMinus" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30" Height="30"/>
                             </Button>
                         </StackPanel>
-                        <DataGrid Grid.Row="3" Margin="40,0,40,0" Name="produkteverwaltung" AutoGenerateColumns="False" CellEditEnding="produkteverwaltung_CellEditEnding">
+                        <DataGrid Grid.Row="3" Margin="40,0,40,0" Name="produkteverwaltung"
+                                  AutoGenerateColumns="False"
+                                  CellEditEnding="produkteverwaltung_CellEditEnding"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" IsReadOnly="True" Width="1*" Binding="{Binding ID}"/>
                                 <DataGridTextColumn Header="Name" IsReadOnly="True" Width="2*" Binding="{Binding Name}"/>
@@ -173,7 +183,11 @@
                                 <iconPacks:PackIconMaterial Kind="AccountMinus" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30" Height="30"/>
                             </Button>
                         </StackPanel>
-                        <DataGrid Grid.Row="4" Margin="40,0,40,10" Name="userverwaltung" AutoGenerateColumns="False" CellEditEnding="userverwaltung_CellEditEnding">
+                        <DataGrid Grid.Row="4" Margin="40,0,40,10" Name="userverwaltung"
+                                  AutoGenerateColumns="False"
+                                  CellEditEnding="userverwaltung_CellEditEnding"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Width="2*" IsReadOnly="True" Header="ID" Binding="{Binding ID}"/>
                                 <DataGridTextColumn Width="2*" IsReadOnly="True" Header="Name" Binding="{Binding FullName}"/>
@@ -204,7 +218,14 @@
                             <TextBox x:Name="rechnungsuche" Style="{StaticResource suche}" TextChanged="rechnungsuche_TextChanged"></TextBox>
                         </StackPanel>
                         
-                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="3" x:Name="anzeigeRechnung" MouseDoubleClick="anzeigeRechnung_MouseDoubleClick" Margin="10"> 
+                        <DataGrid AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  Grid.Row="3"
+                                  x:Name="anzeigeRechnung"
+                                  MouseDoubleClick="anzeigeRechnung_MouseDoubleClick"
+                                  Margin="10"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False"> 
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="0.5*"/>
                                 <DataGridTextColumn Header="Mitarbeiter-ID" Binding="{Binding User}" Width="1*"/>
@@ -219,7 +240,12 @@
                     </Grid>
                     <StackPanel Grid.Column="1">
                         <TextBlock Style="{StaticResource Header}" Margin="0,25,0,0">Produkte</TextBlock>
-                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Name="rechnungprodukte" Margin="20,20,30,0">
+                        <DataGrid AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  Name="rechnungprodukte"
+                                  Margin="20,20,30,0"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ProduktID" Binding="{Binding ProduktID}" Width="1*"/>
                                 <DataGridTextColumn Header="Name" Binding="{Binding ProduktName}" Width="1*"/>
@@ -253,7 +279,13 @@
                                 <iconPacks:PackIconMaterial Kind="AccountMinus" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30" Height="30"/>
                             </Button>
                         </StackPanel>
-                        <DataGrid Grid.Row="3" Margin="40,0,40,20" Name="kundenverwaltung" IsReadOnly="True" AutoGenerateColumns="False">
+                        <DataGrid Grid.Row="3"
+                                  Margin="40,0,40,20"
+                                  Name="kundenverwaltung"
+                                  IsReadOnly="True"
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Width="1*" Header="ID" Binding="{Binding KundenID}"/>
                                 <DataGridTextColumn Width="1*" Header="Name" Binding="{Binding Fullname}"/>
